@@ -2,7 +2,7 @@
         Common Package Specification
 ============================================
 
-:Version: 0.2
+:Version: 0.3
 
 This document describes the schema for Common Package Specification files. A Common Package Specification file (hereafter "CPS") is a mechanism for describing how users may consume a package. "User" here refers to another package, not an end user. CPS deals with building software.
 
@@ -173,6 +173,15 @@ Specifies the configurations that are available. See `Package Configurations`_ f
 
 Specifies a set of configuration-specific attributes for a :object:`component`. Keys are the configuration names.
 
+:attribute:`Cps-Path`
+---------------------
+
+:Type: :type:`string`
+:Applies To: :object:`package`
+:Required: No
+
+Specifies the directory portion location of the ``.cps`` file. This shall be an "absolute" path which starts with ``@prefix``. This provides an additional mechanism by which the tool may deduce the package's prefix, since the absolute location of the ``.cps`` file will be known by the tool. (See also `Prefix Determination`_.)
+
 :attribute:`Default-Components`
 -------------------------------
 
@@ -300,6 +309,11 @@ If not provided, the CPS will not satisfy any request for a specific version of 
 
 Specifies the required version of a package. If omitted, any version of the required package is acceptable. Semantics are the same as for the :attribute:`Version` attribute of a :object:`package`.
 
+Notes
+'''''
+
+Unless otherwise specified, a relative file path appearing in a CPS shall be interpreted relative to the ``.cps`` file.
+
 Package Configurations
 ======================
 
@@ -347,19 +361,23 @@ It is recommended that tools should also provide a mechanism for specifying the 
 Prefix Determination
 ''''''''''''''''''''
 
-In order to determine the package prefix, which may appear in various attributes as ``@prefix@``, it is necessary to determine the effective prefix from the canonical location of the ``.cps`` file. This is accomplished as follows:
+In order to determine the package prefix, which may appear in various attributes as ``@prefix@``, it is necessary to determine the effective prefix from the canonical location of the ``.cps`` file. This can be accomplished in three ways:
 
-- The path is initially taken to be the directory portion (i.e. without file name) of the absolute path to the ``.cps`` file.
-- :applies-to:`(MacOS)` If the tail-portion matches :path:`/Resources/` or :path:`/Resources/CPS/`, then:
+- If the package specifies a :attribute:`Cps-Path`, that value shall be used.
+- Otherwise, if the tool has just completed a search for the ``.cps``, as described above, the prefix is known from the path which was searched.
+- Otherwise, the prefix shall be deduced as follows:
 
-  - The matching portion is removed.
-  - If the tail-portion of the remaining path matches :path:`/Versions/*/`, that portion is removed.
-  - If the tail-portion of the remaining path matches :path:`/`\ :var:`name`\ :path:`.framework/` or :path:`/`\ :var:`name`\ :path:`.app/Contents/`, that portion is removed.
+  - The path is initially taken to be the directory portion (i.e. without file name) of the absolute path to the ``.cps`` file.
+  - :applies-to:`(MacOS)` If the tail-portion matches :path:`/Resources/` or :path:`/Resources/CPS/`, then:
 
-- Otherwise:
+    - The matching portion is removed.
+    - If the tail-portion of the remaining path matches :path:`/Versions/*/`, that portion is removed.
+    - If the tail-portion of the remaining path matches :path:`/`\ :var:`name`\ :path:`.framework/` or :path:`/`\ :var:`name`\ :path:`.app/Contents/`, that portion is removed.
 
-  - If the tail-portion of the path matches any of :path:`/cps/`, :path:`/`\ :var:`name`\ :path:`/cps/` or :path:`/cps/`\ :var:`name`\ :path:`/`, the longest such matching portion is removed.
-  - If the tail-portion of the remaining path matches any of :path:`/`\ :var:`libdir`\ :path:`/` or :path:`/share/`, that portion is removed.
+  - Otherwise:
+
+    - If the tail-portion of the path matches any of :path:`/cps/`, :path:`/`\ :var:`name`\ :path:`/cps/` or :path:`/cps/`\ :var:`name`\ :path:`/`, the longest such matching portion is removed.
+    - If the tail-portion of the remaining path matches any of :path:`/`\ :var:`libdir`\ :path:`/` or :path:`/share/`, that portion is removed.
 
 .. _JSON: http://www.json.org/
 
