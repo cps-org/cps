@@ -191,7 +191,7 @@ Specifies a list of paths where a required dependency might be located. When giv
 :Applies To: :object:`component`, :object:`configuration`
 :Required: No
 
-Specifies a list of directories which should be added to the include search path when compiling code that consumes the component.
+Specifies a list of directories which should be added to the include search path when compiling code that consumes the component. If a path starts with ``@prefix@``, the package's install prefix is substituted (see `Package Searching`_). This is recommended, as it allows packages to be relocatable.
 
 :attribute:`Link-Flags`
 -----------------------
@@ -201,6 +201,15 @@ Specifies a list of directories which should be added to the include search path
 :Required: No
 
 Specifies a list of additional flags that must be supplied to the linker when linking code that consumes the component.
+
+:attribute:`Link-Libraries`
+---------------------------
+
+:Type: :type:`list` of :type:`string`
+:Applies To: :object:`component`, :object:`configuration`
+:Required: No
+
+Specifies a list of additional libraries that must be linked against when linking code that consumes the component. (Note that packages should avoid using this attribute if at all possible. Use `Requires (Component)`_ instead whenever possible.)
 
 :attribute:`Location`
 ---------------------
@@ -231,7 +240,7 @@ Specifies the canonical name of the package. In order for searching to succeed, 
 :Applies To: :object:`component`, :object:`configuration`
 :Required: No
 
-Specifies additional components required by a component. This is used, for example, to indicate transitive dependencies.
+Specifies additional components required by a component. This is used, for example, to indicate transitive dependencies. Relative component paths are interpreted relative to the current package. Absolute component paths must refer to a package required by this package (see `Requires (Package)`_).
 
 :attribute:`Requires` :applies-to:`(Package)`
 ---------------------------------------------
