@@ -345,7 +345,7 @@ ul.auto-toc {
 <col class="docinfo-content" />
 <tbody valign="top">
 <tr><th class="docinfo-name">Version:</th>
-<td>0.2</td></tr>
+<td>0.3</td></tr>
 </tbody>
 </table>
 <p>This document describes the schema for Common Package Specification files. A Common Package Specification file (hereafter &quot;CPS&quot;) is a mechanism for describing how users may consume a package. &quot;User&quot; here refers to another package, not an end user. CPS deals with building software.</p>
@@ -405,29 +405,31 @@ ul.auto-toc {
 <li><a class="reference internal" href="#components" id="id12"><code class="attribute">Components</code></a></li>
 <li><a class="reference internal" href="#configurations-package" id="id13"><code class="attribute">Configurations</code> <span class="applies-to">(Package)</span></a></li>
 <li><a class="reference internal" href="#configurations-component" id="id14"><code class="attribute">Configurations</code> <span class="applies-to">(Component)</span></a></li>
-<li><a class="reference internal" href="#default-components" id="id15"><code class="attribute">Default-Components</code></a></li>
-<li><a class="reference internal" href="#definitions" id="id16"><code class="attribute">Definitions</code></a></li>
-<li><a class="reference internal" href="#hints" id="id17"><code class="attribute">Hints</code></a></li>
-<li><a class="reference internal" href="#includes" id="id18"><code class="attribute">Includes</code></a></li>
-<li><a class="reference internal" href="#link-flags" id="id19"><code class="attribute">Link-Flags</code></a></li>
-<li><a class="reference internal" href="#link-libraries" id="id20"><code class="attribute">Link-Libraries</code></a></li>
-<li><a class="reference internal" href="#location" id="id21"><code class="attribute">Location</code></a></li>
-<li><a class="reference internal" href="#name" id="id22"><code class="attribute">Name</code></a></li>
-<li><a class="reference internal" href="#requires-component" id="id23"><code class="attribute">Requires</code> <span class="applies-to">(Component)</span></a></li>
-<li><a class="reference internal" href="#requires-package" id="id24"><code class="attribute">Requires</code> <span class="applies-to">(Package)</span></a></li>
-<li><a class="reference internal" href="#type" id="id25"><code class="attribute">Type</code></a></li>
-<li><a class="reference internal" href="#version-package" id="id26"><code class="attribute">Version</code> <span class="applies-to">(Package)</span></a></li>
-<li><a class="reference internal" href="#version-requirement" id="id27"><code class="attribute">Version</code> <span class="applies-to">(Requirement)</span></a></li>
+<li><a class="reference internal" href="#cps-path" id="id15"><code class="attribute">Cps-Path</code></a></li>
+<li><a class="reference internal" href="#default-components" id="id16"><code class="attribute">Default-Components</code></a></li>
+<li><a class="reference internal" href="#definitions" id="id17"><code class="attribute">Definitions</code></a></li>
+<li><a class="reference internal" href="#hints" id="id18"><code class="attribute">Hints</code></a></li>
+<li><a class="reference internal" href="#includes" id="id19"><code class="attribute">Includes</code></a></li>
+<li><a class="reference internal" href="#link-flags" id="id20"><code class="attribute">Link-Flags</code></a></li>
+<li><a class="reference internal" href="#link-libraries" id="id21"><code class="attribute">Link-Libraries</code></a></li>
+<li><a class="reference internal" href="#location" id="id22"><code class="attribute">Location</code></a></li>
+<li><a class="reference internal" href="#name" id="id23"><code class="attribute">Name</code></a></li>
+<li><a class="reference internal" href="#requires-component" id="id24"><code class="attribute">Requires</code> <span class="applies-to">(Component)</span></a></li>
+<li><a class="reference internal" href="#requires-package" id="id25"><code class="attribute">Requires</code> <span class="applies-to">(Package)</span></a></li>
+<li><a class="reference internal" href="#type" id="id26"><code class="attribute">Type</code></a></li>
+<li><a class="reference internal" href="#version-package" id="id27"><code class="attribute">Version</code> <span class="applies-to">(Package)</span></a></li>
+<li><a class="reference internal" href="#version-requirement" id="id28"><code class="attribute">Version</code> <span class="applies-to">(Requirement)</span></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#notes" id="id29">Notes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#package-configurations" id="id28">Package Configurations</a><ul>
-<li><a class="reference internal" href="#configuration-merging" id="id29">Configuration Merging</a></li>
+<li><a class="reference internal" href="#package-configurations" id="id30">Package Configurations</a><ul>
+<li><a class="reference internal" href="#configuration-merging" id="id31">Configuration Merging</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#package-searching" id="id30">Package Searching</a><ul>
-<li><a class="reference internal" href="#prefix-determination" id="id31">Prefix Determination</a></li>
+<li><a class="reference internal" href="#package-searching" id="id32">Package Searching</a><ul>
+<li><a class="reference internal" href="#prefix-determination" id="id33">Prefix Determination</a></li>
 </ul>
 </li>
 </ul>
@@ -532,14 +534,41 @@ ul.auto-toc {
 </tbody>
 </table>
 <p>Specifies the configurations that are available. See <a class="reference internal" href="#package-configurations">Package Configurations</a> for a description of how configurations are used.</p>
-<!-- TODO move to configurations section? -->
 </div>
 <div class="section" id="configurations-component">
 <h3><a class="toc-backref" href="#id14"><code class="attribute">Configurations</code> <span class="applies-to">(Component)</span></a></h3>
-<!-- TODO -->
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Type:</th><td class="field-body"><code class="type">map</code> of <code class="type">string</code> to <code class="object">configuration</code></td>
+</tr>
+<tr class="field"><th class="field-name">Applies To:</th><td class="field-body"><code class="object">component</code></td>
+</tr>
+<tr class="field"><th class="field-name">Required:</th><td class="field-body">No</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies a set of configuration-specific attributes for a <code class="object">component</code>. Keys are the configuration names.</p>
+</div>
+<div class="section" id="cps-path">
+<h3><a class="toc-backref" href="#id15"><code class="attribute">Cps-Path</code></a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Type:</th><td class="field-body"><code class="type">string</code></td>
+</tr>
+<tr class="field"><th class="field-name">Applies To:</th><td class="field-body"><code class="object">package</code></td>
+</tr>
+<tr class="field"><th class="field-name">Required:</th><td class="field-body">No</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the directory portion location of the <tt class="docutils literal">.cps</tt> file. This shall be an &quot;absolute&quot; path which starts with <tt class="docutils literal">&#64;prefix</tt>. This provides an additional mechanism by which the tool may deduce the package's prefix, since the absolute location of the <tt class="docutils literal">.cps</tt> file will be known by the tool. (See also <a class="reference internal" href="#prefix-determination">Prefix Determination</a>.)</p>
 </div>
 <div class="section" id="default-components">
-<h3><a class="toc-backref" href="#id15"><code class="attribute">Default-Components</code></a></h3>
+<h3><a class="toc-backref" href="#id16"><code class="attribute">Default-Components</code></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -555,7 +584,7 @@ ul.auto-toc {
 <p>Specifies a list of components that should be inferred if a consumer specifies a dependency on a package, but not a specific component.</p>
 </div>
 <div class="section" id="definitions">
-<h3><a class="toc-backref" href="#id16"><code class="attribute">Definitions</code></a></h3>
+<h3><a class="toc-backref" href="#id17"><code class="attribute">Definitions</code></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -571,7 +600,7 @@ ul.auto-toc {
 <p>Specifies a list of compile definitions that must be defined when compiling code that consumes the component.</p>
 </div>
 <div class="section" id="hints">
-<h3><a class="toc-backref" href="#id17"><code class="attribute">Hints</code></a></h3>
+<h3><a class="toc-backref" href="#id18"><code class="attribute">Hints</code></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -587,7 +616,7 @@ ul.auto-toc {
 <p>Specifies a list of paths where a required dependency might be located. When given, this will usually provide the location of the dependency as it was consumed by the package when the package was built, so that consumers can easily find (correct) dependencies if they are in a location that is not searched by default.</p>
 </div>
 <div class="section" id="includes">
-<h3><a class="toc-backref" href="#id18"><code class="attribute">Includes</code></a></h3>
+<h3><a class="toc-backref" href="#id19"><code class="attribute">Includes</code></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -603,7 +632,7 @@ ul.auto-toc {
 <p>Specifies a list of directories which should be added to the include search path when compiling code that consumes the component. If a path starts with <tt class="docutils literal">&#64;prefix&#64;</tt>, the package's install prefix is substituted (see <a class="reference internal" href="#package-searching">Package Searching</a>). This is recommended, as it allows packages to be relocatable.</p>
 </div>
 <div class="section" id="link-flags">
-<h3><a class="toc-backref" href="#id19"><code class="attribute">Link-Flags</code></a></h3>
+<h3><a class="toc-backref" href="#id20"><code class="attribute">Link-Flags</code></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -619,7 +648,7 @@ ul.auto-toc {
 <p>Specifies a list of additional flags that must be supplied to the linker when linking code that consumes the component.</p>
 </div>
 <div class="section" id="link-libraries">
-<h3><a class="toc-backref" href="#id20"><code class="attribute">Link-Libraries</code></a></h3>
+<h3><a class="toc-backref" href="#id21"><code class="attribute">Link-Libraries</code></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -635,7 +664,7 @@ ul.auto-toc {
 <p>Specifies a list of additional libraries that must be linked against when linking code that consumes the component. (Note that packages should avoid using this attribute if at all possible. Use <a class="reference internal" href="#requires-component">Requires (Component)</a> instead whenever possible.)</p>
 </div>
 <div class="section" id="location">
-<h3><a class="toc-backref" href="#id21"><code class="attribute">Location</code></a></h3>
+<h3><a class="toc-backref" href="#id22"><code class="attribute">Location</code></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -653,7 +682,7 @@ ul.auto-toc {
 <p>This attribute is required for <code class="object">component</code>s that are not of <code class="string">&quot;interface&quot;</code> <code class="attribute">Type</code>.</p>
 </div>
 <div class="section" id="name">
-<h3><a class="toc-backref" href="#id22"><code class="attribute">Name</code></a></h3>
+<h3><a class="toc-backref" href="#id23"><code class="attribute">Name</code></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -669,7 +698,7 @@ ul.auto-toc {
 <p>Specifies the canonical name of the package. In order for searching to succeed, this must exactly match the name of the CPS file without the <tt class="docutils literal">.cps</tt> suffix.</p>
 </div>
 <div class="section" id="requires-component">
-<h3><a class="toc-backref" href="#id23"><code class="attribute">Requires</code> <span class="applies-to">(Component)</span></a></h3>
+<h3><a class="toc-backref" href="#id24"><code class="attribute">Requires</code> <span class="applies-to">(Component)</span></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -685,7 +714,7 @@ ul.auto-toc {
 <p>Specifies additional components required by a component. This is used, for example, to indicate transitive dependencies. Relative component paths are interpreted relative to the current package. Absolute component paths must refer to a package required by this package (see <a class="reference internal" href="#requires-package">Requires (Package)</a>).</p>
 </div>
 <div class="section" id="requires-package">
-<h3><a class="toc-backref" href="#id24"><code class="attribute">Requires</code> <span class="applies-to">(Package)</span></a></h3>
+<h3><a class="toc-backref" href="#id25"><code class="attribute">Requires</code> <span class="applies-to">(Package)</span></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -701,7 +730,7 @@ ul.auto-toc {
 <p>Specifies additional packages that are required by this package. Keys are the name of another required package. Values are a valid <code class="object">requirement</code> object or <code class="keyword">null</code> (equivalent to an empty <code class="object">requirement</code> object) describing the package required.</p>
 </div>
 <div class="section" id="type">
-<h3><a class="toc-backref" href="#id25"><code class="attribute">Type</code></a></h3>
+<h3><a class="toc-backref" href="#id26"><code class="attribute">Type</code></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -719,7 +748,7 @@ ul.auto-toc {
 <p>An <code class="string">&quot;interface&quot;</code> component is a special case; it may have the usual attributes of a component, but does not have a location. This can be used to create &quot;virtual&quot; components that do not have an associated artifact.</p>
 </div>
 <div class="section" id="version-package">
-<h3><a class="toc-backref" href="#id26"><code class="attribute">Version</code> <span class="applies-to">(Package)</span></a></h3>
+<h3><a class="toc-backref" href="#id27"><code class="attribute">Version</code> <span class="applies-to">(Package)</span></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -736,7 +765,7 @@ ul.auto-toc {
 <p>If not provided, the CPS will not satisfy any request for a specific version of the package.</p>
 </div>
 <div class="section" id="version-requirement">
-<h3><a class="toc-backref" href="#id27"><code class="attribute">Version</code> <span class="applies-to">(Requirement)</span></a></h3>
+<h3><a class="toc-backref" href="#id28"><code class="attribute">Version</code> <span class="applies-to">(Requirement)</span></a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -752,9 +781,13 @@ ul.auto-toc {
 <p>Specifies the required version of a package. If omitted, any version of the required package is acceptable. Semantics are the same as for the <code class="attribute">Version</code> attribute of a <code class="object">package</code>.</p>
 </div>
 </div>
+<div class="section" id="notes">
+<h2><a class="toc-backref" href="#id29">Notes</a></h2>
+<p>Unless otherwise specified, a relative file path appearing in a CPS shall be interpreted relative to the <tt class="docutils literal">.cps</tt> file.</p>
+</div>
 </div>
 <div class="section" id="package-configurations">
-<h1><a class="toc-backref" href="#id28">Package Configurations</a></h1>
+<h1><a class="toc-backref" href="#id30">Package Configurations</a></h1>
 <p>Configurations provide a mechanism for a package to provide multiple configurations from a single distribution. Such configurations might include separate debug and release libraries, builds with and without thread safety, and so forth. The possible configurations are determined by each individual package, and it is left to the consumer and build system to decide when and how to select a non-default configuration.</p>
 <p>When a consumer consumes a component, the build system must determine the attribute values for that component by selecting which configuration of the component to use (if the component has multiple configurations). It is recommended that build systems select a configuration as follows:</p>
 <ul class="simple">
@@ -764,13 +797,13 @@ ul.auto-toc {
 </ul>
 <p>The value of an attribute for a component is determined in one of two ways: If the selected <code class="object">configuration</code> of the <code class="object">component</code> has the attribute, that value is used. Otherwise, if the <code class="object">component</code> directly has the requested attribute, that value is used. This allows a configuration-specific attribute to override an attribute value that is not configuration-specific. If the attribute is required, and is not present on either the selected <code class="object">configuration</code>, or the non-configuration-specific attributes of the <code class="object">component</code>, then the CPS is ill-formed. Note that a value of <code class="keyword">null</code> satisfies the condition of having the attribute. A value of <code class="keyword">null</code> has the usual meaning where <code class="keyword">null</code> is an acceptable value for the attribute; otherwise, a value of <code class="keyword">null</code> shall be treated as the attribute being unset (and shall suppress falling back to the non-configuration-specific value).</p>
 <div class="section" id="configuration-merging">
-<h2><a class="toc-backref" href="#id29">Configuration Merging</a></h2>
+<h2><a class="toc-backref" href="#id31">Configuration Merging</a></h2>
 <p>Some build systems may desire to output separate specifications per configuration. This is especially useful to permit piecemeal installation of individual configurations (for example, a &quot;base&quot; package with release libraries and common components, and an optional package with debug libraries).</p>
 <!-- TODO -->
 </div>
 </div>
 <div class="section" id="package-searching">
-<h1><a class="toc-backref" href="#id30">Package Searching</a></h1>
+<h1><a class="toc-backref" href="#id32">Package Searching</a></h1>
 <p>Tools shall locate a package by searching for a file <code class="var">name</code><code class="path">.cps</code> in the following paths:</p>
 <ul class="simple">
 <li><code class="var">prefix</code><code class="path">/</code> <span class="applies-to">(Windows)</span></li>
@@ -791,9 +824,12 @@ ul.auto-toc {
 <p>The placeholder <code class="var">name</code> shall represent the name of the package to be located, and shall include both the proper case name, and the name converted to lower case. The placeholder <code class="var">libdir</code> shall be the platform defined directories, sans root prefix, in which matching architecture and/or architecture-neutral libraries reside (e.g. <code class="path">lib</code>, <code class="path">lib32</code>, <code class="path">lib64</code>, <code class="path">lib/i386-linux-gnu</code>...). The placeholder <code class="var">prefix</code> shall represent one of the set of default install prefixes to be searched, which shall include, at minimum and in order, the set of paths (separated by <code class="path">;</code> on Windows, <code class="path">:</code> otherwise) in the environment variable <code class="env">CPS_PATH</code>, <code class="path">/usr/local</code>, and <code class="path">/usr</code>. In addition, for all such package-neutral prefixes <code class="var">prefix-root</code>, the package-specific prefix <code class="var">prefix-root</code><code class="path">/</code><code class="var">name</code> shall also be considered. The complete list of search paths, above, shall be considered in the order specified above, for each prefix, before the next prefix is searched. Package-specific prefixes shall be searched before package-neutral prefixes.</p>
 <p>It is recommended that tools should also provide a mechanism for specifying the path to a specific CPS which may be used to override the default search, or to provide the location of a package which is not installed to any of the standard search paths.</p>
 <div class="section" id="prefix-determination">
-<h2><a class="toc-backref" href="#id31">Prefix Determination</a></h2>
-<p>In order to determine the package prefix, which may appear in various attributes as <tt class="docutils literal">&#64;prefix&#64;</tt>, it is necessary to determine the effective prefix from the canonical location of the <tt class="docutils literal">.cps</tt> file. This is accomplished as follows:</p>
+<h2><a class="toc-backref" href="#id33">Prefix Determination</a></h2>
+<p>In order to determine the package prefix, which may appear in various attributes as <tt class="docutils literal">&#64;prefix&#64;</tt>, it is necessary to determine the effective prefix from the canonical location of the <tt class="docutils literal">.cps</tt> file. This can be accomplished in three ways:</p>
 <ul class="simple">
+<li>If the package specifies a <code class="attribute">Cps-Path</code>, that value shall be used.</li>
+<li>Otherwise, if the tool has just completed a search for the <tt class="docutils literal">.cps</tt>, as described above, the prefix is known from the path which was searched.</li>
+<li>Otherwise, the prefix shall be deduced as follows:<ul>
 <li>The path is initially taken to be the directory portion (i.e. without file name) of the absolute path to the <tt class="docutils literal">.cps</tt> file.</li>
 <li><span class="applies-to">(MacOS)</span> If the tail-portion matches <code class="path">/Resources/</code> or <code class="path">/Resources/CPS/</code>, then:<ul>
 <li>The matching portion is removed.</li>
@@ -804,6 +840,8 @@ ul.auto-toc {
 <li>Otherwise:<ul>
 <li>If the tail-portion of the path matches any of <code class="path">/cps/</code>, <code class="path">/</code><code class="var">name</code><code class="path">/cps/</code> or <code class="path">/cps/</code><code class="var">name</code><code class="path">/</code>, the longest such matching portion is removed.</li>
 <li>If the tail-portion of the remaining path matches any of <code class="path">/</code><code class="var">libdir</code><code class="path">/</code> or <code class="path">/share/</code>, that portion is removed.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
