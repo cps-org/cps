@@ -155,6 +155,15 @@ Specifies a list of additional flags that must be supplied to the compiler when 
 
 Specifies the components which the package provides. Keys are the component names.
 
+:attribute:`Configuration` :applies-to:`(Package)`
+--------------------------------------------------
+
+:Type: :type:`string`
+:Applies To: :object:`package`
+:Required: Special
+
+Specifies the name of the configuration described by a configuration-specific ``.cps`` (see `Configuration Merging`_). This attribute is required in a configuration-specific ``.cps``, and ignored otherwise.
+
 :attribute:`Configurations` :applies-to:`(Package)`
 ---------------------------------------------------
 
@@ -249,7 +258,7 @@ Specifies a list of additional libraries that must be linked against when linkin
 ---------------------
 
 :Type: :type:`string`
-:Applies To: :object:`component`
+:Applies To: :object:`component`, :object:`configuration`
 :Required: Depends
 
 Specifies the location of the component. The exact meaning of this attribute depends on the component type, but typically it provides the path to the component's primary artifact, such as a ``.so`` or ``.jar``.
@@ -352,7 +361,13 @@ Configuration Merging
 
 Some build systems may desire to output separate specifications per configuration. This is especially useful to permit piecemeal installation of individual configurations (for example, a "base" package with release libraries and common components, and an optional package with debug libraries).
 
-.. TODO
+When a tool locates a CPS file, :var:`name`\ :path:`.cps`, the tool shall look in the same directory for any files named :var:`name`\ :path:`@*.cps` (the asterisk (``*``) represents file globbing). If any such configuration-specific package specifications are found, they shall be loaded at the same time, and their contents appended to the information loaded from the common CPS. The structure of a configuration-specific CPS is the same as a common CPS, with three exceptions:
+
+- The per-configuration specification must contain the `Configuration (Package)`_ attribute.
+- The per-configuration specification may not specify any :object:`component` attributes (e.g. :attribute:`Type`).
+- An attribute on a :object:`component` is considered to belong instead to the component-configuration identified by the configuration-specific CPS.
+
+The order in which per-configuration data is appended is implementation-defined.
 
 Package Searching
 =================
