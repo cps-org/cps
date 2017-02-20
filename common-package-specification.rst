@@ -141,8 +141,23 @@ Specifies a list of additional flags that must be supplied to the compiler when 
 
 Specifies the components which the package provides. Keys are the component names.
 
-:attribute:`Configurations`
----------------------------
+:attribute:`Configurations` :applies-to:`(Package)`
+---------------------------------------------------
+
+:Type: :type:`list` of :type:`string`
+:Applies To: :object:`package`
+:Required: No
+
+Specifies the configurations that are available. See `Package Configurations`_ for a description of how configurations are used.
+
+:attribute:`Configurations` :applies-to:`(Component)`
+-----------------------------------------------------
+
+:Type: :type:`map` of :type:`string` to :object:`configuration`
+:Applies To: :object:`component`
+:Required: No
+
+Specifies a set of configuration-specific attributes for a :object:`component`. Keys are the configuration names.
 
 :attribute:`Default-Components`
 -------------------------------
@@ -152,19 +167,6 @@ Specifies the components which the package provides. Keys are the component name
 :Required: No
 
 Specifies a list of components that should be inferred if a consumer specifies a dependency on a package, but not a specific component.
-
-If a package does not have :attribute:`Default-Components`, an attempt to use the package without specifying a component shall be an error.
-
-:attribute:`Default-Configuration`
-----------------------------------
-
-:Type: String
-:Applies To: Package
-:Required: Depends
-
-Specifies the configuration that will be used if the consumer does not otherwise select a configuration.
-
-See Configurations_ for a detailed discussion on when this attribute is required.
 
 :attribute:`Definitions`
 ------------------------
@@ -287,17 +289,22 @@ Specifies the required version of a package. If omitted, any version of the requ
 Package Configurations
 ======================
 
-Configurations provide a mechanism for a package to provide multiple configurations from a single distribution. Such configurations might include separate debug and release libraries, builds with and without thread safety, and so forth. The possible configurations are determined by each individual package, and it is left to the consumer to decide when and how to select a non-default configuration.
+Configurations provide a mechanism for a package to provide multiple configurations from a single distribution. Such configurations might include separate debug and release libraries, builds with and without thread safety, and so forth. The possible configurations are determined by each individual package, and it is left to the consumer and build system to decide when and how to select a non-default configuration.
 
-The value of an attribute for a component may be determined in several ways:
+When a consumer consumes a component, the build system must determine the attribute values for that component by selecting which configuration of the component to use (if the component has multiple configurations). It is recommended that build systems select a configuration as follows:
 
-- If the consumer has specified a configuration of the package to be used, and if the component has the specified configuration, and if such :object:`configuration` has the requested attribute, then the attribute for the requested configuration is used.
-- If the package has a :attribute:`Default-Configuration`, and if the has the specified :attribute:`Default-Configuration`, and if such :object:`configuration` has the requested attribute, then the attribute for the :attribute:`Default-Configuration` is used.
-- If the :object:`component` directly has the requested attribute, that value is used.
+- For each package, the consumer shall have a mechanism for providing a list of preferred configurations. The first configuration in this list which matches an available configuration of the component shall be used. (If the build system supports multiple configurations, it is recommended that the consuming project may specify different values and/or order of this list depending on its own active configuration.)
+- If the build system supports multiple configurations, the build system may implement a mechanism to prefer a configuration which "matches" the consuming project's active configuration.
+- The package's `Configurations (Package)`_ shall be searched. The first configuration in this list which matches an available configuration of the component shall be used.
 
-The attribute value is the first of the above for which the attribute exists. A value of :keyword:`null` satisfies the condition of having the attribute. If the attribute is not found, and is a required attribute, then the CPS is ill-formed.
+The value of an attribute for a component is determined in one of two ways: If the selected :object:`configuration` of the :object:`component` has the attribute, that value is used. Otherwise, if the :object:`component` directly has the requested attribute, that value is used. This allows a configuration-specific attribute to override an attribute value that is not configuration-specific. If the attribute is required, and is not present on either the selected :object:`configuration`, or the non-configuration-specific attributes of the :object:`component`, then the CPS is ill-formed. Note that a value of :keyword:`null` satisfies the condition of having the attribute. A value of :keyword:`null` has the usual meaning where :keyword:`null` is an acceptable value for the attribute; otherwise, a value of :keyword:`null` shall be treated as the attribute being unset (and shall suppress falling back to the non-configuration-specific value).
 
-There are some important implications to this logic. First, a configuration-specific value of an attribute overrides the value directly on the :object:`component`, if any. Second, if a :attribute:`Default-Configuration` is specified, the :object:`component` may omit a required attribute as long as the :attribute:`Default-Configuration` exists for that component and provides a value for the attribute. Correspondingly, a package that does this therefore requires a :attribute:`Default-Configuration`.
+Configuration Merging
+'''''''''''''''''''''
+
+Some build systems may desire to output separate specifications per configuration. This is especially useful to permit piecemeal installation of individual configurations (for example, a "base" package with release libraries and common components, and an optional package with debug libraries).
+
+.. TODO
 
 Package Searching
 =================
