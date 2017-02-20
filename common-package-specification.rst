@@ -40,6 +40,11 @@ CPS is based on `JSON`_. A CPS file is a valid JSON object.
     code.object:before { content: "<"; }
     code.object:after { content: ">"; }
     .applies-to { font-size: 80%; color: #777; }
+    .path { color: #641; }
+    .var { color: #852; font-style: italic; }
+    .var:before { content: "<"; }
+    .var:after { content: ">"; }
+    .env { color: #591; }
 
   </style>
 
@@ -60,6 +65,15 @@ CPS is based on `JSON`_. A CPS file is a valid JSON object.
 
 .. role:: string(code)
     :class: string
+
+.. role:: path(code)
+    :class: path
+
+.. role:: var(code)
+    :class: var
+
+.. role:: env(code)
+    :class: env
 
 .. contents::
 
@@ -309,16 +323,43 @@ Some build systems may desire to output separate specifications per configuratio
 Package Searching
 =================
 
-- ``<prefix>/<libdir>/<name>/cps/<name>.cps``
-- ``<prefix>/<libdir>/cps/<name>/<name>.cps``
-- ``<prefix>/<libdir>/cps/<name>.cps``
-- ``<prefix>/share/<name>/cps/<name>.cps``
-- ``<prefix>/share/cps/<name>/<name>.cps``
-- ``<prefix>/share/cps/<name>.cps``
+Tools shall locate a package by searching for a file :var:`name`\ :path:`.cps` in the following paths:
 
-The placeholder ``<name>`` shall represent the name of the package to be located. The placeholder ``<libdir>`` shall be the platform defined directory, sans root prefix, in which libraries reside (e.g. ``lib``, ``lib32``, ``lib64``, ``lib/i386-linux-gnu``...). The placeholder ``<prefix>`` shall represent one of the set of default install prefixes to be searched, which shall include, at minimum and in order, the set of ``:``-separated paths in the environment variable ``CPS_PATH``, ``/usr/local``, and ``/usr``.
+- :var:`prefix`\ :path:`/` :applies-to:`(Windows)`
+- :var:`prefix`\ :path:`/cps/` :applies-to:`(Windows)`
+- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Resources/CPS/` :applies-to:`(MacOS)`
+- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Resources/` :applies-to:`(MacOS)`
+- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Versions/*/Resources/CPS/` :applies-to:`(MacOS)`
+- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Versions/*/Resources/` :applies-to:`(MacOS)`
+- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.app/Contents/Resources/CPS/` :applies-to:`(MacOS)`
+- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.app/Contents/Resources/` :applies-to:`(MacOS)`
+- :var:`prefix`\ :path:`/`\ :var:`libdir`\ :path:`/`\ :var:`name`\ :path:`/cps/`
+- :var:`prefix`\ :path:`/`\ :var:`libdir`\ :path:`/cps/`\ :var:`name`\ :path:`/`
+- :var:`prefix`\ :path:`/`\ :var:`libdir`\ :path:`/cps/`
+- :var:`prefix`\ :path:`/share/`\ :var:`name`\ :path:`/cps/`
+- :var:`prefix`\ :path:`/share/cps/`\ :var:`name`\ :path:`/`
+- :var:`prefix`\ :path:`/share/cps/`
 
-.. TODO describe how to find .cps files
+The placeholder :var:`name` shall represent the name of the package to be located, and shall include both the proper case name, and the name converted to lower case. The placeholder :var:`libdir` shall be the platform defined directories, sans root prefix, in which matching architecture and/or architecture-neutral libraries reside (e.g. :path:`lib`, :path:`lib32`, :path:`lib64`, :path:`lib/i386-linux-gnu`...). The placeholder :var:`prefix` shall represent one of the set of default install prefixes to be searched, which shall include, at minimum and in order, the set of paths (separated by :path:`;` on Windows, :path:`:` otherwise) in the environment variable :env:`CPS_PATH`, :path:`/usr/local`, and :path:`/usr`. In addition, for all such package-neutral prefixes :var:`prefix-root`, the package-specific prefix :var:`prefix-root`\ :path:`/`\ :var:`name` shall also be considered. The complete list of search paths, above, shall be considered in the order specified above, for each prefix, before the next prefix is searched. Package-specific prefixes shall be searched before package-neutral prefixes.
+
+It is recommended that tools should also provide a mechanism for specifying the path to a specific CPS which may be used to override the default search, or to provide the location of a package which is not installed to any of the standard search paths.
+
+Prefix Determination
+''''''''''''''''''''
+
+In order to determine the package prefix, which may appear in various attributes as ``@prefix@``, it is necessary to determine the effective prefix from the canonical location of the ``.cps`` file. This is accomplished as follows:
+
+- The path is initially taken to be the directory portion (i.e. without file name) of the absolute path to the ``.cps`` file.
+- :applies-to:`(MacOS)` If the tail-portion matches :path:`/Resources/` or :path:`/Resources/CPS/`, then:
+
+  - The matching portion is removed.
+  - If the tail-portion of the remaining path matches :path:`/Versions/*/`, that portion is removed.
+  - If the tail-portion of the remaining path matches :path:`/`\ :var:`name`\ :path:`.framework/` or :path:`/`\ :var:`name`\ :path:`.app/Contents/`, that portion is removed.
+
+- Otherwise:
+
+  - If the tail-portion of the path matches any of :path:`/cps/`, :path:`/`\ :var:`name`\ :path:`/cps/` or :path:`/cps/`\ :var:`name`\ :path:`/`, the longest such matching portion is removed.
+  - If the tail-portion of the remaining path matches any of :path:`/`\ :var:`libdir`\ :path:`/` or :path:`/share/`, that portion is removed.
 
 .. _JSON: http://www.json.org/
 
