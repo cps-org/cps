@@ -182,6 +182,15 @@ Specifies a set of configuration-specific attributes for a :object:`component`. 
 
 Specifies the directory portion location of the ``.cps`` file. This shall be an "absolute" path which starts with ``@prefix``. This provides an additional mechanism by which the tool may deduce the package's prefix, since the absolute location of the ``.cps`` file will be known by the tool. (See also `Prefix Determination`_.)
 
+:attribute:`Cps-Version`
+------------------------
+
+:Type: :type:`string`
+:Applies To: :object:`package`
+:Required: No
+
+Specifies the version of the CPS to which this ``.cps`` file conforms. This may be used by tools to provide backwards compatibility in case of compatibility-breaking changes in the CPS. If not specified, behavior is implementation defined.
+
 :attribute:`Default-Components`
 -------------------------------
 
