@@ -8,6 +8,8 @@ software projects.
 The actual specification may be viewed [here](https://mwoehlke.github.io/cps/),
 or by viewing the latest
 [source document](https://github.com/mwoehlke/cps/blob/master/common-package-specification.rst).
+An example CPS file can be seen
+[here](https://github.com/mwoehlke/cps/blob/master/sample.cps).
 
 If you have [Python](https://www.python.org)
 [Docutils](http://docutils.sourceforge.net/) installed, the provided `Makefile`
