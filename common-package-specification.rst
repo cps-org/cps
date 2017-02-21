@@ -32,6 +32,7 @@ CPS is based on `JSON`_. A CPS file is a valid JSON object.
       border-width: 0.1em 0;
       background: #eee;
     }
+    .hidden { display: none; }
     code.type { color: #172; font-weight: bold; }
     code.keyword { color: #621; font-weight: bold; }
     code.string { color: #d32; }
@@ -41,12 +42,16 @@ CPS is based on `JSON`_. A CPS file is a valid JSON object.
     code.object:after { content: ">"; }
     .applies-to { font-size: 80%; color: #777; }
     .path { color: #641; }
+    .glob { color: #b92; }
     .var { color: #852; font-style: italic; }
     .var:before { content: "<"; }
     .var:after { content: ">"; }
     .env { color: #591; }
 
   </style>
+
+.. role:: hidden
+    :class: hidden
 
 .. role:: applies-to
     :class: applies-to
@@ -68,6 +73,9 @@ CPS is based on `JSON`_. A CPS file is a valid JSON object.
 
 .. role:: path(code)
     :class: path
+
+.. role:: glob(code)
+    :class: glob
 
 .. role:: var(code)
     :class: var
@@ -103,23 +111,23 @@ Package Schema
 Objects
 '''''''
 
-:object:`Package`
------------------
+:object:`Package`\ :hidden:`(Object)`
+-------------------------------------
 
 The root of a CPS document is a :object:`package` object. A :object:`package` object describes a single package.
 
-:object:`Requirement`
----------------------
+:object:`Requirement`\ :hidden:`(Object)`
+-----------------------------------------
 
 A :object:`requirement` describes the specifics of a package dependency.
 
-:object:`Component`
--------------------
+:object:`Component`\ :hidden:`(Object)`
+---------------------------------------
 
 A :object:`component` is a consumable part of a package. Typical components include libraries and executables.
 
-:object:`Configuration`
------------------------
+:object:`Configuration`\ :hidden:`(Object)`
+-------------------------------------------
 
 A :object:`configuration` holds attributes that are specific to a particular configuration of a :object:`component`.
 
@@ -168,8 +176,8 @@ Specifies a list of additional flags that must be supplied to the compiler when 
 
 Specifies the components which the package provides. Keys are the component names.
 
-:attribute:`Configuration` :applies-to:`(Package)`
---------------------------------------------------
+:attribute:`Configuration`
+--------------------------
 
 :Type: :type:`string`
 :Applies To: :object:`package`
@@ -374,9 +382,9 @@ Configuration Merging
 
 Some build systems may desire to output separate specifications per configuration. This is especially useful to permit piecemeal installation of individual configurations (for example, a "base" package with release libraries and common components, and an optional package with debug libraries).
 
-When a tool locates a CPS file, :var:`name`\ :path:`.cps`, the tool shall look in the same directory for any files named :var:`name`\ :path:`@*.cps` (the asterisk (``*``) represents file globbing). If any such configuration-specific package specifications are found, they shall be loaded at the same time, and their contents appended to the information loaded from the common CPS. The structure of a configuration-specific CPS is the same as a common CPS, with three exceptions:
+When a tool locates a CPS file, :var:`name`\ :path:`.cps`, the tool shall look in the same directory for any files named :var:`name`\ :path:`@`\ :glob:`*`\ :path:`.cps` (the asterisk (``*``) represents file globbing). If any such configuration-specific package specifications are found, they shall be loaded at the same time, and their contents appended to the information loaded from the common CPS. The structure of a configuration-specific CPS is the same as a common CPS, with three exceptions:
 
-- The per-configuration specification must contain the `Configuration (Package)`_ attribute.
+- The per-configuration specification must contain the Configuration_ attribute.
 - The per-configuration specification may not specify any :object:`component` attributes (e.g. :attribute:`Type`).
 - An attribute on a :object:`component` is considered to belong instead to the component-configuration identified by the configuration-specific CPS.
 
@@ -391,8 +399,8 @@ Tools shall locate a package by searching for a file :var:`name`\ :path:`.cps` i
 - :var:`prefix`\ :path:`/cps/` :applies-to:`(Windows)`
 - :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Resources/CPS/` :applies-to:`(MacOS)`
 - :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Resources/` :applies-to:`(MacOS)`
-- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Versions/*/Resources/CPS/` :applies-to:`(MacOS)`
-- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Versions/*/Resources/` :applies-to:`(MacOS)`
+- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Versions/`\ :glob:`*`\ :path:`/Resources/CPS/` :applies-to:`(MacOS)`
+- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Versions/`\ :glob:`*`\ :path:`/Resources/` :applies-to:`(MacOS)`
 - :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.app/Contents/Resources/CPS/` :applies-to:`(MacOS)`
 - :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.app/Contents/Resources/` :applies-to:`(MacOS)`
 - :var:`prefix`\ :path:`/`\ :var:`libdir`\ :path:`/`\ :var:`name`\ :path:`/cps/`
@@ -419,7 +427,7 @@ In order to determine the package prefix, which may appear in various attributes
   - :applies-to:`(MacOS)` If the tail-portion matches :path:`/Resources/` or :path:`/Resources/CPS/`, then:
 
     - The matching portion is removed.
-    - If the tail-portion of the remaining path matches :path:`/Versions/*/`, that portion is removed.
+    - If the tail-portion of the remaining path matches :path:`/Versions/`\ :glob:`*`\ :path:`/`, that portion is removed.
     - If the tail-portion of the remaining path matches :path:`/`\ :var:`name`\ :path:`.framework/` or :path:`/`\ :var:`name`\ :path:`.app/Contents/`, that portion is removed.
 
   - Otherwise:
