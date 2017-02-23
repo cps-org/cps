@@ -398,33 +398,31 @@ The value of an attribute for a component is determined in one of two ways: If t
 Configuration Merging
 '''''''''''''''''''''
 
-Some build systems may desire to output separate specifications per configuration. This is especially useful to permit piecemeal installation of individual configurations (for example, a "base" package with release libraries and common components, and an optional package with debug libraries).
+Some build systems may desire to output separate specifications per configuration, and/or to output separate CPS files per component. This is especially useful to permit piecemeal installation of individual components and/or configurations (for example, a "base" package with release libraries and common components, an optional package with debug libraries, and another optional package with optional components).
 
-When a tool locates a CPS file, :var:`name`\ :path:`.cps`, the tool shall look in the same directory for any files named :var:`name`\ :path:`@`\ :glob:`*`\ :path:`.cps` (the asterisk (``*``) represents file globbing). If any such configuration-specific package specifications are found, they shall be loaded at the same time, and their contents appended to the information loaded from the common CPS. The structure of a configuration-specific CPS is the same as a common CPS, with three exceptions:
+When a tool locates a CPS file, :var:`name`\ :path:`.cps`, the tool shall look in the same directory for any files named :var:`name`\ :path:`:`\ :glob:`*`\ :path:`.cps`,  :var:`name`\ :path:`@`\ :glob:`*`\ :path:`.cps`, and :var:`name`\ :path:`:`\ :glob:`*`\ :path:`@`\ :glob:`*`\ :path:`.cps` (the asterisk (``*``) represents file globbing). If any such package specifications are found, they shall be loaded at the same time, and their contents appended to the information loaded from the base CPS.
+
+A ``.cps`` file whose name contains ``@`` is a configuration-specific CPS. The structure of a configuration-specific CPS is the same as a common CPS, with three exceptions:
 
 - The per-configuration specification must contain the Configuration_ attribute.
 - The per-configuration specification may not specify any :object:`component` attributes (e.g. :attribute:`Type`).
 - An attribute on a :object:`component` is considered to belong instead to the component-configuration identified by the configuration-specific CPS.
 
-The order in which per-configuration data is appended is implementation-defined.
+The order in which the data from multiple CPS files is appended is implementation-defined.
 
 Package Searching
 =================
 
-Tools shall locate a package by searching for a file :var:`name`\ :path:`.cps` in the following paths:
+Tools shall locate a package by searching for a file :var:`name`\ :path:`.cps` or :var:`name`\ :path:`-`\ :glob:`*`\ :path:`.cps` (where the asterisk (``*``) is one or more characters excluding colon (``:``) and at-sign (``@``), allowing ``.cps`` files to supply a version number as part of their name so that multiple versions may be co-installed) in the following paths:
 
-- :var:`prefix`\ :path:`/` :applies-to:`(Windows)`
 - :var:`prefix`\ :path:`/cps/` :applies-to:`(Windows)`
 - :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Resources/CPS/` :applies-to:`(MacOS)`
-- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Resources/` :applies-to:`(MacOS)`
 - :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Versions/`\ :glob:`*`\ :path:`/Resources/CPS/` :applies-to:`(MacOS)`
-- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Versions/`\ :glob:`*`\ :path:`/Resources/` :applies-to:`(MacOS)`
 - :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.app/Contents/Resources/CPS/` :applies-to:`(MacOS)`
-- :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.app/Contents/Resources/` :applies-to:`(MacOS)`
-- :var:`prefix`\ :path:`/`\ :var:`libdir`\ :path:`/`\ :var:`name`\ :path:`/cps/`
+- :var:`prefix`\ :path:`/`\ :var:`libdir`\ :path:`/cps/`\ :var:`name`\ :path:`/`\ :glob:`*`\ :path:`/`
 - :var:`prefix`\ :path:`/`\ :var:`libdir`\ :path:`/cps/`\ :var:`name`\ :path:`/`
 - :var:`prefix`\ :path:`/`\ :var:`libdir`\ :path:`/cps/`
-- :var:`prefix`\ :path:`/share/`\ :var:`name`\ :path:`/cps/`
+- :var:`prefix`\ :path:`/share/cps/`\ :var:`name`\ :path:`/`\ :glob:`*`\ :path:`/`
 - :var:`prefix`\ :path:`/share/cps/`\ :var:`name`\ :path:`/`
 - :var:`prefix`\ :path:`/share/cps/`
 
