@@ -136,17 +136,6 @@ Attributes
 
 An optional attribute may have the value :keyword:`null`. This shall be equivalent to omitting the attribute.
 
-:attribute:`Compat-Configurations`
-----------------------------------
-
-:Type: :type:`bool`
-:Applies To: :object:`package`, :object:`component`
-:Required: No
-
-Specifies that the various configurations of a component are compatible with each other, and that intermediate consumers should allow downstream consumers to select the configuration of the component to use. (Specifically, recommends that a consumer's :attribute:`Requires` should not require a particular configuration of this component.) This allows, for example, that an application using library A which uses library B, when built in debug mode, shall use the debug configuration of B, even if a debug configuration of A is not available (and A was not built against the debug version of B).
-
-When specified on a :object:`package`, overrides the default value for all components that do not specify the attribute. Otherwise, the default is :keyword:`false`.
-
 :attribute:`Compat-Version`
 ---------------------------
 
