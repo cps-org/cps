@@ -167,14 +167,23 @@ If not specified, the package is not compatible with previous versions (i.e. :at
 
 Specifies a list of additional flags that must be supplied to the compiler when compiling code that consumes the component.
 
-:attribute:`Components`
------------------------
+:attribute:`Components` :applies-to:`(Package)`
+-----------------------------------------------
 
 :Type: :type:`map` of :type:`string` to :object:`component`
 :Applies To: :object:`package`
 :Required: Yes
 
 Specifies the components which the package provides. Keys are the component names.
+
+:attribute:`Components` :applies-to:`(Requirement)`
+---------------------------------------------------
+
+:Type: :type:`list` of :type:`string`
+:Applies To: :object:`requirement`
+:Required: No
+
+Specifies a list of components which must be present in the required package in order for the requirement to be satisfied. Although the build tool will generally produce an error if a consumer uses a component which in turn requires a component that was not found, early specification via this attribute may help build tools to diagnose such issues earlier and/or produce better diagnostics.
 
 :attribute:`Configuration`
 --------------------------
