@@ -13,6 +13,17 @@
       "Includes": [ "@prefix@/include" ]
     },
     "sample": {
+      "Type": "interface",
+      "Configurations": {
+        "Shared": {
+          "Requires": [ ":sample-shared" ]
+        },
+        "Static": {
+          "Requires": [ ":sample-static" ]
+        }
+      }
+    },
+    "sample-shared": {
       "Type": "dylib",
       "Requires": [ ":sample-core" ],
       "Configurations": {
@@ -21,6 +32,19 @@
         },
         "Debug": {
           "Location": "@prefix@/lib64/libsample_d.so.1.2.0"
+        }
+      }
+    },
+    "sample-static": {
+      "Type": "archive",
+      "Definitions": [ "SAMPLE_STATIC" ],
+      "Requires": [ ":sample-core" ],
+      "Configurations": {
+        "Optimized": {
+          "Location": "@prefix@/lib64/libsample.a"
+        },
+        "Debug": {
+          "Location": "@prefix@/lib64/libsample_d.a"
         }
       }
     },
