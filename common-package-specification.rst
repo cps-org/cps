@@ -2,7 +2,7 @@
         Common Package Specification
 ============================================
 
-:Version: 0.3
+:Version: 0.4
 
 This document describes the schema for Common Package Specification files. A Common Package Specification file (hereafter "CPS") is a mechanism for describing how users may consume a package. "User" here refers to another package, not an end user. CPS deals with building software.
 
