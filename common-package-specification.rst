@@ -360,7 +360,7 @@ Notes
 
 - Unless otherwise specified, a relative file path appearing in a CPS shall be interpreted relative to the ``.cps`` file.
 
-- Unless otherwise specified, unrecognized attributes shall be ignored. This makes it easier for tools to add tool-specific extensions. (It is *strongly* recommended that the tool name is included in the names of any such attributes in order to reduce the chance of conflicts with newer versions of the CPS.)
+- Unless otherwise specified, unrecognized attributes shall be ignored. This makes it easier for tools to add tool-specific extensions. (It is *strongly* recommended that the names of any such attributes start with ``X-<tool>-`` (where ``<tool>`` is the name of the tool which introduced the extension) in order to reduce the chance of conflicts with newer versions of the CPS.)
 
 Component Specification
 =======================
