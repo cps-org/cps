@@ -275,6 +275,15 @@ Specifies a list of additional flags that must be supplied to the linker when li
 
 Specifies a list of additional libraries that must be linked against when linking code that consumes the component. (Note that packages should avoid using this attribute if at all possible. Use `Requires (Component)`_ instead whenever possible.)
 
+:attribute:`Link-Only`
+----------------------
+
+:Type: :type:`bool`
+:Applies To: :object:`requirement`
+:Required: No
+
+Specifies that consumers of a component which requires another component should apply only the required component's link dependencies when consuming the requiring component, and not additional properties such as compile and include attributes. If :keyword:`false` or omitted, the attributes of the required component shall be transitively applied to a consumer of the requiring component as if the required component was consumed directly.
+
 :attribute:`Location`
 ---------------------
 
