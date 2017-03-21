@@ -4,7 +4,7 @@
 
 :Version: 0.4
 
-This document describes the schema for Common Package Specification files. A Common Package Specification file (hereafter "CPS") is a mechanism for describing how users may consume a package. "User" here refers to another package, not an end user. CPS deals with building software.
+This document describes the schema for Common Package Specification files. A Common Package Specification file (hereafter "CPS") is a mechanism for describing how users may consume a package. "User" here refers to another package, not an end user. CPS deals with building software, with a focus on packages providing a C/C++ ABI.
 
 CPS is based on `JSON`_. A CPS file is a valid JSON object.
 
@@ -90,20 +90,34 @@ History
 
 In the beginning, there was anarchy. Building a project which consumed a different, external project typically involved hand coding build directives based on assumptions where the external would be located.
 
-Along came pkg-config. This was an improvement, but it was designed for UNIX-like platforms and isn't entirely portable. Also, while pkg-config does an adequate job describing the necessary compile and link flags to consume a package, this information is not always sufficient.
+Along came `pkg-config <https://www.freedesktop.org/wiki/Software/pkg-config/>`_. This was an improvement, but it was designed for UNIX-like platforms and isn't entirely portable. Also, while pkg-config does an adequate job describing the necessary compile and link flags to consume a package, this information is not always sufficient.
 
-Some time later, CMake entered the scene, eventually gaining its own mechanism to describe a package. While this system solved many earlier problems, it relies on the CMake language and is therefore tightly coupled to that build system.
+Some time later, CMake_ entered the scene, eventually gaining its own mechanism to describe a package. While this system solved many earlier problems, it relies on the CMake language and is therefore tightly coupled to that build system.
 
 CPS attempts to solve these issues by taking the lessons learned by CMake and providing compatible information in a format that is not tied to the language of a particular build system.
+
+What's wrong with pkg-config?
+'''''''''''''''''''''''''''''
+
+pkg-config was created way back in the bad old days of autotools, when everyone was using the same compiler and linker. It handles everything by direct specification of compile flags, which breaks down when multiple compilers with incompatible front-ends come into play and/or in the face of "superseded" features. (For instance, given a project consuming packages "A" and "B", requiring C++14 and C++11, respectively, pkg-config requires the build tool to translate compile flags back into features in order to know that the consumer should not be build with ``-std=c++14 ... -std=c++11``.)
+
+Specification of link libraries via a combination of ``-L`` and ``-l`` flags is a problem, as it fails to ensure that consumers find the intended libraries. Not providing a full path to the library also places more work on the build tool (which must attempt to deduce full paths from the link flags) in order to compute appropriate dependencies in order to re-link targets when their link libraries have changed.
+
+Last, pkg-config is not an ideal solution for large projects consisting of multiple components, as each component needs its own ``.pc`` file.
+
+What's wrong with CMake exported targets?
+'''''''''''''''''''''''''''''''''''''''''
+
+CMake exported targets provide a richly featured mechanism for describing packages as a set of individual components, along with the necessary details for consuming each individual component. This generally works well... *for CMake*. The biggest problem with this system is not any internal flaw in the system, but the fact that it relies on the CMake language. Consumers have to parse not only CMake syntax, but in some cases need to cope with CMake generator expressions. Moreover, packages have access to the entire CMake language, which is Turing complete and capable of executing external processes. It would be exceptionally difficult for non-CMake tools to consume CMake package specifications without effectively reimplementing most or all of CMake itself. Clearly, this is not practical.
 
 Overview
 ========
 
-A CPS file provides a description of a package that is intended to be consumed by other packages that build against that package. By providing a detailed, flexible, and language-agnostic description, CPS aims to make it easy to portably consume packages, regardless of build systems used.
+A CPS file provides a declarative description of a package that is intended to be consumed by other packages that build against that package. By providing a detailed, flexible, and language-agnostic description using widely supported JSON grammar, CPS aims to make it easy to portably consume packages, regardless of build systems used.
 
-Like pkg-config files and CMake package configuration files, CPS files are intended to be produced by the package provider, and included in the package's distribution. Additionally, the CPS file is not intended to cover all possible configurations of a package; rather, it is meant to be generated by the build system and to describe the artifacts for a single architecture.
+Like pkg-config files and CMake package configuration files, CPS files are intended to be produced by the package provider, and included in the package's distribution. Additionally, the CPS file is not intended to cover all *possible* configurations of a package; rather, it is meant to be generated by the build system and to describe the artifacts of one or more *extant* configurations for a single architecture.
 
-One important note, however, is that while CPS includes support for executable targets (typically used for making available code generation tools), CPS does *not* try to provide a portable mechanism for specifying how such a tool should be invoked. This is not a problem that lends itself to simple, generic solutions. It is left to the consumer to know how to do this, and/or to the package to provide additional, tool-specific utilities for this purpose.
+One important note is that, while CPS includes support for executable targets (typically used for making available code generation tools), CPS does *not* try to provide a portable mechanism for specifying how such a tool should be invoked. This is not a problem that lends itself to simple, generic solutions. It is left to the consumer to know how to do this, and/or to the package to provide additional, tool-specific utilities for this purpose.
 
 Package Schema
 ==============
@@ -477,6 +491,8 @@ In order to determine the package prefix, which may appear in various attributes
 
     - If the tail-portion of the path matches any of :path:`/cps/`, :path:`/`\ :var:`name`\ :path:`/cps/` or :path:`/cps/`\ :var:`name`\ :path:`/`, the longest such matching portion is removed.
     - If the tail-portion of the remaining path matches any of :path:`/`\ :var:`libdir`\ :path:`/` or :path:`/share/`, that portion is removed.
+
+.. _CMake: https://cmake.org/
 
 .. _JSON: http://www.json.org/
 
