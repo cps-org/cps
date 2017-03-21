@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Component Specification &mdash; Common Package Specification 0.5 documentation</title>
+    
+    <link rel="stylesheet" href="_static/kitware.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Common Package Specification 0.5 documentation" href="index.html" />
+    <link rel="next" title="Package Configurations" href="configurations.html" />
+    <link rel="prev" title="Package Schema" href="schema.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="configurations.html" title="Package Configurations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="schema.html" title="Package Schema"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Common Package Specification 0.5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="component-specification">
+<h1>Component Specification<a class="headerlink" href="#component-specification" title="Permalink to this headline">¶</a></h1>
+<p>Package, component and configuration names may consist of ASCII letters, numbers, hyphens (<tt class="docutils literal"><span class="pre">-</span></tt>), and underscores (<tt class="docutils literal"><span class="pre">_</span></tt>), and may not contain forward-stroke (<tt class="docutils literal"><span class="pre">/</span></tt>) or at-sign (<tt class="docutils literal"><span class="pre">&#64;</span></tt>). Colon (<tt class="docutils literal"><span class="pre">:</span></tt>) may be used in component and configuration names, but not package names. The behavior of other characters is implementation defined. Portable packages are recommended to use only those characters which are expressly permitted.</p>
+<p>A CPS component specification consists of either a package name, component name, or package-component name, either of which may optionally specify a configuration. A colon (<tt class="docutils literal"><span class="pre">:</span></tt>) is used to separate a package name from a component name, and always precedes a component name without a package name. A component specification including a package name is an &#8220;absolute&#8221; name. A component specification without a package name is a &#8220;relative&#8221; name; the package name in such case is implicitly the same as the package specification in which such name appears. The package and/or component name may be followed by the at-sign (<tt class="docutils literal"><span class="pre">&#64;</span></tt>) and a configuration name. The special case of using the at-sign as a configuration name (e.g. <tt class="docutils literal"><span class="pre">foo:foo-core&#64;&#64;</span></tt>) means that the named configuration is the same as the configuration in which the name appears. (For example, the component <tt class="docutils literal"><span class="pre">foo-ui</span></tt> has non-configuration-specific <tt class="code attribute docutils literal"><span class="pre">Requires</span></tt> <tt class="code string docutils literal"><span class="pre">&quot;:foo-core&#64;&#64;&quot;</span></tt> and <tt class="code attribute docutils literal"><span class="pre">Configurations</span></tt> <tt class="code string docutils literal"><span class="pre">&quot;A&quot;</span></tt> and <tt class="code string docutils literal"><span class="pre">&quot;B&quot;</span></tt>. The <tt class="code string docutils literal"><span class="pre">&quot;A&quot;</span></tt> configuration of <tt class="docutils literal"><span class="pre">foo-ui</span></tt> therefore requires <tt class="docutils literal"><span class="pre">:foo-core&#64;A</span></tt>, and similar for other configurations.)</p>
+<p>If a requirement does not specify a configuration, the <em>consumer</em> chooses the most appropriate configuration. This allows the consumer to, for example, link to the debug libraries of an indirect dependency when the consumer is build in debug mode, even if the consumer always uses the optimized configuration of the direct dependency.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="schema.html"
+                        title="previous chapter">Package Schema</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="configurations.html"
+                        title="next chapter">Package Configurations</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/components.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="configurations.html" title="Package Configurations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="schema.html" title="Package Schema"
+             >previous</a> |</li>
+        <li><a href="index.html">Common Package Specification 0.5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2017, Matthew Woehlke.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

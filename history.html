@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>History &mdash; Common Package Specification 0.5 documentation</title>
+    
+    <link rel="stylesheet" href="_static/kitware.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Common Package Specification 0.5 documentation" href="index.html" />
+    <link rel="next" title="Overview" href="overview.html" />
+    <link rel="prev" title="Introduction" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Common Package Specification 0.5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="history">
+<h1>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h1>
+<p>In the beginning, there was anarchy. Building a project which consumed a different, external project typically involved hand coding build directives based on assumptions where the external would be located.</p>
+<p>Along came <a class="reference external" href="https://www.freedesktop.org/wiki/Software/pkg-config/">pkg-config</a>. This was an improvement, but it was designed for UNIX-like platforms and isn&#8217;t entirely portable. Also, while pkg-config does an adequate job describing the necessary compile and link flags to consume a package, this information is not always sufficient.</p>
+<p>Some time later, <a class="reference external" href="https://cmake.org/">CMake</a> entered the scene, eventually gaining its own mechanism to describe a package. While this system solved many earlier problems, it relies on the CMake language and is therefore tightly coupled to that build system.</p>
+<p>CPS attempts to solve these issues by taking the lessons learned by CMake and providing compatible information in a format that is not tied to the language of a particular build system.</p>
+<div class="section" id="what-s-wrong-with-pkg-config">
+<h2>What&#8217;s wrong with pkg-config?<a class="headerlink" href="#what-s-wrong-with-pkg-config" title="Permalink to this headline">¶</a></h2>
+<p>pkg-config was created way back in the bad old days of autotools, when everyone was using the same compiler and linker. It handles everything by direct specification of compile flags, which breaks down when multiple compilers with incompatible front-ends come into play and/or in the face of &#8220;superseded&#8221; features. (For instance, given a project consuming packages &#8220;A&#8221; and &#8220;B&#8221;, requiring C++14 and C++11, respectively, pkg-config requires the build tool to translate compile flags back into features in order to know that the consumer should not be build with <tt class="docutils literal"><span class="pre">-std=c++14</span> <span class="pre">...</span> <span class="pre">-std=c++11</span></tt>.)</p>
+<p>Specification of link libraries via a combination of <tt class="docutils literal"><span class="pre">-L</span></tt> and <tt class="docutils literal"><span class="pre">-l</span></tt> flags is a problem, as it fails to ensure that consumers find the intended libraries. Not providing a full path to the library also places more work on the build tool (which must attempt to deduce full paths from the link flags) in order to compute appropriate dependencies in order to re-link targets when their link libraries have changed.</p>
+<p>Last, pkg-config is not an ideal solution for large projects consisting of multiple components, as each component needs its own <tt class="docutils literal"><span class="pre">.pc</span></tt> file.</p>
+</div>
+<div class="section" id="what-s-wrong-with-cmake-exported-targets">
+<h2>What&#8217;s wrong with CMake exported targets?<a class="headerlink" href="#what-s-wrong-with-cmake-exported-targets" title="Permalink to this headline">¶</a></h2>
+<p>CMake exported targets provide a richly featured mechanism for describing packages as a set of individual components, along with the necessary details for consuming each individual component. This generally works well... <em>for CMake</em>. The biggest problem with this system is not any internal flaw in the system, but the fact that it relies on the CMake language. Consumers have to parse not only CMake syntax, but in some cases need to cope with CMake generator expressions. Moreover, packages have access to the entire CMake language, which is Turing complete and capable of executing external processes. It would be exceptionally difficult for non-CMake tools to consume CMake package specifications without effectively reimplementing most or all of CMake itself. Clearly, this is not practical.</p>
+</div>
+<div class="section" id="timeline-of-cps-development">
+<h2>Timeline of CPS Development<a class="headerlink" href="#timeline-of-cps-development" title="Permalink to this headline">¶</a></h2>
+<p>CPS was initially conceived following an evening session of <a class="reference external" href="http://www.open-std.org/jtc1/sc22/wg21/">WG21</a> in the 2016 Jacksonville meeting which presented <a class="reference external" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0235r0.pdf">P0235</a>, &#8220;A Packaging System for C++&#8221;. The extreme complexities of build systems are generally felt to be beyond the scope of the C++ language itself, and software projects do not necessarily use a single language. However, the discussion highlighted the difficulty of consuming third party compiled software. Existing solutions were not satisfactory, for the reasons above, which inspired the writing of an initial draft specification. However, the lack of active customers to drive work resulted in a dormancy period of roughly a year.</p>
+<p>In early 2017, the Drake project was transitioning from mostly pure <a class="reference external" href="https://cmake.org/">CMake</a> to a <a class="reference external" href="https://bazel.build/">Bazel</a>-centric build with peripheral CMake consumers.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">History</a><ul>
+<li><a class="reference internal" href="#what-s-wrong-with-pkg-config">What&#8217;s wrong with pkg-config?</a></li>
+<li><a class="reference internal" href="#what-s-wrong-with-cmake-exported-targets">What&#8217;s wrong with CMake exported targets?</a></li>
+<li><a class="reference internal" href="#timeline-of-cps-development">Timeline of CPS Development</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="next chapter">Overview</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/history.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">Common Package Specification 0.5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2017, Matthew Woehlke.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
