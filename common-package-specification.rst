@@ -147,6 +147,15 @@ Specifies the oldest version of the package with which this version is compatibl
 
 If not specified, the package is not compatible with previous versions (i.e. :attribute:`Compat-Version` is implicitly equal to :attribute:`Version`).
 
+:attribute:`Compile-Features`
+-----------------------------
+
+:Type: :type:`list` of :type:`string`
+:Applies To: :object:`component`, :object:`configuration`
+:Required: No
+
+Specifies a list of compile features that must be enabled or disabled when compiling code that consumes the component.
+
 :attribute:`Compile-Flags`
 --------------------------
 
@@ -154,7 +163,7 @@ If not specified, the package is not compatible with previous versions (i.e. :at
 :Applies To: :object:`component`, :object:`configuration`
 :Required: No
 
-Specifies a list of additional flags that must be supplied to the compiler when compiling code that consumes the component.
+Specifies a list of additional flags that must be supplied to the compiler when compiling code that consumes the component. Note that compiler flags may not be portable; use of this attribute is discouraged.
 
 :attribute:`Components` :applies-to:`(Package)`
 -----------------------------------------------
@@ -255,6 +264,15 @@ Specifies a list of paths where a required dependency might be located. When giv
 
 Specifies a list of directories which should be added to the include search path when compiling code that consumes the component. If a path starts with ``@prefix@``, the package's install prefix is substituted (see `Package Searching`_). This is recommended, as it allows packages to be relocatable.
 
+:attribute:`Link-Features`
+--------------------------
+
+:Type: :type:`list` of :type:`string`
+:Applies To: :object:`component`, :object:`configuration`
+:Required: No
+
+Specifies a list of link features that must be enabled or disabled when compiling code that consumes the component.
+
 :attribute:`Link-Flags`
 -----------------------
 
@@ -262,7 +280,16 @@ Specifies a list of directories which should be added to the include search path
 :Applies To: :object:`component`, :object:`configuration`
 :Required: No
 
-Specifies a list of additional flags that must be supplied to the linker when linking code that consumes the component.
+Specifies a list of additional flags that must be supplied to the linker when linking code that consumes the component. Note that linker flags may not be portable; use of this attribute is discouraged.
+
+:attribute:`Link-Languages`
+---------------------------
+
+:Type: :type:`list` of :type:`string`
+:Applies To: :object:`component`, :object:`configuration`
+:Required: No
+
+Specifies the ABI language of a static library (`Type`_ :string:`"archive"`). Officially supported values are :string:`"C"` (no special handling required) and :string:`"C++"` (consuming the static library also requires linking against the C++ standard runtime). The default is :string:`"C"`.
 
 :attribute:`Link-Libraries`
 ---------------------------
@@ -272,6 +299,17 @@ Specifies a list of additional flags that must be supplied to the linker when li
 :Required: No
 
 Specifies a list of additional libraries that must be linked against when linking code that consumes the component. (Note that packages should avoid using this attribute if at all possible. Use `Requires (Component)`_ instead whenever possible.)
+
+:attribute:`Link-Location`
+--------------------------
+
+:Type: :type:`string`
+:Applies To: :object:`component`, :object:`configuration`
+:Required: No
+
+Specifies an alternate location of the component that should be used when linking against the component. This attribute typically applies only to :string:`"dylib"` components on platforms where the library is separated into multiple file components. For example, on Windows, this attribute shall give the location of the ``.lib``, while `Location`_ shall give the location of the ``.dll``.
+
+If the path starts with ``@prefix@``, the package's install prefix is substituted (see `Package Searching`_). This is recommended, as it allows packages to be relocatable.
 
 :attribute:`Link-Only`
 ----------------------
@@ -289,7 +327,7 @@ Specifies that consumers of a component which requires another component should 
 :Applies To: :object:`component`, :object:`configuration`
 :Required: Depends
 
-Specifies the location of the component. The exact meaning of this attribute depends on the component type, but typically it provides the path to the component's primary artifact, such as a ``.so`` or ``.jar``.
+Specifies the location of the component. The exact meaning of this attribute depends on the component type, but typically it provides the path to the component's primary artifact, such as a ``.so`` or ``.jar``. (For Windows DLL components, this should be the location of the ``.dll``. See also `Link-Location`_.)
 
 If the path starts with ``@prefix@``, the package's install prefix is substituted (see `Package Searching`_). This is recommended, as it allows packages to be relocatable.
 
@@ -329,7 +367,7 @@ Specifies additional packages that are required by this package. Keys are the na
 :Applies To: :object:`component`
 :Required: Yes
 
-Specifies the type of a component. The component type affects how the component may be used. Officially supported values are :string:`"archive"` (C/C++ static library), :string:`"dylib"` (C/C++ shared library), :string:`"module"` (C/C++ plugin library), :string:`"jar"` (Java Archive), and :string:`"interface"`. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension.)
+Specifies the type of a component. The component type affects how the component may be used. Officially supported values are :string:`"archive"` (CABI static library), :string:`"dylib"` (CABI shared library), :string:`"module"` (CABI plugin library), :string:`"jar"` (Java Archive), and :string:`"interface"`. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension. "CABI" here means the usual format for C/C++/etc. binaries, e.g. ELF, PE32...)
 
 A :string:`"dylib"` is meant to be linked at compile time; the :attribute:`Location` specifies the artifact required for such linking (i.e. the import library on PE platforms). A :string:`"module"` is meant to be loaded at run time with :code:`dlopen` or similar; again, the :attribute:`Location` specifies the appropriate artifact.
 
