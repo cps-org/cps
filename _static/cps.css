@@ -1,0 +1,15 @@
+.hidden { display: none; }
+.code.type { color: #172; font-weight: bold; }
+.code.keyword { color: #621; font-weight: bold; }
+.code.string { color: #d32; }
+.code.attribute { color: #15a; }
+.code.object { color: #294; }
+.code.object:before { content: "<"; }
+.code.object:after { content: ">"; }
+.applies-to { font-size: 70%; color: #777; }
+.path { color: #641; }
+.glob { color: #b92; }
+.var { color: #852; font-style: italic; }
+.var:before { content: "<"; }
+.var:after { content: ">"; }
+.env { color: #591; }
