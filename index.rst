@@ -19,6 +19,7 @@ Contents
    components
    configurations
    searching
+   recommendations
 
 Indices and tables
 ==================

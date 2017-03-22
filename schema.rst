@@ -9,6 +9,11 @@ Objects
 
 The root of a CPS document is a :object:`package` object. A :object:`package` object describes a single package.
 
+:object:`Platform`\ :hidden:`(Object)`
+--------------------------------------
+
+A :object:`platform` describes the platform on which a package's components may run.
+
 :object:`Requirement`\ :hidden:`(Object)`
 -----------------------------------------
 
@@ -28,6 +33,44 @@ Attributes
 ''''''''''
 
 An optional attribute may have the value :keyword:`null`. This shall be equivalent to omitting the attribute.
+
+Attribute names are case insensitive, although it is recommended that ``.cps`` files use the capitalization as shown.
+
+:attribute:`C-Runtime-Vendor`
+-----------------------------
+
+:Type: :type:`string`
+:Applies To: :object:`platform`
+:Required: No
+
+Specifies that the package's CABI components require the specified C standard/runtime library. Typical (case-insensitive) values include :string:`"bsd"` (libc), :string:`"gnu"` (glibc), :string:`"mingw"` and :string:`"microsoft"`.
+
+:attribute:`C-Runtime-Version`
+------------------------------
+
+:Type: :type:`string`
+:Applies To: :object:`platform`
+:Required: No
+
+Specifies the minimum C standard/runtime library version required by the package's CABI components.
+
+:attribute:`Clr-Vendor`
+-----------------------
+
+:Type: :type:`string`
+:Applies To: :object:`platform`
+:Required: No
+
+Specifies that the package's CLR (.NET) components require the specified `Common Language Runtime`_ vendor. Typical (case-insensitive) values include :string:`"microsoft"` and :string:`"mono"`.
+
+:attribute:`Clr-Version`
+------------------------
+
+:Type: :type:`string`
+:Applies To: :object:`platform`
+:Required: No
+
+Specifies the minimum `Common Language Runtime`_ version required to use the package's CLR (.NET) components.
 
 :attribute:`Compat-Version`
 ---------------------------
@@ -103,6 +146,24 @@ Specifies the configurations that are available. See `Package Configurations`_ f
 
 Specifies a set of configuration-specific attributes for a :object:`component`. Keys are the configuration names.
 
+:attribute:`Cpp-Runtime-Vendor`
+-------------------------------
+
+:Type: :type:`string`
+:Applies To: :object:`platform`
+:Required: No
+
+Specifies that the package's CABI components require the specified C standard/runtime library. Typical (case-insensitive) values include :string:`"gnu"` (libstdc++), :string:`"llvm"` (libc++) and :string:`"microsoft"`.
+
+:attribute:`Cpp-Runtime-Version`
+--------------------------------
+
+:Type: :type:`string`
+:Applies To: :object:`platform`
+:Required: No
+
+Specifies the minimum C standard/runtime library version required by the package's CABI components.
+
 :attribute:`Cps-Path`
 ---------------------
 
@@ -156,6 +217,51 @@ Specifies a list of paths where a required dependency might be located. When giv
 :Required: No
 
 Specifies a list of directories which should be added to the include search path when compiling code that consumes the component. If a path starts with ``@prefix@``, the package's install prefix is substituted (see `Package Searching`_). This is recommended, as it allows packages to be relocatable.
+
+:attribute:`Isa`
+----------------
+
+:Type: :type:`string`
+:Applies To: :object:`platform`
+:Required: No
+
+Specifies that the package's CABI components require the specified `Instruction Set Architecture`_. The value is case insensitive and should follow the output of ``uname -m``.
+
+:attribute:`Jvm-Vendor`
+-----------------------
+
+:Type: :type:`string`
+:Applies To: :object:`platform`
+:Required: No
+
+Specifies that the package's Java components require the specified Java_ vendor. Typical (case-insensitive) values include :string:`"oracle"` and :string:`"openjdk"`.
+
+:attribute:`Jvm-Version`
+------------------------
+
+:Type: :type:`string`
+:Applies To: :object:`platform`
+:Required: No
+
+Specifies the minimum Java_ Virtual Machine version required to use the package's Java components.
+
+:attribute:`Kernel`
+-------------------
+
+:Type: :type:`string`
+:Applies To: :object:`platform`
+:Required: No
+
+Specifies the name of the operating system kernel required by the package's components. The value is case insensitive and should follow the output of ``uname -s``. Typical values include :string:`"windows"`, :string:`"cygwin"`, :string:`"linux"` and :string:`"darwin"`.
+
+:attribute:`Kernel-Version`
+---------------------------
+
+:Type: :type:`string`
+:Applies To: :object:`platform`
+:Required: No
+
+Specifies the minimum operating system kernel version required by the package's components.
 
 :attribute:`Link-Features`
 --------------------------
@@ -235,6 +341,15 @@ This attribute is required for :object:`component`\ s that are not of :string:`"
 
 Specifies the canonical name of the package. In order for searching to succeed, this must exactly match the name of the CPS file without the ``.cps`` suffix.
 
+:attribute:`Platform`
+---------------------
+
+:Type: :object:`platform`
+:Applies To: :object:`package`
+:Required: No
+
+Specifies the platform on which a package's components may run. This allows tools to ignore packages which target a different platform than the platform that the consumer targets (see `Package Searching`_). Any platform attribute not specified implies that the package's components are agnostic to that platform attribute. If this attribute is not specified, the package is implied to be platform agnostic. (This might be the case for a "library" which consists entirely of C/C++ headers. Note that JVM/CLR versions are platform attributes, so packages consisting entirely of Java and/or CLR components will still typically use this attribute.)
+
 :attribute:`Requires` :applies-to:`(Component)`
 -----------------------------------------------
 
@@ -260,7 +375,7 @@ Specifies additional packages that are required by this package. Keys are the na
 :Applies To: :object:`component`
 :Required: Yes
 
-Specifies the type of a component. The component type affects how the component may be used. Officially supported values are :string:`"archive"` (CABI static library), :string:`"dylib"` (CABI shared library), :string:`"module"` (CABI plugin library), :string:`"jar"` (Java Archive), and :string:`"interface"`. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension. "CABI" here means the usual format for C/C++/etc. binaries, e.g. ELF, PE32...)
+Specifies the type of a component. The component type affects how the component may be used. Officially supported values are :string:`"archive"` (CABI static library), :string:`"dylib"` (CABI shared library), :string:`"module"` (CABI plugin library), :string:`"jar"` (Java Archive), and :string:`"interface"`. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension.)
 
 A :string:`"dylib"` is meant to be linked at compile time; the :attribute:`Location` specifies the artifact required for such linking (i.e. the import library on PE platforms). A :string:`"module"` is meant to be loaded at run time with :code:`dlopen` or similar; again, the :attribute:`Location` specifies the appropriate artifact.
 
@@ -293,6 +408,14 @@ Notes
 
 - Unless otherwise specified, unrecognized attributes shall be ignored. This makes it easier for tools to add tool-specific extensions. (It is *strongly* recommended that the names of any such attributes start with ``X-<tool>-`` (where ``<tool>`` is the name of the tool which introduced the extension) in order to reduce the chance of conflicts with newer versions of the CPS.)
 
+- The term "CABI", as used throughout, refers to (typically C/C++/Fortran) code compiled to the machine's native instruction set and using the platform's usual format for such binaries (ELF, PE32, etc.).
+
 .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+
+.. _Common Language Runtime: https://en.wikipedia.org/wiki/Common_Language_Runtime
+
+.. _Instruction Set Architecture: https://en.wikipedia.org/wiki/Instruction_set_architecture
+
+.. _Java: https://en.wikipedia.org/wiki/Java_%28programming_language%29
 
 .. kate: hl reStructuredText
