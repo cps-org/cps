@@ -22,9 +22,8 @@ def register_sections_as_label(app, document):
         sectname = clean_astext(node[0])
 
         if name in labels:
-            app.env.warn('duplicate label %s, ' % name + 'other instance '
-                         'in ' + app.env.doc2path(labels[name][0]),
-                         location=node)
+            app.env.warn_node('duplicate label %r, ' % name + 'other instance '
+                              'in ' + app.env.doc2path(labels[name][0]), node)
 
         anonlabels[name] = docname, labelid
         labels[name] = docname, labelid, sectname

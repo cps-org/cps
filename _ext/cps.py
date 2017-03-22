@@ -47,15 +47,20 @@ class InternalizeLinks(Transform):
                 ref.replace_self(xref)
 
 #==============================================================================
-def add_role(app, name, styles=[], parent=roles.generic_custom_role):
+def add_role(app, name, styles=None, parent=roles.generic_custom_role):
     options = {}
-    if len(styles):
-        options['class'] = directives.class_option(styles) # FIXME??
+    if styles is None:
+        styles=name
     else:
-        options['class'] = directives.class_option(name)
+        styles=' '.join([name] + styles)
 
+    options['class'] = directives.class_option(styles)
     role = roles.CustomRole(name, parent, options)
     app.add_role(name, role)
+
+#==============================================================================
+def add_code_role(app, name, styles=None, parent=roles.code_role):
+    add_role(app, name, styles, parent)
 
 #==============================================================================
 def setup(app):
@@ -68,12 +73,15 @@ def setup(app):
     # Add site-specific custom roles (these just apply styling)
     add_role(app, 'hidden')
     add_role(app, 'applies-to')
-    add_role(app, 'object', parent=roles.code_role)
-    add_role(app, 'attribute', parent=roles.code_role)
-    add_role(app, 'keyword', parent=roles.code_role)
-    add_role(app, 'type', parent=roles.code_role)
-    add_role(app, 'string', parent=roles.code_role)
-    add_role(app, 'path', parent=roles.code_role)
-    add_role(app, 'glob', parent=roles.code_role)
-    add_role(app, 'var', parent=roles.code_role)
-    add_role(app, 'env', parent=roles.code_role)
+    add_code_role(app, 'object')
+    add_code_role(app, 'attribute')
+    add_code_role(app, 'feature')
+    add_code_role(app, 'feature.opt', styles=['feature', 'optional'])
+    add_code_role(app, 'feature.var', styles=['feature', 'var'])
+    add_code_role(app, 'keyword')
+    add_code_role(app, 'type')
+    add_code_role(app, 'string')
+    add_code_role(app, 'path')
+    add_code_role(app, 'glob')
+    add_code_role(app, 'var')
+    add_code_role(app, 'env')
