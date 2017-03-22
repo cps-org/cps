@@ -1,6 +1,42 @@
 Usage and Implementation Recommendations
 ========================================
 
+Configurations as Flags
+'''''''''''''''''''''''
+
+Let's say your package includes several configurations of a library, where the configuration is logically specified as a set of orthogonal attributes (e.g. debug/release, static/shared). What's the best way to provide these to your users?
+
+This is best accomplished via interface components. For example:
+
+.. code-block:: javascript
+
+  "Components": {
+    "foo-static": {
+      "Type": "archive",
+      "Configurations": {
+        "Release": { ... },
+        "Debug": { ... }
+      }, ...
+    },
+    "foo-shared": {
+      "Type": "dylib",
+      "Configurations": {
+        "Release": { ... },
+        "Debug": { ... }
+      }, ...
+    },
+    "foo": {
+      "Type": "interface",
+      "Configurations": {
+        "Static": { "Requires": [ "foo-static" ] },
+        "Shared": { "Requires": [ "foo-shared" ] }
+      }
+    },
+  },
+  ...
+
+This pattern allows the user to specify their set of preferred configurations like ``"Static", "Release"`` rather than ``"ReleaseStatic"``. When consuming the ``foo`` component, the build tool will select on the static/shared axis, which will bring in a component whose configurations all match that choice. The tool will then select the transitive component on the remaining debug/release axis. Longer chains can be constructed to support configuration choices of arbitrary complexity. Where appropriate (and assuming that the package does not wish to support the user naming the "real" components directly), the component graph can be constructed in a way that allows shared attributes to be specified at the higher level interface components.
+
 Single Package, Multiple Platforms
 ''''''''''''''''''''''''''''''''''
 

@@ -20,6 +20,7 @@ Contents
    configurations
    searching
    recommendations
+   sample
 
 Indices and tables
 ==================
