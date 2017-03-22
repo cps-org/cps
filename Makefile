@@ -15,10 +15,13 @@ endif
 all:
 	$(SPHINXBUILD) -b html $(SPHINXOPTS) . $(BUILDDIR)
 	@echo
-	@echo "Build finished. The HTML pages are in $(BUILDDIR)."
+	@echo "Build finished. The HTML pages are in '$(BUILDDIR)'."
 
 clean:
 	rm -rf $(BUILDDIR)/*
 
 cache-clean:
 	rm -rf $(BUILDDIR)/.doctrees
+
+publish: clean all
+	./publish.sh
