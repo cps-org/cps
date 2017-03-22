@@ -24,6 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Common Package Specification 0.5 documentation" href="index.html" />
+    <link rel="next" title="Usage and Implementation Recommendations" href="recommendations.html" />
     <link rel="prev" title="Package Configurations" href="configurations.html" /> 
   </head>
   <body>
@@ -33,6 +34,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="recommendations.html" title="Usage and Implementation Recommendations"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="configurations.html" title="Package Configurations"
              accesskey="P">previous</a> |</li>
@@ -60,8 +64,10 @@
 <li><tt class="code var docutils literal"><span class="pre">prefix</span></tt><tt class="code path docutils literal"><span class="pre">/share/cps/</span></tt><tt class="code var docutils literal"><span class="pre">name</span></tt><tt class="code path docutils literal"><span class="pre">/</span></tt></li>
 <li><tt class="code var docutils literal"><span class="pre">prefix</span></tt><tt class="code path docutils literal"><span class="pre">/share/cps/</span></tt></li>
 </ul>
-<p>The placeholder <tt class="code var docutils literal"><span class="pre">name</span></tt> shall represent the name of the package to be located, and shall include both the proper case name, and the name converted to lower case. The placeholder <tt class="code var docutils literal"><span class="pre">libdir</span></tt> shall be the platform defined directories, sans root prefix, in which matching architecture and/or architecture-neutral libraries reside (e.g. <tt class="code path docutils literal"><span class="pre">lib</span></tt>, <tt class="code path docutils literal"><span class="pre">lib32</span></tt>, <tt class="code path docutils literal"><span class="pre">lib64</span></tt>, <tt class="code path docutils literal"><span class="pre">lib/i386-linux-gnu</span></tt>...). The placeholder <tt class="code var docutils literal"><span class="pre">prefix</span></tt> shall represent one of the set of default install prefixes to be searched, which shall include, at minimum and in order, the set of paths (separated by <tt class="code path docutils literal"><span class="pre">;</span></tt> on Windows, <tt class="code path docutils literal"><span class="pre">:</span></tt> otherwise) in the environment variable <tt class="code env docutils literal"><span class="pre">CPS_PATH</span></tt>, <tt class="code path docutils literal"><span class="pre">/usr/local</span></tt>, and <tt class="code path docutils literal"><span class="pre">/usr</span></tt>. In addition, for all such package-neutral prefixes <tt class="code var docutils literal"><span class="pre">prefix-root</span></tt>, the package-specific prefix <tt class="code var docutils literal"><span class="pre">prefix-root</span></tt><tt class="code path docutils literal"><span class="pre">/</span></tt><tt class="code var docutils literal"><span class="pre">name</span></tt> shall also be considered. The complete list of search paths, above, shall be considered in the order specified above, for each prefix, before the next prefix is searched. Package-specific prefixes shall be searched before package-neutral prefixes.</p>
+<p>The placeholder <tt class="code var docutils literal"><span class="pre">name</span></tt> shall represent the name of the package to be located, and shall include both the proper case name, and the name converted to lower case. The placeholder <tt class="code var docutils literal"><span class="pre">libdir</span></tt> shall be the platform defined directories, sans root prefix, in which matching architecture and/or architecture-neutral libraries reside (e.g. <tt class="code path docutils literal"><span class="pre">lib</span></tt>, <tt class="code path docutils literal"><span class="pre">lib32</span></tt>, <tt class="code path docutils literal"><span class="pre">lib64</span></tt>, <tt class="code path docutils literal"><span class="pre">lib/i386-linux-gnu</span></tt>...). The placeholder <tt class="code var docutils literal"><span class="pre">prefix</span></tt> shall represent one of the set of default install prefixes to be searched, which shall include, at minimum and in order, the set of paths (separated by <tt class="code path docutils literal"><span class="pre">;</span></tt> on Windows, <tt class="code path docutils literal"><span class="pre">:</span></tt> otherwise) in the environment variable <tt class="code env docutils literal"><span class="pre">CPS_PATH</span></tt>, <tt class="code path docutils literal"><span class="pre">/usr/local</span></tt>, and <tt class="code path docutils literal"><span class="pre">/usr</span></tt>. In addition, for all such package-neutral prefixes <tt class="code var docutils literal"><span class="pre">prefix-root</span></tt>, the package-specific prefix <tt class="code var docutils literal"><span class="pre">prefix-root</span></tt><tt class="code path docutils literal"><span class="pre">/</span></tt><tt class="code var docutils literal"><span class="pre">name</span></tt> shall also be considered.
+The complete list of search paths, above, shall be considered in the order specified above, for each prefix, before the next prefix is searched. Package-specific prefixes shall be searched before package-neutral prefixes.</p>
 <p>It is recommended that tools should also provide a mechanism for specifying the path to a specific CPS which may be used to override the default search, or to provide the location of a package which is not installed to any of the standard search paths.</p>
+<p>When a candidate <tt class="docutils literal"><span class="pre">.cps</span></tt> file is found, the tool shall inspect the package&#8217;s <a class="reference internal" href="schema.html#platform"><em>Platform</em></a>. If the package&#8217;s platform does not match the target platform, the tool should ignore the <tt class="docutils literal"><span class="pre">.cps</span></tt> and continue the search. This allows for the installation of packages for different platforms (e.g. 32- and 64-bit builds) on a single machine. (Note that it is up to the tool to determine what constitutes a matching platform.)</p>
 <div class="section" id="prefix-determination">
 <h2>Prefix Determination<a class="headerlink" href="#prefix-determination" title="Permalink to this headline">¶</a></h2>
 <p>In order to determine the package prefix, which may appear in various attributes as <tt class="docutils literal"><span class="pre">&#64;prefix&#64;</span></tt>, it is necessary to determine the effective prefix from the canonical location of the <tt class="docutils literal"><span class="pre">.cps</span></tt> file. This can be accomplished in three ways:</p>
@@ -104,6 +110,9 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="configurations.html"
                         title="previous chapter">Package Configurations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="recommendations.html"
+                        title="next chapter">Usage and Implementation Recommendations</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/searching.txt"
@@ -132,6 +141,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="recommendations.html" title="Usage and Implementation Recommendations"
+             >next</a> |</li>
         <li class="right" >
           <a href="configurations.html" title="Package Configurations"
              >previous</a> |</li>

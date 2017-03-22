@@ -1,0 +1,22 @@
+Known Platforms
+===============
+
+This section provides a list of known values for various `Platform (Object)`_ attributes.
+
+Unless otherwise specified, platform attributes are case insensitive (use of lower case is preferred).
+
+Instruction Sets
+''''''''''''''''
+
+- `IA-32`_ family: ``i386``, ``i486``, ``i586``, ``i686``
+- Other Intel-derived: ``ia-64``, ``x86_64``\ [#x64]_
+- ARM family: ``armel``, ``armeb``, ``armhf``
+- Others: ``alpha``, ``hppa``, ``m68k``, ``mips``, ``mipsel``, ``powerpc``, ``ppc64``, ``sparc``
+
+-------------------------------------------------------------------------------
+
+.. [#x64] Do not use ``amd64``.
+
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+
+.. kate: hl reStructuredText

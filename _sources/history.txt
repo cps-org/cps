@@ -23,18 +23,7 @@ What's wrong with CMake exported targets?
 
 CMake exported targets provide a richly featured mechanism for describing packages as a set of individual components, along with the necessary details for consuming each individual component. This generally works well... *for CMake*. The biggest problem with this system is not any internal flaw in the system, but the fact that it relies on the CMake language. Consumers have to parse not only CMake syntax, but in some cases need to cope with CMake generator expressions. Moreover, packages have access to the entire CMake language, which is Turing complete and capable of executing external processes. It would be exceptionally difficult for non-CMake tools to consume CMake package specifications without effectively reimplementing most or all of CMake itself. Clearly, this is not practical.
 
-Timeline of CPS Development
-'''''''''''''''''''''''''''
-
-CPS was initially conceived following an evening session of WG21_ in the 2016 Jacksonville meeting which presented P0235_, "A Packaging System for C++". The extreme complexities of build systems are generally felt to be beyond the scope of the C++ language itself, and software projects do not necessarily use a single language. However, the discussion highlighted the difficulty of consuming third party compiled software. Existing solutions were not satisfactory, for the reasons above, which inspired the writing of an initial draft specification. However, the lack of active customers to drive work resulted in a dormancy period of roughly a year.
-
-In early 2017, the Drake project was transitioning from mostly pure CMake_ to a Bazel_-centric build with peripheral CMake consumers.
-
-.. TODO finish history
-
 .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
-
-.. _Bazel: https://bazel.build/
 
 .. _CMake: https://cmake.org/
 

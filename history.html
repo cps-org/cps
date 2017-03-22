@@ -65,11 +65,6 @@
 <h2>What&#8217;s wrong with CMake exported targets?<a class="headerlink" href="#what-s-wrong-with-cmake-exported-targets" title="Permalink to this headline">¶</a></h2>
 <p>CMake exported targets provide a richly featured mechanism for describing packages as a set of individual components, along with the necessary details for consuming each individual component. This generally works well... <em>for CMake</em>. The biggest problem with this system is not any internal flaw in the system, but the fact that it relies on the CMake language. Consumers have to parse not only CMake syntax, but in some cases need to cope with CMake generator expressions. Moreover, packages have access to the entire CMake language, which is Turing complete and capable of executing external processes. It would be exceptionally difficult for non-CMake tools to consume CMake package specifications without effectively reimplementing most or all of CMake itself. Clearly, this is not practical.</p>
 </div>
-<div class="section" id="timeline-of-cps-development">
-<h2>Timeline of CPS Development<a class="headerlink" href="#timeline-of-cps-development" title="Permalink to this headline">¶</a></h2>
-<p>CPS was initially conceived following an evening session of <a class="reference external" href="http://www.open-std.org/jtc1/sc22/wg21/">WG21</a> in the 2016 Jacksonville meeting which presented <a class="reference external" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0235r0.pdf">P0235</a>, &#8220;A Packaging System for C++&#8221;. The extreme complexities of build systems are generally felt to be beyond the scope of the C++ language itself, and software projects do not necessarily use a single language. However, the discussion highlighted the difficulty of consuming third party compiled software. Existing solutions were not satisfactory, for the reasons above, which inspired the writing of an initial draft specification. However, the lack of active customers to drive work resulted in a dormancy period of roughly a year.</p>
-<p>In early 2017, the Drake project was transitioning from mostly pure <a class="reference external" href="https://cmake.org/">CMake</a> to a <a class="reference external" href="https://bazel.build/">Bazel</a>-centric build with peripheral CMake consumers.</p>
-</div>
 </div>
 
 
@@ -83,7 +78,6 @@
 <li><a class="reference internal" href="#">History</a><ul>
 <li><a class="reference internal" href="#what-s-wrong-with-pkg-config">What&#8217;s wrong with pkg-config?</a></li>
 <li><a class="reference internal" href="#what-s-wrong-with-cmake-exported-targets">What&#8217;s wrong with CMake exported targets?</a></li>
-<li><a class="reference internal" href="#timeline-of-cps-development">Timeline of CPS Development</a></li>
 </ul>
 </li>
 </ul>

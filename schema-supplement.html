@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Supplemental Schema &mdash; Common Package Specification 0.5 documentation</title>
+    
+    <link rel="stylesheet" href="_static/kitware.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Common Package Specification 0.5 documentation" href="index.html" />
+    <link rel="next" title="Compiler and Linker Features" href="features.html" />
+    <link rel="prev" title="Package Schema" href="schema.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="features.html" title="Compiler and Linker Features"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="schema.html" title="Package Schema"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Common Package Specification 0.5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="supplemental-schema">
+<h1>Supplemental Schema<a class="headerlink" href="#supplemental-schema" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="schema.html#package-schema"><em>Package Schema</em></a> describes the normative specification, which conforming tools are required to support in a prescribed manner. This section describes additional, optional elements which are useful, but non-normative. Conforming tools are not required to be aware of these elements, but by including them in this supplement, it is hoped that tools for which these ideas are useful would operate in a way that allows these elements to be useful to all tools that implement functionality along the lines here described.</p>
+<p>These can be seen as &#8220;officially blessed&#8221; exceptions to the recommendation that extensions use the <tt class="docutils literal"><span class="pre">X-</span></tt> prefix.</p>
+<div class="section" id="attributes-supplemental">
+<h2>Attributes<span class="hidden">(Supplemental)</span><a class="headerlink" href="#attributes-supplemental" title="Permalink to this headline">¶</a></h2>
+<p>By definition, none of the following attributes are required.</p>
+<div class="section" id="default-license">
+<h3><tt class="code attribute docutils literal"><span class="pre">Default-License</span></tt><a class="headerlink" href="#default-license" title="Permalink to this headline">¶</a></h3>
+<p>Specifies the <a class="reference internal" href="#license">License</a> that is assumed to apply to a component, if none is otherwise specified. This is convenient for packages that wish their <a class="reference internal" href="#license">License</a> to reflect portions of the package that are not reflected by a component (such as data files) when most or all of the compiled artifacts use the same license.</p>
+</div>
+<div class="section" id="description">
+<h3><tt class="code attribute docutils literal"><span class="pre">Description</span></tt><a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">string</span></tt></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><tt class="code object docutils literal"><span class="pre">package</span></tt>, <tt class="code object docutils literal"><span class="pre">component</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Provides a human readable description of the function which the package or component provides.</p>
+</div>
+<div class="section" id="display-name">
+<h3><tt class="code attribute docutils literal"><span class="pre">Display-Name</span></tt><a class="headerlink" href="#display-name" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">string</span></tt></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><tt class="code object docutils literal"><span class="pre">package</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Provides a human readable name of the package. If provided, tools may use this in informational messages instead of, or in addition to, the canonical package name.</p>
+</div>
+<div class="section" id="license">
+<h3><tt class="code attribute docutils literal"><span class="pre">License</span></tt><a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Special</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><tt class="code object docutils literal"><span class="pre">package</span></tt>, <tt class="code object docutils literal"><span class="pre">component</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the license or licenses under which the package is distributed. The set of possible licenses is not specified, however, use of short names is recommended. If parts of a package use different licenses, this attribute may also be specified on a component if doing so helps to clarifying the licensing. (See also <a class="reference internal" href="#default-license">Default-License</a>.)</p>
+<p>A <tt class="code type docutils literal"><span class="pre">string</span></tt> value shall be used for a single license. If multiple licenses need to be specified, a <tt class="code type docutils literal"><span class="pre">list</span></tt> shall be used. Each <tt class="code type docutils literal"><span class="pre">string</span></tt> value of the <tt class="code type docutils literal"><span class="pre">list</span></tt> is a license which <em>always</em> applies to the package. If a package is wholly or partly multi-licensed (that is, the user has a choice of license), the top level <tt class="code type docutils literal"><span class="pre">list</span></tt> shall contain a <tt class="code type docutils literal"><span class="pre">list</span></tt> of values representing possible licenses. For example, the value <tt class="docutils literal"><span class="pre">[&quot;CC-BY&quot;,</span> <span class="pre">[&quot;GPLv2&quot;,</span> <span class="pre">&quot;LGPLv3+&quot;]]</span></tt> indicates that some portions of the package are licensed under <tt class="code string docutils literal"><span class="pre">&quot;CC-BY&quot;</span></tt>, while others are licensed as (at the user&#8217;s choice) either <tt class="code string docutils literal"><span class="pre">&quot;GPLv2&quot;</span></tt> or <tt class="code string docutils literal"><span class="pre">&quot;LGPLv3+&quot;</span></tt>. If necessary, further nesting may be employed; each nesting level alternates between inclusive (&#8220;A <strong>and</strong> B&#8221;) and exclusive (&#8220;A <strong>or</strong> B&#8221;) licensing.</p>
+<p>A recommended list of short names may be found at <a class="reference external" href="https://fedoraproject.org/wiki/Licensing:Main">https://fedoraproject.org/wiki/Licensing:Main</a>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Supplemental Schema</a><ul>
+<li><a class="reference internal" href="#attributes-supplemental">Attributes<span class="hidden">(Supplemental)</span></a><ul>
+<li><a class="reference internal" href="#default-license"><tt class="code attribute docutils literal"><span class="pre">Default-License</span></tt></a></li>
+<li><a class="reference internal" href="#description"><tt class="code attribute docutils literal"><span class="pre">Description</span></tt></a></li>
+<li><a class="reference internal" href="#display-name"><tt class="code attribute docutils literal"><span class="pre">Display-Name</span></tt></a></li>
+<li><a class="reference internal" href="#license"><tt class="code attribute docutils literal"><span class="pre">License</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="schema.html"
+                        title="previous chapter">Package Schema</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="features.html"
+                        title="next chapter">Compiler and Linker Features</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/schema-supplement.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="features.html" title="Compiler and Linker Features"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="schema.html" title="Package Schema"
+             >previous</a> |</li>
+        <li><a href="index.html">Common Package Specification 0.5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2017, Matthew Woehlke.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

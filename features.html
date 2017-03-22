@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Compiler and Linker Features &mdash; Common Package Specification 0.5 documentation</title>
+    
+    <link rel="stylesheet" href="_static/kitware.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Common Package Specification 0.5 documentation" href="index.html" />
+    <link rel="next" title="Component Specification" href="components.html" />
+    <link rel="prev" title="Supplemental Schema" href="schema-supplement.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="components.html" title="Component Specification"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="schema-supplement.html" title="Supplemental Schema"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Common Package Specification 0.5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="compiler-and-linker-features">
+<h1>Compiler and Linker Features<a class="headerlink" href="#compiler-and-linker-features" title="Permalink to this headline">¶</a></h1>
+<p>CPS supports a notion of compiler and linker &#8220;features&#8221;, which are used to abstract requirements that consumers of a component modify the default compiler and/or linker behavior in order to deal with functional inconsistencies across tools. While it is ultimately up to the build tool to determine how to map features to tool invocation flags, it is clearly beneficial to attempt to standardize a set of &#8220;well known&#8221; features.</p>
+<div class="section" id="compiler-features">
+<h2>Compiler Features<a class="headerlink" href="#compiler-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="c99">
+<h3><tt class="code feature docutils literal"><span class="pre">c99</span></tt><a class="headerlink" href="#c99" title="Permalink to this headline">¶</a></h3>
+<p>The component&#8217;s public interface makes use of features
+included in ISO/IEC 9899:1999. Code using the component should be compiled in a mode
+which supports ISO/IEC 9899:1999 (e.g. <tt class="docutils literal"><span class="pre">--std=c99</span></tt> or later).</p>
+</div>
+<div class="section" id="c11">
+<h3><tt class="code feature docutils literal"><span class="pre">c11</span></tt><a class="headerlink" href="#c11" title="Permalink to this headline">¶</a></h3>
+<p>The component&#8217;s public interface makes use of features
+included in ISO/IEC 9899:2011. Code using the component should be compiled in a mode
+which supports ISO/IEC 9899:2011 (e.g. <tt class="docutils literal"><span class="pre">--std=c11</span></tt> or later).</p>
+</div>
+<div class="section" id="c-03">
+<h3><tt class="code feature docutils literal"><span class="pre">c++03</span></tt><a class="headerlink" href="#c-03" title="Permalink to this headline">¶</a></h3>
+<p>The component&#8217;s public interface makes use of features
+included in ISO/IEC 14882:2003. Code using the component should be compiled in a mode
+which supports ISO/IEC 14882:2003 (e.g. <tt class="docutils literal"><span class="pre">--std=c++03</span></tt> or later).</p>
+</div>
+<div class="section" id="c-11">
+<h3><tt class="code feature docutils literal"><span class="pre">c++11</span></tt><a class="headerlink" href="#c-11" title="Permalink to this headline">¶</a></h3>
+<p>The component&#8217;s public interface makes use of features
+included in ISO/IEC 14882:2011. Code using the component should be compiled in a mode
+which supports ISO/IEC 14882:2011 (e.g. <tt class="docutils literal"><span class="pre">--std=c++11</span></tt> or later).</p>
+</div>
+<div class="section" id="c-14">
+<h3><tt class="code feature docutils literal"><span class="pre">c++14</span></tt><a class="headerlink" href="#c-14" title="Permalink to this headline">¶</a></h3>
+<p>The component&#8217;s public interface makes use of features
+included in ISO/IEC 14882:2014. Code using the component should be compiled in a mode
+which supports ISO/IEC 14882:2014 (e.g. <tt class="docutils literal"><span class="pre">--std=c++14</span></tt> or later).</p>
+</div>
+<div class="section" id="c-17">
+<h3><tt class="code feature docutils literal"><span class="pre">c++17</span></tt><a class="headerlink" href="#c-17" title="Permalink to this headline">¶</a></h3>
+<p>The component&#8217;s public interface makes use of features
+included in ISO/IEC 14882:2017. Code using the component should be compiled in a mode
+which supports ISO/IEC 14882:2017 (e.g. <tt class="docutils literal"><span class="pre">--std=c++17</span></tt> or later).</p>
+</div>
+<div class="section" id="gnu">
+<h3><tt class="code feature docutils literal"><span class="pre">gnu</span></tt><a class="headerlink" href="#gnu" title="Permalink to this headline">¶</a></h3>
+<p>The component&#8217;s public interface makes use of features which are GNU extensions. Code using the component should be compiled in a mode
+which supports GNU extensions (e.g. <tt class="docutils literal"><span class="pre">--std=gnu</span></tt> or <tt class="docutils literal"><span class="pre">--std=gnu++</span></tt>).</p>
+</div>
+<div class="section" id="nowarn">
+<h3><tt class="code feature-opt feature optional docutils literal"><span class="pre">no</span></tt><tt class="code feature docutils literal"><span class="pre">warn:</span></tt><tt class="code feature-var feature var docutils literal"><span class="pre">...</span></tt><a class="headerlink" href="#nowarn" title="Permalink to this headline">¶</a></h3>
+<p>Code using the component should either enable (<tt class="code feature docutils literal"><span class="pre">warn</span></tt>) or disable (<tt class="code feature docutils literal"><span class="pre">nowarn</span></tt>) the specified warning. The warnings are compiler specific, e.g. <tt class="docutils literal"><span class="pre">warn:reorder</span></tt> (GCC, Clang) or <tt class="docutils literal"><span class="pre">warn:4513</span></tt> (MSVC).</p>
+</div>
+<div class="section" id="nowarn-error">
+<h3><tt class="code feature-opt feature optional docutils literal"><span class="pre">no</span></tt><tt class="code feature docutils literal"><span class="pre">warn:error</span></tt><a class="headerlink" href="#nowarn-error" title="Permalink to this headline">¶</a></h3>
+<p>Code using the component should either treat all warnings as errors (<tt class="code feature docutils literal"><span class="pre">warn:error</span></tt>), or should not treat warnings as errors (<tt class="code feature docutils literal"><span class="pre">nowarn:error</span></tt>).</p>
+</div>
+<div class="section" id="noerror">
+<h3><tt class="code feature-opt feature optional docutils literal"><span class="pre">no</span></tt><tt class="code feature docutils literal"><span class="pre">error:</span></tt><tt class="code feature-var feature var docutils literal"><span class="pre">...</span></tt><a class="headerlink" href="#noerror" title="Permalink to this headline">¶</a></h3>
+<p>Code using the component should either enable (<tt class="code feature docutils literal"><span class="pre">error</span></tt>) the specified warning, additionally promoting it to an error, or should not treat the specified warning as an error  (<tt class="code feature docutils literal"><span class="pre">noerror</span></tt>). As with <tt class="code feature-opt feature optional docutils literal"><span class="pre">no</span></tt><tt class="code feature docutils literal"><span class="pre">warn:</span></tt><tt class="code feature-var feature var docutils literal"><span class="pre">...</span></tt>, the warnings are compiler specific. Note that <tt class="code feature docutils literal"><span class="pre">noerror</span></tt> traditionally does not indicate whether the specified warning should be issued or not, only that if it is issued, it should not be promoted to an error.</p>
+</div>
+</div>
+<div class="section" id="linker-features">
+<h2>Linker Features<a class="headerlink" href="#linker-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="threads">
+<h3><tt class="code feature docutils literal"><span class="pre">threads</span></tt><a class="headerlink" href="#threads" title="Permalink to this headline">¶</a></h3>
+<p>Code using the component should be built with run-time threading support. On Windows, this would typically be used to select the multi-threaded CRT library rather than the single-threaded CRT. On POSIX platforms, it typically indicates that the application should be built with <tt class="docutils literal"><span class="pre">-pthread</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Compiler and Linker Features</a><ul>
+<li><a class="reference internal" href="#compiler-features">Compiler Features</a><ul>
+<li><a class="reference internal" href="#c99"><tt class="code feature docutils literal"><span class="pre">c99</span></tt></a></li>
+<li><a class="reference internal" href="#c11"><tt class="code feature docutils literal"><span class="pre">c11</span></tt></a></li>
+<li><a class="reference internal" href="#c-03"><tt class="code feature docutils literal"><span class="pre">c++03</span></tt></a></li>
+<li><a class="reference internal" href="#c-11"><tt class="code feature docutils literal"><span class="pre">c++11</span></tt></a></li>
+<li><a class="reference internal" href="#c-14"><tt class="code feature docutils literal"><span class="pre">c++14</span></tt></a></li>
+<li><a class="reference internal" href="#c-17"><tt class="code feature docutils literal"><span class="pre">c++17</span></tt></a></li>
+<li><a class="reference internal" href="#gnu"><tt class="code feature docutils literal"><span class="pre">gnu</span></tt></a></li>
+<li><a class="reference internal" href="#nowarn"><tt class="code feature-opt feature optional docutils literal"><span class="pre">no</span></tt><tt class="code feature docutils literal"><span class="pre">warn:</span></tt><tt class="code feature-var feature var docutils literal"><span class="pre">...</span></tt></a></li>
+<li><a class="reference internal" href="#nowarn-error"><tt class="code feature-opt feature optional docutils literal"><span class="pre">no</span></tt><tt class="code feature docutils literal"><span class="pre">warn:error</span></tt></a></li>
+<li><a class="reference internal" href="#noerror"><tt class="code feature-opt feature optional docutils literal"><span class="pre">no</span></tt><tt class="code feature docutils literal"><span class="pre">error:</span></tt><tt class="code feature-var feature var docutils literal"><span class="pre">...</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#linker-features">Linker Features</a><ul>
+<li><a class="reference internal" href="#threads"><tt class="code feature docutils literal"><span class="pre">threads</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="schema-supplement.html"
+                        title="previous chapter">Supplemental Schema</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="components.html"
+                        title="next chapter">Component Specification</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/features.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="components.html" title="Component Specification"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="schema-supplement.html" title="Supplemental Schema"
+             >previous</a> |</li>
+        <li><a href="index.html">Common Package Specification 0.5 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2017, Matthew Woehlke.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
