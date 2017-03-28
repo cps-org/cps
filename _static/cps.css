@@ -1,20 +1,37 @@
+@import url("default.css");
+
+a:hover {
+  color: #3d8ff2;
+  text-decoration: underline;
+}
+
+tt { font-size: 0.95em; }
+th { background-color: inherit; }
+
 .hidden { display: none; }
+
 .code.type { color: #172; font-weight: bold; }
 .code.keyword { color: #621; font-weight: bold; }
 .code.string { color: #d32; }
 .code.attribute { color: #15a; }
+
 .code.feature { color: #189; }
 .code.feature.var { color: #2bc; }
+
 .code.feature.optional { font-size: inherit; }
 .code.feature.optional:before { color: #8cd; content: "["; }
 .code.feature.optional:after { color: #8cd; content: "]"; }
+
 .code.object { color: #294; }
 .code.object:before { content: "<"; }
 .code.object:after { content: ">"; }
+
 .applies-to { font-size: 70%; color: #777; }
+
 .path { color: #641; }
 .glob { color: #b92; }
+.env { color: #591; }
+
 .var { color: #852; font-style: italic; }
 .var:before { content: "<"; }
 .var:after { content: ">"; }
-.env { color: #591; }

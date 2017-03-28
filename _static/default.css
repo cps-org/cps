@@ -1,20 +1,15 @@
 /*
- * kitware.css_t
+ * default.css_t
  * ~~~~~~~~~~~~~
  *
- * Sphinx stylesheet -- Kitware theme.
- * Copyright 2017 Kitware, Inc.
+ * Sphinx stylesheet -- default theme.
  *
- * Based on the Sphinx 1.2.3 default theme.
- * Copyright 2007-2014 by the Sphinx team.
- * Distributed under BSD license.
+ * :copyright: Copyright 2007-2014 by the Sphinx team, see AUTHORS.
+ * :license: BSD, see LICENSE for details.
+ *
  */
 
 @import url("basic.css");
-
-/* -- site-specific styles -------------------------------------------------- */
-
-@import url("cps.css");
 
 /* -- page layout ----------------------------------------------------------- */
 
@@ -73,7 +68,7 @@ div.sphinxsidebar {
 }
 
 div.sphinxsidebar h3 {
-    font-family: sans-serif;
+    font-family: 'Trebuchet MS', sans-serif;
     color: #333333;
     font-size: 1.4em;
     font-weight: normal;
@@ -86,7 +81,7 @@ div.sphinxsidebar h3 a {
 }
 
 div.sphinxsidebar h4 {
-    font-family: sans-serif;
+    font-family: 'Trebuchet MS', sans-serif;
     color: #333333;
     font-size: 1.3em;
     font-weight: normal;
@@ -133,8 +128,7 @@ a:visited {
 }
 
 a:hover {
-    color: #3d8ff2;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 
@@ -147,7 +141,7 @@ div.body h3,
 div.body h4,
 div.body h5,
 div.body h6 {
-    font-family: sans-serif;
+    font-family: 'Trebuchet MS', sans-serif;
     background-color: #f2f2f2;
     font-weight: normal;
     color: #003564;
@@ -236,6 +230,11 @@ pre {
 tt {
     background-color: #ecf0f3;
     padding: 0 1px 0 1px;
+    font-size: 0.95em;
+}
+
+th {
+    background-color: #ede;
 }
 
 .warning tt {
