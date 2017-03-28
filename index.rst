@@ -1,3 +1,14 @@
+.. much more subtle headings between TOC headers
+.. raw:: html
+
+  <style>
+    div.body h2 {
+      background: inherit;
+      border: none;
+      font-size: 110%;
+    }
+  </style>
+
 Introduction
 ============
 
@@ -5,25 +16,42 @@ This document describes the schema for Common Package Specification files. A Com
 
 CPS is based on `JSON`_. A CPS file is a valid JSON object.
 
+The official version of the specification is maintained at https://github.com/mwoehlke/cps.
+
 Contents
 ========
+
+General Information
+'''''''''''''''''''
 
 .. toctree::
    :maxdepth: 2
 
-   history
    overview
+   history
+   development
+
+Core Specification
+''''''''''''''''''
+
+.. toctree::
+   :maxdepth: 2
+
    schema
-   schema-supplement
    features
    components
    configurations
    searching
+
+Appendices
+''''''''''
+
+.. toctree::
+   :maxdepth: 2
+
+   schema-supplement
    recommendations
    sample
-
-Indices and tables
-==================
 
 * :ref:`search`
 
