@@ -5,7 +5,7 @@ a:hover {
   text-decoration: underline;
 }
 
-tt { font-size: 0.95em; }
+tt { font-size: 100%; }
 th { background-color: inherit; }
 
 .hidden { display: none; }

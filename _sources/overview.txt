@@ -7,6 +7,19 @@ Like pkg-config files and CMake package configuration files, CPS files are inten
 
 One important note is that, while CPS includes support for executable targets (typically used for making available code generation tools), CPS does *not* try to provide a portable mechanism for specifying how such a tool should be invoked. This is not a problem that lends itself to simple, generic solutions. It is left to the consumer to know how to do this, and/or to the package to provide additional, tool-specific utilities for this purpose.
 
+Contributors
+''''''''''''
+
+The Common Packaging Specification was conceived by `Matthew Woehlke`_, who also serves as the primary editor.
+Additional significant contributions have been made by:
+
+.. NOTE: list in alphabetical order by surname
+
+- Ben Boeckel
+- Brad King
+
 .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+
+.. _Matthew Woehlke: mwoehlke.floss@gmail.com
 
 .. kate: hl reStructuredText

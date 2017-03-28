@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction &mdash; Common Package Specification 0.5 documentation</title>
+    <title>Introduction &mdash; Common Package Specification v0.5</title>
     
     <link rel="stylesheet" href="_static/cps.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -23,8 +23,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Common Package Specification 0.5 documentation" href="#" />
-    <link rel="next" title="History" href="history.html" /> 
+    <link rel="top" title="Common Package Specification v0.5" href="#" />
+    <link rel="next" title="Overview" href="overview.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,9 +34,9 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="history.html" title="History"
+          <a href="overview.html" title="Overview"
              accesskey="N">next</a> |</li>
-        <li><a href="#">Common Package Specification 0.5 documentation</a> &raquo;</li> 
+        <li><a href="#">Common Package Specification v0.5</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -45,29 +45,48 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="introduction">
+  <style>
+  div.body h2 {
+    background: inherit;
+    border: none;
+    font-size: 110%;
+  }
+</style><div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <p>This document describes the schema for Common Package Specification files. A Common Package Specification file (hereafter &#8220;CPS&#8221;) is a mechanism for describing how users may consume a package. &#8220;User&#8221; here refers to another package, not an end user. CPS deals with <em>building</em> software, not <em>installing</em> software.</p>
 <p>CPS is based on <a class="reference external" href="http://www.json.org/">JSON</a>. A CPS file is a valid JSON object.</p>
+<p>The official version of the specification is maintained at <a class="reference external" href="https://github.com/mwoehlke/cps">https://github.com/mwoehlke/cps</a>.</p>
 </div>
 <div class="section" id="contents">
 <h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="general-information">
+<h2>General Information<a class="headerlink" href="#general-information" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#contributors">Contributors</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="history.html">History</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="history.html#what-s-wrong-with-pkg-config">What&#8217;s wrong with pkg-config?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="history.html#what-s-wrong-with-cmake-exported-targets">What&#8217;s wrong with CMake exported targets?</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development Process</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#community-involvement">Community Involvement</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="core-specification">
+<h2>Core Specification<a class="headerlink" href="#core-specification" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="schema.html">Package Schema</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="schema.html#objects">Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="schema.html#attributes">Attributes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="schema.html#notes">Notes</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="schema-supplement.html">Supplemental Schema</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="schema-supplement.html#attributes-supplemental">Attributes<span class="hidden">(Supplemental)</span></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="features.html">Compiler and Linker Features</a><ul>
@@ -84,6 +103,17 @@
 <li class="toctree-l2"><a class="reference internal" href="searching.html#prefix-determination">Prefix Determination</a></li>
 </ul>
 </li>
+</ul>
+</div>
+</div>
+<div class="section" id="appendices">
+<h2>Appendices<a class="headerlink" href="#appendices" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="schema-supplement.html">Supplemental Schema</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schema-supplement.html#attributes-supplemental">Attributes<span class="hidden">(Supplemental)</span></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="recommendations.html">Usage and Implementation Recommendations</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="recommendations.html#configurations-as-flags">Configurations as Flags</a></li>
 <li class="toctree-l2"><a class="reference internal" href="recommendations.html#single-package-multiple-platforms">Single Package, Multiple Platforms</a></li>
@@ -93,12 +123,10 @@
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample CPS File</a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
 </ul>
+</div>
 </div>
 
 
@@ -110,13 +138,17 @@
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Introduction</a></li>
-<li><a class="reference internal" href="#contents">Contents</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#contents">Contents</a><ul>
+<li><a class="reference internal" href="#general-information">General Information</a></li>
+<li><a class="reference internal" href="#core-specification">Core Specification</a></li>
+<li><a class="reference internal" href="#appendices">Appendices</a></li>
+</ul>
+</li>
 </ul>
 
   <h4>Next topic</h4>
-  <p class="topless"><a href="history.html"
-                        title="next chapter">History</a></p>
+  <p class="topless"><a href="overview.html"
+                        title="next chapter">Overview</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/index.txt"
@@ -146,9 +178,9 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="history.html" title="History"
+          <a href="overview.html" title="Overview"
              >next</a> |</li>
-        <li><a href="#">Common Package Specification 0.5 documentation</a> &raquo;</li> 
+        <li><a href="#">Common Package Specification v0.5</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
