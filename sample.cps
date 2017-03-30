@@ -4,6 +4,13 @@
   "License": "BSD",
   "Version": "1.2.0",
   "Compat-Version": "0.8.0",
+  "Platform": {
+    "Isa": "x86_64",
+    "Kernel": "linux",
+    "C-Runtime-Vendor": "gnu",
+    "C-Runtime-Version": "2.20",
+    "Jvm-Version": "1.6"
+  },
   "Configurations": [ "Optimized", "Debug" ],
   "Default-Components": [ "sample" ],
   "Components": {
