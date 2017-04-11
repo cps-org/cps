@@ -95,11 +95,13 @@ Specifies a list of `Compiler Features`_ that must be enabled or disabled when c
 :attribute:`Compile-Flags`
 --------------------------
 
-:Type: :type:`list` of :type:`string`
+:Type: :type:`list` of :type:`string`, or :type:`map` of :type:`string` to :type:`list` of :type:`string`
 :Applies To: :object:`component`, :object:`configuration`
 :Required: No
 
 Specifies a list of additional flags that must be supplied to the compiler when compiling code that consumes the component. Note that compiler flags may not be portable; use of this attribute is discouraged.
+
+A map may be used instead to give different values depending on the language of the consuming source file. Handling of such shall be the same as for `Definitions`_.
 
 :attribute:`Components` :applies-to:`(Package)`
 -----------------------------------------------
@@ -194,11 +196,13 @@ Specifies a list of components that should be inferred if a consumer specifies a
 :attribute:`Definitions`
 ------------------------
 
-:Type: :type:`list` of :type:`string`
+:Type: :type:`list` of :type:`string`, or :type:`map` of :type:`string` to :type:`list` of :type:`string`
 :Applies To: :object:`component`, :object:`configuration`
 :Required: No
 
 Specifies a list of compile definitions that must be defined when compiling code that consumes the component. Definitions should be in the form :string:`"FOO"` or :string:`"FOO=BAR"`. Additionally, a definition in the form :string:`"!FOO"` indicates that the specified symbol (``FOO``, in this example) shall be explicitly undefined (e.g. ``-UFOO`` passed to the compiler).
+
+A map may be used instead to give different values depending on the language of the consuming source file. In this case, the build tool shall select the list from the map whose key matches the (case-insensitive) language of the source file being compiled. Recognized languages shall include :string:`"C"`, :string:`"C++"`, and :string:`"Fortran"`.
 
 :attribute:`Hints`
 ------------------
@@ -212,11 +216,13 @@ Specifies a list of paths where a required dependency might be located. When giv
 :attribute:`Includes`
 ---------------------
 
-:Type: :type:`list` of :type:`string`
+:Type: :type:`list` of :type:`string`, or :type:`map` of :type:`string` to :type:`list` of :type:`string`
 :Applies To: :object:`component`, :object:`configuration`
 :Required: No
 
 Specifies a list of directories which should be added to the include search path when compiling code that consumes the component. If a path starts with ``@prefix@``, the package's install prefix is substituted (see `Package Searching`_). This is recommended, as it allows packages to be relocatable.
+
+A map may be used instead to give different values depending on the language of the consuming source file. Handling of such shall be the same as for `Definitions`_.
 
 :attribute:`Isa`
 ----------------
