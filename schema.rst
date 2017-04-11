@@ -90,7 +90,7 @@ If not specified, the package is not compatible with previous versions (i.e. :at
 :Applies To: :object:`component`, :object:`configuration`
 :Required: No
 
-Specifies a list of compile features that must be enabled or disabled when compiling code that consumes the component.
+Specifies a list of `Compiler Features`_ that must be enabled or disabled when compiling code that consumes the component.
 
 :attribute:`Compile-Flags`
 --------------------------
@@ -171,7 +171,7 @@ Specifies the minimum C standard/runtime library version required by the package
 :Applies To: :object:`package`
 :Required: No
 
-Specifies the directory portion location of the ``.cps`` file. This shall be an "absolute" path which starts with ``@prefix``. This provides an additional mechanism by which the tool may deduce the package's prefix, since the absolute location of the ``.cps`` file will be known by the tool. (See also `Prefix Determination`_.)
+Specifies the directory portion location of the ``.cps`` file. This shall be an "absolute" path which starts with ``@prefix@``. This provides an additional mechanism by which the tool may deduce the package's prefix, since the absolute location of the ``.cps`` file will be known by the tool. (See also `Prefix Determination`_.)
 
 :attribute:`Cps-Version`
 ------------------------
@@ -270,7 +270,7 @@ Specifies the minimum operating system kernel version required by the package's 
 :Applies To: :object:`component`, :object:`configuration`
 :Required: No
 
-Specifies a list of link features that must be enabled or disabled when compiling code that consumes the component.
+Specifies a list of `Linker Features`_ that must be enabled or disabled when compiling code that consumes the component.
 
 :attribute:`Link-Flags`
 -----------------------
@@ -288,7 +288,7 @@ Specifies a list of additional flags that must be supplied to the linker when li
 :Applies To: :object:`component`, :object:`configuration`
 :Required: No
 
-Specifies the ABI language of a static library (`Type`_ :string:`"archive"`). Officially supported values are :string:`"C"` (no special handling required) and :string:`"C++"` (consuming the static library also requires linking against the C++ standard runtime). The default is :string:`"C"`.
+Specifies the ABI language or languages of a static library (`Type`_ :string:`"archive"`). Officially supported (case-insensitive) values are :string:`"C"` (no special handling required) and :string:`"C++"` (consuming the static library also requires linking against the C++ standard runtime). The default is :string:`"C"`.
 
 :attribute:`Link-Libraries`
 ---------------------------
