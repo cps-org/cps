@@ -43,6 +43,30 @@ A :type:`string` value shall be used for a single license. If multiple licenses 
 
 A recommended list of short names may be found at |licenses-uri|.
 
+:attribute:`Meta-Comment`
+-------------------------
+
+:Type: :type:`string`
+:Applies To: :object:`package`
+
+Provides a description of the file contents, for readers that may not be familiar with CPS files. The typical value is :string:`"Common Package Specification for <package name>"`.
+
+:attribute:`Meta-Schema`
+------------------------
+
+:Type: :type:`string`
+:Applies To: :object:`package`
+
+Provides a URI link to a document describing the format of the CPS file. The typical value is :string:`"https://mwoehlke.github.io/cps/"` (i.e. the top level page of this site).
+
+:attribute:`Website`
+--------------------
+
+:Type: :type:`string`
+:Applies To: :object:`package`
+
+Specifies the URI at which the package's website may be found.
+
 .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
 
 .. |licenses-uri| replace:: https://fedoraproject.org/wiki/Licensing:Main
