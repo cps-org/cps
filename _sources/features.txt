@@ -1,7 +1,7 @@
 Compiler and Linker Features
 ============================
 
-CPS supports a notion of compiler and linker "features", which are used to abstract requirements that consumers of a component modify the default compiler and/or linker behavior in order to deal with functional inconsistencies across tools. While it is ultimately up to the build tool to determine how to map features to tool invocation flags, it is clearly beneficial to attempt to standardize a set of "well known" features.
+CPS supports a notion of compiler and linker "features", which are used to abstract requirements that consumers of a component modify the default compiler and/or linker behavior in order to deal with functional inconsistencies across tools. While it is ultimately up to the build tool to determine how to map features to tool invocation flags, it is clearly beneficial to attempt to standardize a set of "well known" features. Known features shall be case-insensitive, however compiler specific portions might be case sensitive. (For example, :feature:`warn:error` and :feature:`Warn:Error` are the same feature, but :feature:`warn:foo` and :feature:`warn:Foo` should be treated as different, unless the tool has sufficient knowledge of the compiler to know otherwise.)
 
 Compiler Features
 '''''''''''''''''
@@ -45,6 +45,8 @@ The component's public interface makes use of features which are GNU extensions.
 -------------------------------------------------------
 
 Code using the component should either enable (:feature:`warn`) or disable (:feature:`nowarn`) the specified warning. The warnings are compiler specific, e.g. ``warn:reorder`` (GCC, Clang) or ``warn:4513`` (MSVC).
+
+Tools are expected to recognize if a warning is applicable to the compiler and source language being used (e.g. by attempting to build a test program with the warning in question), and to ignore the feature otherwise.
 
 :feature.opt:`no`\ :feature:`warn:error`
 ----------------------------------------

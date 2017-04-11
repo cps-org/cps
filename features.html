@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Compiler and Linker Features &mdash; Common Package Specification v0.6</title>
+    <title>Compiler and Linker Features &mdash; Common Package Specification v0.7</title>
     
     <link rel="stylesheet" href="_static/cps.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6',
+        VERSION:     '0.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Common Package Specification v0.6" href="index.html" />
+    <link rel="top" title="Common Package Specification v0.7" href="index.html" />
     <link rel="next" title="Component Specification" href="components.html" />
     <link rel="prev" title="Package Schema" href="schema.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="schema.html" title="Package Schema"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Common Package Specification v0.6</a> &raquo;</li> 
+        <li><a href="index.html">Common Package Specification v0.7</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -51,7 +51,7 @@
             
   <div class="section" id="compiler-and-linker-features">
 <h1>Compiler and Linker Features<a class="headerlink" href="#compiler-and-linker-features" title="Permalink to this headline">¶</a></h1>
-<p>CPS supports a notion of compiler and linker &#8220;features&#8221;, which are used to abstract requirements that consumers of a component modify the default compiler and/or linker behavior in order to deal with functional inconsistencies across tools. While it is ultimately up to the build tool to determine how to map features to tool invocation flags, it is clearly beneficial to attempt to standardize a set of &#8220;well known&#8221; features.</p>
+<p>CPS supports a notion of compiler and linker &#8220;features&#8221;, which are used to abstract requirements that consumers of a component modify the default compiler and/or linker behavior in order to deal with functional inconsistencies across tools. While it is ultimately up to the build tool to determine how to map features to tool invocation flags, it is clearly beneficial to attempt to standardize a set of &#8220;well known&#8221; features. Known features shall be case-insensitive, however compiler specific portions might be case sensitive. (For example, <tt class="code feature docutils literal"><span class="pre">warn:error</span></tt> and <tt class="code feature docutils literal"><span class="pre">Warn:Error</span></tt> are the same feature, but <tt class="code feature docutils literal"><span class="pre">warn:foo</span></tt> and <tt class="code feature docutils literal"><span class="pre">warn:Foo</span></tt> should be treated as different, unless the tool has sufficient knowledge of the compiler to know otherwise.)</p>
 <div class="section" id="compiler-features">
 <h2>Compiler Features<a class="headerlink" href="#compiler-features" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="c99">
@@ -98,6 +98,7 @@ which supports GNU extensions (e.g. <tt class="docutils literal"><span class="pr
 <div class="section" id="nowarn">
 <h3><tt class="code feature-opt feature optional docutils literal"><span class="pre">no</span></tt><tt class="code feature docutils literal"><span class="pre">warn:</span></tt><tt class="code feature-var feature var docutils literal"><span class="pre">...</span></tt><a class="headerlink" href="#nowarn" title="Permalink to this headline">¶</a></h3>
 <p>Code using the component should either enable (<tt class="code feature docutils literal"><span class="pre">warn</span></tt>) or disable (<tt class="code feature docutils literal"><span class="pre">nowarn</span></tt>) the specified warning. The warnings are compiler specific, e.g. <tt class="docutils literal"><span class="pre">warn:reorder</span></tt> (GCC, Clang) or <tt class="docutils literal"><span class="pre">warn:4513</span></tt> (MSVC).</p>
+<p>Tools are expected to recognize if a warning is applicable to the compiler and source language being used (e.g. by attempting to build a test program with the warning in question), and to ignore the feature otherwise.</p>
 </div>
 <div class="section" id="nowarn-error">
 <h3><tt class="code feature-opt feature optional docutils literal"><span class="pre">no</span></tt><tt class="code feature docutils literal"><span class="pre">warn:error</span></tt><a class="headerlink" href="#nowarn-error" title="Permalink to this headline">¶</a></h3>
@@ -187,7 +188,7 @@ which supports GNU extensions (e.g. <tt class="docutils literal"><span class="pr
         <li class="right" >
           <a href="schema.html" title="Package Schema"
              >previous</a> |</li>
-        <li><a href="index.html">Common Package Specification v0.6</a> &raquo;</li> 
+        <li><a href="index.html">Common Package Specification v0.7</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

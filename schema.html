@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Package Schema &mdash; Common Package Specification v0.6</title>
+    <title>Package Schema &mdash; Common Package Specification v0.7</title>
     
     <link rel="stylesheet" href="_static/cps.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6',
+        VERSION:     '0.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Common Package Specification v0.6" href="index.html" />
+    <link rel="top" title="Common Package Specification v0.7" href="index.html" />
     <link rel="next" title="Compiler and Linker Features" href="features.html" />
     <link rel="prev" title="Development Process" href="development.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="development.html" title="Development Process"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Common Package Specification v0.6</a> &raquo;</li> 
+        <li><a href="index.html">Common Package Specification v0.7</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -173,7 +173,7 @@
 </tr>
 </tbody>
 </table>
-<p>Specifies a list of compile features that must be enabled or disabled when compiling code that consumes the component.</p>
+<p>Specifies a list of <a class="reference internal" href="features.html#compiler-features"><em>Compiler Features</em></a> that must be enabled or disabled when compiling code that consumes the component.</p>
 </div>
 <div class="section" id="compile-flags">
 <h3><tt class="code attribute docutils literal"><span class="pre">Compile-Flags</span></tt><a class="headerlink" href="#compile-flags" title="Permalink to this headline">¶</a></h3>
@@ -181,7 +181,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">list</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt></td>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">list</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt> <span class="separator">or</span> <tt class="code type docutils literal"><span class="pre">map</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt> to <tt class="code type docutils literal"><span class="pre">list</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><tt class="code object docutils literal"><span class="pre">component</span></tt>, <tt class="code object docutils literal"><span class="pre">configuration</span></tt></td>
 </tr>
@@ -190,6 +190,7 @@
 </tbody>
 </table>
 <p>Specifies a list of additional flags that must be supplied to the compiler when compiling code that consumes the component. Note that compiler flags may not be portable; use of this attribute is discouraged.</p>
+<p>A map may be used instead to give different values depending on the language of the consuming source file. Handling of such shall be the same as for <a class="reference internal" href="#definitions">Definitions</a>.</p>
 </div>
 <div class="section" id="components-package">
 <h3><tt class="code attribute docutils literal"><span class="pre">Components</span></tt> <span class="applies-to">(Package)</span><a class="headerlink" href="#components-package" title="Permalink to this headline">¶</a></h3>
@@ -317,7 +318,7 @@
 </tr>
 </tbody>
 </table>
-<p>Specifies the directory portion location of the <tt class="docutils literal"><span class="pre">.cps</span></tt> file. This shall be an &#8220;absolute&#8221; path which starts with <tt class="docutils literal"><span class="pre">&#64;prefix</span></tt>. This provides an additional mechanism by which the tool may deduce the package&#8217;s prefix, since the absolute location of the <tt class="docutils literal"><span class="pre">.cps</span></tt> file will be known by the tool. (See also <a class="reference internal" href="searching.html#prefix-determination"><em>Prefix Determination</em></a>.)</p>
+<p>Specifies the directory portion location of the <tt class="docutils literal"><span class="pre">.cps</span></tt> file. This shall be an &#8220;absolute&#8221; path which starts with <tt class="docutils literal"><span class="pre">&#64;prefix&#64;</span></tt>. This provides an additional mechanism by which the tool may deduce the package&#8217;s prefix, since the absolute location of the <tt class="docutils literal"><span class="pre">.cps</span></tt> file will be known by the tool. (See also <a class="reference internal" href="searching.html#prefix-determination"><em>Prefix Determination</em></a>.)</p>
 </div>
 <div class="section" id="cps-version">
 <h3><tt class="code attribute docutils literal"><span class="pre">Cps-Version</span></tt><a class="headerlink" href="#cps-version" title="Permalink to this headline">¶</a></h3>
@@ -357,7 +358,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">list</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt></td>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">list</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt> <span class="separator">or</span> <tt class="code type docutils literal"><span class="pre">map</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt> to <tt class="code type docutils literal"><span class="pre">list</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><tt class="code object docutils literal"><span class="pre">component</span></tt>, <tt class="code object docutils literal"><span class="pre">configuration</span></tt></td>
 </tr>
@@ -365,7 +366,8 @@
 </tr>
 </tbody>
 </table>
-<p>Specifies a list of compile definitions that must be defined when compiling code that consumes the component.</p>
+<p>Specifies a list of compile definitions that must be defined when compiling code that consumes the component. Definitions should be in the form <tt class="code string docutils literal"><span class="pre">&quot;FOO&quot;</span></tt> or <tt class="code string docutils literal"><span class="pre">&quot;FOO=BAR&quot;</span></tt>. Additionally, a definition in the form <tt class="code string docutils literal"><span class="pre">&quot;!FOO&quot;</span></tt> indicates that the specified symbol (<tt class="docutils literal"><span class="pre">FOO</span></tt>, in this example) shall be explicitly undefined (e.g. <tt class="docutils literal"><span class="pre">-UFOO</span></tt> passed to the compiler).</p>
+<p>A map may be used instead to give different values depending on the language of the consuming source file. In this case, the build tool shall select the list from the map whose key matches the (case-insensitive) language of the source file being compiled. Recognized languages shall include <tt class="code string docutils literal"><span class="pre">&quot;C&quot;</span></tt>, <tt class="code string docutils literal"><span class="pre">&quot;C++&quot;</span></tt>, and <tt class="code string docutils literal"><span class="pre">&quot;Fortran&quot;</span></tt>.</p>
 </div>
 <div class="section" id="hints">
 <h3><tt class="code attribute docutils literal"><span class="pre">Hints</span></tt><a class="headerlink" href="#hints" title="Permalink to this headline">¶</a></h3>
@@ -389,7 +391,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">list</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt></td>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">list</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt> <span class="separator">or</span> <tt class="code type docutils literal"><span class="pre">map</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt> to <tt class="code type docutils literal"><span class="pre">list</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><tt class="code object docutils literal"><span class="pre">component</span></tt>, <tt class="code object docutils literal"><span class="pre">configuration</span></tt></td>
 </tr>
@@ -398,6 +400,7 @@
 </tbody>
 </table>
 <p>Specifies a list of directories which should be added to the include search path when compiling code that consumes the component. If a path starts with <tt class="docutils literal"><span class="pre">&#64;prefix&#64;</span></tt>, the package&#8217;s install prefix is substituted (see <a class="reference internal" href="searching.html#package-searching"><em>Package Searching</em></a>). This is recommended, as it allows packages to be relocatable.</p>
+<p>A map may be used instead to give different values depending on the language of the consuming source file. Handling of such shall be the same as for <a class="reference internal" href="#definitions">Definitions</a>.</p>
 </div>
 <div class="section" id="isa">
 <h3><tt class="code attribute docutils literal"><span class="pre">Isa</span></tt><a class="headerlink" href="#isa" title="Permalink to this headline">¶</a></h3>
@@ -493,7 +496,7 @@
 </tr>
 </tbody>
 </table>
-<p>Specifies a list of link features that must be enabled or disabled when compiling code that consumes the component.</p>
+<p>Specifies a list of <a class="reference internal" href="features.html#linker-features"><em>Linker Features</em></a> that must be enabled or disabled when compiling code that consumes the component.</p>
 </div>
 <div class="section" id="link-flags">
 <h3><tt class="code attribute docutils literal"><span class="pre">Link-Flags</span></tt><a class="headerlink" href="#link-flags" title="Permalink to this headline">¶</a></h3>
@@ -525,7 +528,7 @@
 </tr>
 </tbody>
 </table>
-<p>Specifies the ABI language of a static library (<a class="reference internal" href="#type">Type</a> <tt class="code string docutils literal"><span class="pre">&quot;archive&quot;</span></tt>). Officially supported values are <tt class="code string docutils literal"><span class="pre">&quot;C&quot;</span></tt> (no special handling required) and <tt class="code string docutils literal"><span class="pre">&quot;C++&quot;</span></tt> (consuming the static library also requires linking against the C++ standard runtime). The default is <tt class="code string docutils literal"><span class="pre">&quot;C&quot;</span></tt>.</p>
+<p>Specifies the ABI language or languages of a static library (<a class="reference internal" href="#type">Type</a> <tt class="code string docutils literal"><span class="pre">&quot;archive&quot;</span></tt>). Officially supported (case-insensitive) values are <tt class="code string docutils literal"><span class="pre">&quot;C&quot;</span></tt> (no special handling required) and <tt class="code string docutils literal"><span class="pre">&quot;C++&quot;</span></tt> (consuming the static library also requires linking against the C++ standard runtime). The default is <tt class="code string docutils literal"><span class="pre">&quot;C&quot;</span></tt>.</p>
 </div>
 <div class="section" id="link-libraries">
 <h3><tt class="code attribute docutils literal"><span class="pre">Link-Libraries</span></tt><a class="headerlink" href="#link-libraries" title="Permalink to this headline">¶</a></h3>
@@ -824,7 +827,7 @@
         <li class="right" >
           <a href="development.html" title="Development Process"
              >previous</a> |</li>
-        <li><a href="index.html">Common Package Specification v0.6</a> &raquo;</li> 
+        <li><a href="index.html">Common Package Specification v0.7</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

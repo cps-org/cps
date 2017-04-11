@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Supplemental Schema &mdash; Common Package Specification v0.6</title>
+    <title>Supplemental Schema &mdash; Common Package Specification v0.7</title>
     
     <link rel="stylesheet" href="_static/cps.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6',
+        VERSION:     '0.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Common Package Specification v0.6" href="index.html" />
+    <link rel="top" title="Common Package Specification v0.7" href="index.html" />
     <link rel="next" title="Usage and Implementation Recommendations" href="recommendations.html" />
     <link rel="prev" title="Package Searching" href="searching.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="searching.html" title="Package Searching"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Common Package Specification v0.6</a> &raquo;</li> 
+        <li><a href="index.html">Common Package Specification v0.7</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -104,6 +104,48 @@
 <p>A <tt class="code type docutils literal"><span class="pre">string</span></tt> value shall be used for a single license. If multiple licenses need to be specified, a <tt class="code type docutils literal"><span class="pre">list</span></tt> shall be used. Each <tt class="code type docutils literal"><span class="pre">string</span></tt> value of the <tt class="code type docutils literal"><span class="pre">list</span></tt> is a license which <em>always</em> applies to the package. If a package is wholly or partly multi-licensed (that is, the user has a choice of license), the top level <tt class="code type docutils literal"><span class="pre">list</span></tt> shall contain a <tt class="code type docutils literal"><span class="pre">list</span></tt> of values representing possible licenses. For example, the value <tt class="docutils literal"><span class="pre">[&quot;CC-BY&quot;,</span> <span class="pre">[&quot;GPLv2&quot;,</span> <span class="pre">&quot;LGPLv3+&quot;]]</span></tt> indicates that some portions of the package are licensed under <tt class="code string docutils literal"><span class="pre">&quot;CC-BY&quot;</span></tt>, while others are licensed as (at the user&#8217;s choice) either <tt class="code string docutils literal"><span class="pre">&quot;GPLv2&quot;</span></tt> or <tt class="code string docutils literal"><span class="pre">&quot;LGPLv3+&quot;</span></tt>. If necessary, further nesting may be employed; each nesting level alternates between inclusive (&#8220;A <strong>and</strong> B&#8221;) and exclusive (&#8220;A <strong>or</strong> B&#8221;) licensing.</p>
 <p>A recommended list of short names may be found at <a class="reference external" href="https://fedoraproject.org/wiki/Licensing:Main">https://fedoraproject.org/wiki/Licensing:Main</a>.</p>
 </div>
+<div class="section" id="meta-comment">
+<h3><tt class="code attribute docutils literal"><span class="pre">Meta-Comment</span></tt><a class="headerlink" href="#meta-comment" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">string</span></tt></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><tt class="code object docutils literal"><span class="pre">package</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Provides a description of the file contents, for readers that may not be familiar with CPS files. The typical value is <tt class="code string docutils literal"><span class="pre">&quot;Common</span> <span class="pre">Package</span> <span class="pre">Specification</span> <span class="pre">for</span> <span class="pre">&lt;package</span> <span class="pre">name&gt;&quot;</span></tt>.</p>
+</div>
+<div class="section" id="meta-schema">
+<h3><tt class="code attribute docutils literal"><span class="pre">Meta-Schema</span></tt><a class="headerlink" href="#meta-schema" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">string</span></tt></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><tt class="code object docutils literal"><span class="pre">package</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Provides a URI link to a document describing the format of the CPS file. The typical value is <tt class="code string docutils literal"><span class="pre">&quot;https://mwoehlke.github.io/cps/&quot;</span></tt> (i.e. the top level page of this site).</p>
+</div>
+<div class="section" id="website">
+<h3><tt class="code attribute docutils literal"><span class="pre">Website</span></tt><a class="headerlink" href="#website" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">string</span></tt></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><tt class="code object docutils literal"><span class="pre">package</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the URI at which the package&#8217;s website may be found.</p>
+</div>
 </div>
 </div>
 
@@ -121,6 +163,9 @@
 <li><a class="reference internal" href="#description"><tt class="code attribute docutils literal"><span class="pre">Description</span></tt></a></li>
 <li><a class="reference internal" href="#display-name"><tt class="code attribute docutils literal"><span class="pre">Display-Name</span></tt></a></li>
 <li><a class="reference internal" href="#license"><tt class="code attribute docutils literal"><span class="pre">License</span></tt></a></li>
+<li><a class="reference internal" href="#meta-comment"><tt class="code attribute docutils literal"><span class="pre">Meta-Comment</span></tt></a></li>
+<li><a class="reference internal" href="#meta-schema"><tt class="code attribute docutils literal"><span class="pre">Meta-Schema</span></tt></a></li>
+<li><a class="reference internal" href="#website"><tt class="code attribute docutils literal"><span class="pre">Website</span></tt></a></li>
 </ul>
 </li>
 </ul>
@@ -167,7 +212,7 @@
         <li class="right" >
           <a href="searching.html" title="Package Searching"
              >previous</a> |</li>
-        <li><a href="index.html">Common Package Specification v0.6</a> &raquo;</li> 
+        <li><a href="index.html">Common Package Specification v0.7</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
