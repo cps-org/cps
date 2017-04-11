@@ -198,7 +198,7 @@ Specifies a list of components that should be inferred if a consumer specifies a
 :Applies To: :object:`component`, :object:`configuration`
 :Required: No
 
-Specifies a list of compile definitions that must be defined when compiling code that consumes the component.
+Specifies a list of compile definitions that must be defined when compiling code that consumes the component. Definitions should be in the form :string:`"FOO"` or :string:`"FOO=BAR"`. Additionally, a definition in the form :string:`"!FOO"` indicates that the specified symbol (``FOO``, in this example) shall be explicitly undefined (e.g. ``-UFOO`` passed to the compiler).
 
 :attribute:`Hints`
 ------------------
