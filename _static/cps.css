@@ -35,3 +35,7 @@ th { background-color: inherit; }
 .var { color: #852; font-style: italic; }
 .var:before { content: "<"; }
 .var:after { content: ">"; }
+
+.separator { font-style: italic; color: #888; }
+.separator:before { content: "\02013\0000a0"; color: #ddd }
+.separator:after { content: "\0000a0\02013"; color: #ddd }

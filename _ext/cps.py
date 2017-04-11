@@ -73,6 +73,7 @@ def setup(app):
     # Add site-specific custom roles (these just apply styling)
     add_role(app, 'hidden')
     add_role(app, 'applies-to')
+    add_role(app, 'separator')
     add_code_role(app, 'object')
     add_code_role(app, 'attribute')
     add_code_role(app, 'feature')
