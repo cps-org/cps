@@ -32,7 +32,7 @@ A |configuration| holds attributes that are specific to a particular configurati
 Attributes
 ''''''''''
 
-An optional attribute may have the value :keyword:`null`. This shall be equivalent to omitting the attribute.
+An optional attribute may have the value |null|. This shall be equivalent to omitting the attribute.
 
 Attribute names are case insensitive, although it is recommended that ``.cps`` files use the capitalization as shown.
 
@@ -316,14 +316,14 @@ Specifies an alternate location of the component that should be used when linkin
 
 If the path starts with ``@prefix@``, the package's install prefix is substituted (see `Package Searching`_). This is recommended, as it allows packages to be relocatable.
 
-:attribute:`Link-Only`
-----------------------
+:attribute:`Link-Requires`
+--------------------------
 
-:Type: :type:`bool`
-:Applies To: |requirement|
+:Type: |string-list|
+:Applies To: |component|, |configuration|
 :Required: No
 
-Specifies that consumers of a component which requires another component should apply only the required component's link dependencies when consuming the requiring component, and not additional properties such as compile and include attributes. If :keyword:`false` or omitted, the attributes of the required component shall be transitively applied to a consumer of the requiring component as if the required component was consumed directly.
+Specifies additional components required by a component which are needed only at the link stage. Unlike `Requires (Component)`_, only the required components' link dependencies should be applied transitively; additional properties such as compile and include attributes of the required component(s) should be ignored.
 
 :attribute:`Location`
 ---------------------
@@ -363,7 +363,9 @@ Specifies the platform on which a package's components may run. This allows tool
 :Applies To: |component|, |configuration|
 :Required: No
 
-Specifies additional components required by a component. This is used, for example, to indicate transitive dependencies. Relative component names are interpreted relative to the current package. Absolute component names must refer to a package required by this package (see `Requires (Package)`_).
+Specifies additional components required by a component. This is used, for example, to indicate transitive dependencies. Relative component names are interpreted relative to the current package. Absolute component names must refer to a package required by this package (see `Requires (Package)`_). Compile and link attributes should be applied transitively, as if the consuming component also directly consumed the components required by the component being consumed.
+
+See also `Link-Requires`_.
 
 :attribute:`Requires` :applies-to:`(Package)`
 ---------------------------------------------
@@ -372,7 +374,7 @@ Specifies additional components required by a component. This is used, for examp
 :Applies To: |package|
 :Required: No
 
-Specifies additional packages that are required by this package. Keys are the name of another required package. Values are a valid |requirement| object or :keyword:`null` (equivalent to an empty |requirement| object) describing the package required.
+Specifies additional packages that are required by this package. Keys are the name of another required package. Values are a valid |requirement| object or |null| (equivalent to an empty |requirement| object) describing the package required.
 
 :attribute:`Type`
 -----------------
@@ -425,6 +427,8 @@ Notes
 .. _Java: https://en.wikipedia.org/wiki/Java_%28programming_language%29
 
 .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+
+.. |null| replace:: :keyword:`null`
 
 .. |string| replace:: :type:`string`
 
