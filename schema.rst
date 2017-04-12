@@ -383,11 +383,13 @@ Specifies additional packages that are required by this package. Keys are the na
 :Applies To: |component|
 :Required: Yes
 
-Specifies the type of a component. The component type affects how the component may be used. Officially supported values are :string:`"archive"` (CABI static library), :string:`"dylib"` (CABI shared library), :string:`"module"` (CABI plugin library), :string:`"jar"` (Java Archive), and :string:`"interface"`. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension.)
+Specifies the type of a component. The component type affects how the component may be used. Officially supported values are :string:`"executable"` (any artifact which the target platform can directly execute), :string:`"archive"` (CABI static library), :string:`"dylib"` (CABI shared library), :string:`"module"` (CABI plugin library), :string:`"jar"` (Java Archive), :string:`"interface"` and :string:`"symbolic"`. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension.)
 
 A :string:`"dylib"` is meant to be linked at compile time; the :attribute:`Location` specifies the artifact required for such linking (i.e. the import library on PE platforms). A :string:`"module"` is meant to be loaded at run time with :code:`dlopen` or similar; again, the :attribute:`Location` specifies the appropriate artifact.
 
 An :string:`"interface"` component is a special case; it may have the usual attributes of a component, but does not have a location. This can be used to create "virtual" components that do not have an associated artifact.
+
+A :string:`"symbolic"` component is even more special, as it has no (required) attributes at all, and the meaning of any attributes or configurations assigned to such a component is unspecified. A :string:`"symbolic"` component is intended to be used as a form of feature testing; a package that has a feature that is meaningful to users but does not otherwise map directly to a component may use a symbolic component to indicate availability of the feature to users.
 
 :attribute:`Version` :applies-to:`(Package)`
 --------------------------------------------

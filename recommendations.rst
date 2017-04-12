@@ -49,6 +49,24 @@ When cross compiling, it is sometimes necessary to consume parts of a package (e
 
 When providing a package intended for cross-compiling use, keep in mind that the host-platform and target-platform packages do not need to contain the same components. Such a package might provide one ``.cps`` for the host platform containing only executables intended for compile-time use when building a consuming project, and a second ``.cps`` for the target platform that contains the libraries.
 
+Link-Only Requirements and Link Order
+'''''''''''''''''''''''''''''''''''''
+
+In most cases, the order in which "full" and link-only dependencies are linked will not matter. When an exception occurs, it can be addressed in one of two manners:
+
+- If a "full" dependency merely needs to be linked *after* a link-only dependency, the dependency can simply be listed twice; once in :attribute:`Requires`, and again in :attribute:`Link-Requires`. (Tools are encouraged to add link-only dependencies after "full" dependencies.) This is redundant, but often satisfactory.
+
+- If strict linking order without duplication is required, the link-only dependency may be wrapped in an :string:`"interface"` component which is listed as a "full" dependency. (Note that tools are expected to expand requirements depth-first rather than breadth-first.)
+
+Transitive Dependencies
+'''''''''''''''''''''''
+
+When a package is located, it is intended that the tool would also locate any `Requires (Package)`_ mentioned by the package. In some cases, however, a user may want to use only some components of a package, which may have a more limited set of dependencies than the package as a whole when every component of the package is considered.
+
+It is plausible that a build tool would take the package's requirements as advisory, and only enforce those that are mentioned by a component that the user has requested. However, this does not account for dependencies which apply only at run-time. Additionally, since the intention is that a CPS file originates from a compiled package, and CPS provides mechanisms for the package to indicate where its dependencies were located when the package was built, it would be a strange situation that a package's requirements should exist when the package is compiled, but disappear before the package is used. Even when obtaining a package via a distributor, it is typical that installing the package requires that the package's dependencies also be installed.
+
+The obvious exception to this case is when a package is split into multiple CPS files at a functional-group level. In this case, the CPS file for each group should list the requirements applicable to that group. Tools that support specifying that what components of a package must be provided are permitted to ignore the information in any supplemental CPS file that does not contribute requested components or configurations. This allows the tool to accept a package even if some of its requirements are not found, if such requirements apply only to a functional-group of the package that the user does not require. (Even in this case, however, the usual case would be that either the supplemental CPS file's requirements can be satisfied anyway, for the reasons stated above, or else the supplemental CPS file for such group is not installed in the first place.)
+
 .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
 
 .. kate: hl reStructuredText
