@@ -121,6 +121,8 @@ Specifies the components which the package provides. Keys are the component name
 
 Specifies a list of components which must be present in the required package in order for the requirement to be satisfied. Although the build tool will generally produce an error if a consumer uses a component which in turn requires a component that was not found, early specification via this attribute may help build tools to diagnose such issues earlier and/or produce better diagnostics.
 
+This may also be used to specify dependencies that are not expressed in component level dependencies, such as a package's requirement that a dependency includes a certain symbolic component, or if a dependency is only expressed at run-time.
+
 :attribute:`Configuration`
 --------------------------
 
@@ -416,7 +418,7 @@ Notes
 
 - Unless otherwise specified, a relative file path appearing in a CPS shall be interpreted relative to the ``.cps`` file.
 
-- Unless otherwise specified, unrecognized attributes shall be ignored. This makes it easier for tools to add tool-specific extensions. (It is *strongly* recommended that the names of any such attributes start with ``X-<tool>-`` (where ``<tool>`` is the name of the tool which introduced the extension) in order to reduce the chance of conflicts with newer versions of the CPS.)
+- Unless otherwise specified, unrecognized attributes shall be ignored. This makes it easier for tools to add tool-specific extensions. (It is *strongly* recommended that the names of any such attributes start with ``X-<tool>-``, where ``<tool>`` is the name of the tool which introduced the extension, in order to reduce the chance of conflicts with newer versions of the CPS.)
 
 - The term "CABI", as used throughout, refers to (typically C/C++/Fortran) code compiled to the machine's native instruction set and using the platform's usual format for such binaries (ELF, PE32, etc.).
 
