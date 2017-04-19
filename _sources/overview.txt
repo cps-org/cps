@@ -7,6 +7,37 @@ Like pkg-config files and CMake package configuration files, CPS files are inten
 
 One important note is that, while CPS includes support for executable targets (typically used for making available code generation tools), CPS does *not* try to provide a portable mechanism for specifying how such a tool should be invoked. This is not a problem that lends itself to simple, generic solutions. It is left to the consumer to know how to do this, and/or to the package to provide additional, tool-specific utilities for this purpose.
 
+Advantages of CPS
+'''''''''''''''''
+
+Tool Agnosticism
+
+  CPS has a strong focus on using high level semantic abstractions that reduce coupling to a particular build tool or compiler. This helps build tools make intelligent decisions about such issues as what compile flags to use and how to specify link libraries. The use of JSON_ as a grammar lowers the entry barrier for tools to consume CPS.
+
+Language and Platform Agnosticism
+
+  CPS is designed to be cross platform, with support for both Windows and POSIX-like operating systems, and extensible to multiple languages. While the core specification focuses on C and C++, provisions are made for Fortran and Java, as well as allowances for tools to add additional support. Contributions to improve the core support for other languages are also welcomed and encouraged.
+
+Symbolic Components
+
+  Sometimes, it is not sufficient for a consumer to find a package at a specific version. Many packages can be built with optional features, some of which may be required by a consumer. Symbolic components provide a mechanism for a package to report such features, which can then be listed by consumers as required components when searching for the package.
+
+Flexible Configurations
+
+  CPS allows a package to provide targets in multiple configurations, with no restriction on the naming of configurations. Use of interface targets (see `Configurations as Flags`_ allows consumers to select the appropriate configuration by specifying target points along multiple axes. This especially facilitates creation and use of packages providing both static and shared versions of libraries.
+
+Relocatable Installs
+
+  CPS allows and encourages packages to specify locations relative to the package's install prefix, which allows the user to choose where to install a pre-built package with no need to modify the installed files, or even to move an already-installed package to a different location.
+
+Requirement Hints
+
+  Finding transitive dependencies, if those dependencies are not installed to the default search path, has historically been troublesome. This is especially an issue when using a package via its build tree, rather than an installed version. CPS explicitly provides a hint mechanism to allow a package specification to note where its dependencies were located when it was built. This allows tools to trivially find the same version of a dependency when consuming a package that was used to build the package.
+
+Producer-Side Version Compatibility
+
+  While it remains important for a tool to allow consumers to precisely specify what version(s) of a package are acceptable (as in the case of a back-ported bug fix where a consumer may require e.g. 2.x > 2.4 or 3.x > 3.1), CPS allows packages to specify a "compatible version", which is the oldest version of that package with which the current version is backwards compatible. This simplifies the most common case, as projects generally know when they make compatibility breaking changes, so that consumers aren't left to guess what possible future versions they can consume.
+
 Contributors
 ''''''''''''
 

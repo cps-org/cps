@@ -92,6 +92,20 @@
 <p>When cross compiling, it is sometimes necessary to consume parts of a package (e.g. a code generator) built for the host platform along with other parts of a package built for the target platform. As above, the CPS specification does not directly support a single package containing components for multiple platforms. In order to address this, it is recommended that tools (that support cross compiling) separately search for a package built for the host platform and a package built for the target platform, and select which instance&#8217;s components to use as is appropriate to the situation.</p>
 <p>When providing a package intended for cross-compiling use, keep in mind that the host-platform and target-platform packages do not need to contain the same components. Such a package might provide one <tt class="docutils literal"><span class="pre">.cps</span></tt> for the host platform containing only executables intended for compile-time use when building a consuming project, and a second <tt class="docutils literal"><span class="pre">.cps</span></tt> for the target platform that contains the libraries.</p>
 </div>
+<div class="section" id="link-only-requirements-and-link-order">
+<h2>Link-Only Requirements and Link Order<a class="headerlink" href="#link-only-requirements-and-link-order" title="Permalink to this headline">¶</a></h2>
+<p>In most cases, the order in which &#8220;full&#8221; and link-only dependencies are linked will not matter. When an exception occurs, it can be addressed in one of two manners:</p>
+<ul class="simple">
+<li>If a &#8220;full&#8221; dependency merely needs to be linked <em>after</em> a link-only dependency, the dependency can simply be listed twice; once in <tt class="code attribute docutils literal"><span class="pre">Requires</span></tt>, and again in <tt class="code attribute docutils literal"><span class="pre">Link-Requires</span></tt>. (Tools are encouraged to add link-only dependencies after &#8220;full&#8221; dependencies.) This is redundant, but often satisfactory.</li>
+<li>If strict linking order without duplication is required, the link-only dependency may be wrapped in an <tt class="code string docutils literal"><span class="pre">&quot;interface&quot;</span></tt> component which is listed as a &#8220;full&#8221; dependency. (Note that tools are expected to expand requirements depth-first rather than breadth-first.)</li>
+</ul>
+</div>
+<div class="section" id="transitive-dependencies">
+<h2>Transitive Dependencies<a class="headerlink" href="#transitive-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>When a package is located, it is intended that the tool would also locate any <a class="reference internal" href="schema.html#requires-package"><em>Requires (Package)</em></a> mentioned by the package. In some cases, however, a user may want to use only some components of a package, which may have a more limited set of dependencies than the package as a whole when every component of the package is considered.</p>
+<p>It is plausible that a build tool would take the package&#8217;s requirements as advisory, and only enforce those that are mentioned by a component that the user has requested. However, this does not account for dependencies which apply only at run-time. Additionally, since the intention is that a CPS file originates from a compiled package, and CPS provides mechanisms for the package to indicate where its dependencies were located when the package was built, it would be a strange situation that a package&#8217;s requirements should exist when the package is compiled, but disappear before the package is used. Even when obtaining a package via a distributor, it is typical that installing the package requires that the package&#8217;s dependencies also be installed.</p>
+<p>The obvious exception to this case is when a package is split into multiple CPS files at a functional-group level. In this case, the CPS file for each group should list the requirements applicable to that group. Tools that support specifying that what components of a package must be provided are permitted to ignore the information in any supplemental CPS file that does not contribute requested components or configurations. This allows the tool to accept a package even if some of its requirements are not found, if such requirements apply only to a functional-group of the package that the user does not require. (Even in this case, however, the usual case would be that either the supplemental CPS file&#8217;s requirements can be satisfied anyway, for the reasons stated above, or else the supplemental CPS file for such group is not installed in the first place.)</p>
+</div>
 </div>
 
 
@@ -100,14 +114,30 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Usage and Implementation Recommendations</a><ul>
-<li><a class="reference internal" href="#configurations-as-flags">Configurations as Flags</a></li>
-<li><a class="reference internal" href="#single-package-multiple-platforms">Single Package, Multiple Platforms</a></li>
-<li><a class="reference internal" href="#cross-compiling">Cross Compiling</a></li>
+<h3><a href="index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development Process</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">Package Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Compiler and Linker Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="components.html">Component Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configurations.html">Package Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="searching.html">Package Searching</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="schema-supplement.html">Supplemental Schema</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Usage and Implementation Recommendations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configurations-as-flags">Configurations as Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#single-package-multiple-platforms">Single Package, Multiple Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cross-compiling">Cross Compiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#link-only-requirements-and-link-order">Link-Only Requirements and Link Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transitive-dependencies">Transitive Dependencies</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample CPS File</a></li>
 </ul>
 
   <h4>Previous topic</h4>

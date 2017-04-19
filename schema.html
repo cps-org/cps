@@ -223,6 +223,7 @@
 </tbody>
 </table>
 <p>Specifies a list of components which must be present in the required package in order for the requirement to be satisfied. Although the build tool will generally produce an error if a consumer uses a component which in turn requires a component that was not found, early specification via this attribute may help build tools to diagnose such issues earlier and/or produce better diagnostics.</p>
+<p>This may also be used to specify dependencies that are not expressed in component level dependencies, such as a package&#8217;s requirement that a dependency includes a certain symbolic component, or if a dependency is only expressed at run-time.</p>
 </div>
 <div class="section" id="configuration">
 <h3><tt class="code attribute docutils literal"><span class="pre">Configuration</span></tt><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
@@ -563,21 +564,21 @@
 <p>Specifies an alternate location of the component that should be used when linking against the component. This attribute typically applies only to <tt class="code string docutils literal"><span class="pre">&quot;dylib&quot;</span></tt> components on platforms where the library is separated into multiple file components. For example, on Windows, this attribute shall give the location of the <tt class="docutils literal"><span class="pre">.lib</span></tt>, while <a class="reference internal" href="#location">Location</a> shall give the location of the <tt class="docutils literal"><span class="pre">.dll</span></tt>.</p>
 <p>If the path starts with <tt class="docutils literal"><span class="pre">&#64;prefix&#64;</span></tt>, the package&#8217;s install prefix is substituted (see <a class="reference internal" href="searching.html#package-searching"><em>Package Searching</em></a>). This is recommended, as it allows packages to be relocatable.</p>
 </div>
-<div class="section" id="link-only">
-<h3><tt class="code attribute docutils literal"><span class="pre">Link-Only</span></tt><a class="headerlink" href="#link-only" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="link-requires">
+<h3><tt class="code attribute docutils literal"><span class="pre">Link-Requires</span></tt><a class="headerlink" href="#link-requires" title="Permalink to this headline">¶</a></h3>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">bool</span></tt></td>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><tt class="code type docutils literal"><span class="pre">list</span></tt> of <tt class="code type docutils literal"><span class="pre">string</span></tt></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><tt class="code object docutils literal"><span class="pre">requirement</span></tt></td>
+<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><tt class="code object docutils literal"><span class="pre">component</span></tt>, <tt class="code object docutils literal"><span class="pre">configuration</span></tt></td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
 </tr>
 </tbody>
 </table>
-<p>Specifies that consumers of a component which requires another component should apply only the required component&#8217;s link dependencies when consuming the requiring component, and not additional properties such as compile and include attributes. If <tt class="code keyword docutils literal"><span class="pre">false</span></tt> or omitted, the attributes of the required component shall be transitively applied to a consumer of the requiring component as if the required component was consumed directly.</p>
+<p>Specifies additional components required by a component which are needed only at the link stage. Unlike <a class="reference internal" href="#requires-component">Requires (Component)</a>, only the required components&#8217; link dependencies should be applied transitively; additional properties such as compile and include attributes of the required component(s) should be ignored.</p>
 </div>
 <div class="section" id="location">
 <h3><tt class="code attribute docutils literal"><span class="pre">Location</span></tt><a class="headerlink" href="#location" title="Permalink to this headline">¶</a></h3>
@@ -643,7 +644,8 @@
 </tr>
 </tbody>
 </table>
-<p>Specifies additional components required by a component. This is used, for example, to indicate transitive dependencies. Relative component names are interpreted relative to the current package. Absolute component names must refer to a package required by this package (see <a class="reference internal" href="#requires-package">Requires (Package)</a>).</p>
+<p>Specifies additional components required by a component. This is used, for example, to indicate transitive dependencies. Relative component names are interpreted relative to the current package. Absolute component names must refer to a package required by this package (see <a class="reference internal" href="#requires-package">Requires (Package)</a>). Compile and link attributes should be applied transitively, as if the consuming component also directly consumed the components required by the component being consumed.</p>
+<p>See also <a class="reference internal" href="#link-requires">Link-Requires</a>.</p>
 </div>
 <div class="section" id="requires-package">
 <h3><tt class="code attribute docutils literal"><span class="pre">Requires</span></tt> <span class="applies-to">(Package)</span><a class="headerlink" href="#requires-package" title="Permalink to this headline">¶</a></h3>
@@ -675,9 +677,10 @@
 </tr>
 </tbody>
 </table>
-<p>Specifies the type of a component. The component type affects how the component may be used. Officially supported values are <tt class="code string docutils literal"><span class="pre">&quot;archive&quot;</span></tt> (CABI static library), <tt class="code string docutils literal"><span class="pre">&quot;dylib&quot;</span></tt> (CABI shared library), <tt class="code string docutils literal"><span class="pre">&quot;module&quot;</span></tt> (CABI plugin library), <tt class="code string docutils literal"><span class="pre">&quot;jar&quot;</span></tt> (Java Archive), and <tt class="code string docutils literal"><span class="pre">&quot;interface&quot;</span></tt>. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension.)</p>
+<p>Specifies the type of a component. The component type affects how the component may be used. Officially supported values are <tt class="code string docutils literal"><span class="pre">&quot;executable&quot;</span></tt> (any artifact which the target platform can directly execute), <tt class="code string docutils literal"><span class="pre">&quot;archive&quot;</span></tt> (CABI static library), <tt class="code string docutils literal"><span class="pre">&quot;dylib&quot;</span></tt> (CABI shared library), <tt class="code string docutils literal"><span class="pre">&quot;module&quot;</span></tt> (CABI plugin library), <tt class="code string docutils literal"><span class="pre">&quot;jar&quot;</span></tt> (Java Archive), <tt class="code string docutils literal"><span class="pre">&quot;interface&quot;</span></tt> and <tt class="code string docutils literal"><span class="pre">&quot;symbolic&quot;</span></tt>. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension.)</p>
 <p>A <tt class="code string docutils literal"><span class="pre">&quot;dylib&quot;</span></tt> is meant to be linked at compile time; the <tt class="code attribute docutils literal"><span class="pre">Location</span></tt> specifies the artifact required for such linking (i.e. the import library on PE platforms). A <tt class="code string docutils literal"><span class="pre">&quot;module&quot;</span></tt> is meant to be loaded at run time with <tt class="code docutils literal"><span class="pre">dlopen</span></tt> or similar; again, the <tt class="code attribute docutils literal"><span class="pre">Location</span></tt> specifies the appropriate artifact.</p>
 <p>An <tt class="code string docutils literal"><span class="pre">&quot;interface&quot;</span></tt> component is a special case; it may have the usual attributes of a component, but does not have a location. This can be used to create &#8220;virtual&#8221; components that do not have an associated artifact.</p>
+<p>A <tt class="code string docutils literal"><span class="pre">&quot;symbolic&quot;</span></tt> component is even more special, as it has no (required) attributes at all, and the meaning of any attributes or configurations assigned to such a component is unspecified. A <tt class="code string docutils literal"><span class="pre">&quot;symbolic&quot;</span></tt> component is intended to be used as a form of feature testing; a package that has a feature that is meaningful to users but does not otherwise map directly to a component may use a symbolic component to indicate availability of the feature to users.</p>
 </div>
 <div class="section" id="version-package">
 <h3><tt class="code attribute docutils literal"><span class="pre">Version</span></tt> <span class="applies-to">(Package)</span><a class="headerlink" href="#version-package" title="Permalink to this headline">¶</a></h3>
@@ -717,7 +720,7 @@
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Unless otherwise specified, a relative file path appearing in a CPS shall be interpreted relative to the <tt class="docutils literal"><span class="pre">.cps</span></tt> file.</li>
-<li>Unless otherwise specified, unrecognized attributes shall be ignored. This makes it easier for tools to add tool-specific extensions. (It is <em>strongly</em> recommended that the names of any such attributes start with <tt class="docutils literal"><span class="pre">X-&lt;tool&gt;-</span></tt> (where <tt class="docutils literal"><span class="pre">&lt;tool&gt;</span></tt> is the name of the tool which introduced the extension) in order to reduce the chance of conflicts with newer versions of the CPS.)</li>
+<li>Unless otherwise specified, unrecognized attributes shall be ignored. This makes it easier for tools to add tool-specific extensions. (It is <em>strongly</em> recommended that the names of any such attributes start with <tt class="docutils literal"><span class="pre">X-&lt;tool&gt;-</span></tt>, where <tt class="docutils literal"><span class="pre">&lt;tool&gt;</span></tt> is the name of the tool which introduced the extension, in order to reduce the chance of conflicts with newer versions of the CPS.)</li>
 <li>The term &#8220;CABI&#8221;, as used throughout, refers to (typically C/C++/Fortran) code compiled to the machine&#8217;s native instruction set and using the platform&#8217;s usual format for such binaries (ELF, PE32, etc.).</li>
 </ul>
 </div>
@@ -729,62 +732,28 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Package Schema</a><ul>
-<li><a class="reference internal" href="#objects">Objects</a><ul>
-<li><a class="reference internal" href="#package-object"><tt class="code object docutils literal"><span class="pre">Package</span></tt><span class="hidden">(Object)</span></a></li>
-<li><a class="reference internal" href="#platform-object"><tt class="code object docutils literal"><span class="pre">Platform</span></tt><span class="hidden">(Object)</span></a></li>
-<li><a class="reference internal" href="#requirement-object"><tt class="code object docutils literal"><span class="pre">Requirement</span></tt><span class="hidden">(Object)</span></a></li>
-<li><a class="reference internal" href="#component-object"><tt class="code object docutils literal"><span class="pre">Component</span></tt><span class="hidden">(Object)</span></a></li>
-<li><a class="reference internal" href="#configuration-object"><tt class="code object docutils literal"><span class="pre">Configuration</span></tt><span class="hidden">(Object)</span></a></li>
+<h3><a href="index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development Process</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Package Schema</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#objects">Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notes">Notes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#attributes">Attributes</a><ul>
-<li><a class="reference internal" href="#c-runtime-vendor"><tt class="code attribute docutils literal"><span class="pre">C-Runtime-Vendor</span></tt></a></li>
-<li><a class="reference internal" href="#c-runtime-version"><tt class="code attribute docutils literal"><span class="pre">C-Runtime-Version</span></tt></a></li>
-<li><a class="reference internal" href="#clr-vendor"><tt class="code attribute docutils literal"><span class="pre">Clr-Vendor</span></tt></a></li>
-<li><a class="reference internal" href="#clr-version"><tt class="code attribute docutils literal"><span class="pre">Clr-Version</span></tt></a></li>
-<li><a class="reference internal" href="#compat-version"><tt class="code attribute docutils literal"><span class="pre">Compat-Version</span></tt></a></li>
-<li><a class="reference internal" href="#compile-features"><tt class="code attribute docutils literal"><span class="pre">Compile-Features</span></tt></a></li>
-<li><a class="reference internal" href="#compile-flags"><tt class="code attribute docutils literal"><span class="pre">Compile-Flags</span></tt></a></li>
-<li><a class="reference internal" href="#components-package"><tt class="code attribute docutils literal"><span class="pre">Components</span></tt> <span class="applies-to">(Package)</span></a></li>
-<li><a class="reference internal" href="#components-requirement"><tt class="code attribute docutils literal"><span class="pre">Components</span></tt> <span class="applies-to">(Requirement)</span></a></li>
-<li><a class="reference internal" href="#configuration"><tt class="code attribute docutils literal"><span class="pre">Configuration</span></tt></a></li>
-<li><a class="reference internal" href="#configurations-package"><tt class="code attribute docutils literal"><span class="pre">Configurations</span></tt> <span class="applies-to">(Package)</span></a></li>
-<li><a class="reference internal" href="#configurations-component"><tt class="code attribute docutils literal"><span class="pre">Configurations</span></tt> <span class="applies-to">(Component)</span></a></li>
-<li><a class="reference internal" href="#cpp-runtime-vendor"><tt class="code attribute docutils literal"><span class="pre">Cpp-Runtime-Vendor</span></tt></a></li>
-<li><a class="reference internal" href="#cpp-runtime-version"><tt class="code attribute docutils literal"><span class="pre">Cpp-Runtime-Version</span></tt></a></li>
-<li><a class="reference internal" href="#cps-path"><tt class="code attribute docutils literal"><span class="pre">Cps-Path</span></tt></a></li>
-<li><a class="reference internal" href="#cps-version"><tt class="code attribute docutils literal"><span class="pre">Cps-Version</span></tt></a></li>
-<li><a class="reference internal" href="#default-components"><tt class="code attribute docutils literal"><span class="pre">Default-Components</span></tt></a></li>
-<li><a class="reference internal" href="#definitions"><tt class="code attribute docutils literal"><span class="pre">Definitions</span></tt></a></li>
-<li><a class="reference internal" href="#hints"><tt class="code attribute docutils literal"><span class="pre">Hints</span></tt></a></li>
-<li><a class="reference internal" href="#includes"><tt class="code attribute docutils literal"><span class="pre">Includes</span></tt></a></li>
-<li><a class="reference internal" href="#isa"><tt class="code attribute docutils literal"><span class="pre">Isa</span></tt></a></li>
-<li><a class="reference internal" href="#jvm-vendor"><tt class="code attribute docutils literal"><span class="pre">Jvm-Vendor</span></tt></a></li>
-<li><a class="reference internal" href="#jvm-version"><tt class="code attribute docutils literal"><span class="pre">Jvm-Version</span></tt></a></li>
-<li><a class="reference internal" href="#kernel"><tt class="code attribute docutils literal"><span class="pre">Kernel</span></tt></a></li>
-<li><a class="reference internal" href="#kernel-version"><tt class="code attribute docutils literal"><span class="pre">Kernel-Version</span></tt></a></li>
-<li><a class="reference internal" href="#link-features"><tt class="code attribute docutils literal"><span class="pre">Link-Features</span></tt></a></li>
-<li><a class="reference internal" href="#link-flags"><tt class="code attribute docutils literal"><span class="pre">Link-Flags</span></tt></a></li>
-<li><a class="reference internal" href="#link-languages"><tt class="code attribute docutils literal"><span class="pre">Link-Languages</span></tt></a></li>
-<li><a class="reference internal" href="#link-libraries"><tt class="code attribute docutils literal"><span class="pre">Link-Libraries</span></tt></a></li>
-<li><a class="reference internal" href="#link-location"><tt class="code attribute docutils literal"><span class="pre">Link-Location</span></tt></a></li>
-<li><a class="reference internal" href="#link-only"><tt class="code attribute docutils literal"><span class="pre">Link-Only</span></tt></a></li>
-<li><a class="reference internal" href="#location"><tt class="code attribute docutils literal"><span class="pre">Location</span></tt></a></li>
-<li><a class="reference internal" href="#name"><tt class="code attribute docutils literal"><span class="pre">Name</span></tt></a></li>
-<li><a class="reference internal" href="#platform"><tt class="code attribute docutils literal"><span class="pre">Platform</span></tt></a></li>
-<li><a class="reference internal" href="#requires-component"><tt class="code attribute docutils literal"><span class="pre">Requires</span></tt> <span class="applies-to">(Component)</span></a></li>
-<li><a class="reference internal" href="#requires-package"><tt class="code attribute docutils literal"><span class="pre">Requires</span></tt> <span class="applies-to">(Package)</span></a></li>
-<li><a class="reference internal" href="#type"><tt class="code attribute docutils literal"><span class="pre">Type</span></tt></a></li>
-<li><a class="reference internal" href="#version-package"><tt class="code attribute docutils literal"><span class="pre">Version</span></tt> <span class="applies-to">(Package)</span></a></li>
-<li><a class="reference internal" href="#version-requirement"><tt class="code attribute docutils literal"><span class="pre">Version</span></tt> <span class="applies-to">(Requirement)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Compiler and Linker Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="components.html">Component Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configurations.html">Package Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="searching.html">Package Searching</a></li>
 </ul>
-</li>
-<li><a class="reference internal" href="#notes">Notes</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="schema-supplement.html">Supplemental Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendations.html">Usage and Implementation Recommendations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample CPS File</a></li>
 </ul>
 
   <h4>Previous topic</h4>

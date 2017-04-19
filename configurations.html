@@ -62,7 +62,7 @@
 <div class="section" id="configuration-merging">
 <h2>Configuration Merging<a class="headerlink" href="#configuration-merging" title="Permalink to this headline">¶</a></h2>
 <p>Some build systems may desire to output separate specifications per configuration, and/or to output separate CPS files per component. This is especially useful to permit piecemeal installation of individual components and/or configurations (for example, a &#8220;base&#8221; package with release libraries and common components, an optional package with debug libraries, and another optional package with optional components).</p>
-<p>When a tool locates a CPS file, <tt class="code var docutils literal"><span class="pre">name</span></tt><tt class="code path docutils literal"><span class="pre">.cps</span></tt>, the tool shall look in the same directory for any files named <tt class="code var docutils literal"><span class="pre">name</span></tt><tt class="code path docutils literal"><span class="pre">:</span></tt><tt class="code glob docutils literal"><span class="pre">*</span></tt><tt class="code path docutils literal"><span class="pre">.cps</span></tt>,  <tt class="code var docutils literal"><span class="pre">name</span></tt><tt class="code path docutils literal"><span class="pre">&#64;</span></tt><tt class="code glob docutils literal"><span class="pre">*</span></tt><tt class="code path docutils literal"><span class="pre">.cps</span></tt>, and <tt class="code var docutils literal"><span class="pre">name</span></tt><tt class="code path docutils literal"><span class="pre">:</span></tt><tt class="code glob docutils literal"><span class="pre">*</span></tt><tt class="code path docutils literal"><span class="pre">&#64;</span></tt><tt class="code glob docutils literal"><span class="pre">*</span></tt><tt class="code path docutils literal"><span class="pre">.cps</span></tt> (the asterisk (<tt class="docutils literal"><span class="pre">*</span></tt>) represents file globbing). If any such package specifications are found, they shall be loaded at the same time, and their contents appended to the information loaded from the base CPS.</p>
+<p>When a tool locates a CPS file, <tt class="code var docutils literal"><span class="pre">name</span></tt><tt class="code path docutils literal"><span class="pre">.cps</span></tt>, the tool shall look in the same directory for any files named <tt class="code var docutils literal"><span class="pre">name</span></tt><tt class="code path docutils literal"><span class="pre">:</span></tt><tt class="code glob docutils literal"><span class="pre">*</span></tt><tt class="code path docutils literal"><span class="pre">.cps</span></tt>,  <tt class="code var docutils literal"><span class="pre">name</span></tt><tt class="code path docutils literal"><span class="pre">&#64;</span></tt><tt class="code glob docutils literal"><span class="pre">*</span></tt><tt class="code path docutils literal"><span class="pre">.cps</span></tt>, and <tt class="code var docutils literal"><span class="pre">name</span></tt><tt class="code path docutils literal"><span class="pre">:</span></tt><tt class="code glob docutils literal"><span class="pre">*</span></tt><tt class="code path docutils literal"><span class="pre">&#64;</span></tt><tt class="code glob docutils literal"><span class="pre">*</span></tt><tt class="code path docutils literal"><span class="pre">.cps</span></tt> (the asterisk (<tt class="docutils literal"><span class="pre">*</span></tt>) represents file globbing). If any such package specifications are found, they shall be loaded at the same time, and their contents appended to the information loaded from the base CPS. (Note, however, that tools are permitted to ignore the information in any such supplemental CPS file as they may determine is not relevant to the user&#8217;s needs. In particular, see <a class="reference internal" href="recommendations.html#transitive-dependencies"><em>Transitive Dependencies</em></a>.)</p>
 <p>A <tt class="docutils literal"><span class="pre">.cps</span></tt> file whose name contains <tt class="docutils literal"><span class="pre">&#64;</span></tt> is a configuration-specific CPS. The structure of a configuration-specific CPS is the same as a common CPS, with three exceptions:</p>
 <ul class="simple">
 <li>The per-configuration specification must contain the <a class="reference internal" href="schema.html#configuration"><em>Configuration</em></a> attribute.</li>
@@ -79,12 +79,26 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Package Configurations</a><ul>
-<li><a class="reference internal" href="#configuration-merging">Configuration Merging</a></li>
+<h3><a href="index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development Process</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="schema.html">Package Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Compiler and Linker Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="components.html">Component Specification</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Package Configurations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-merging">Configuration Merging</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="searching.html">Package Searching</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="schema-supplement.html">Supplemental Schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommendations.html">Usage and Implementation Recommendations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample.html">Sample CPS File</a></li>
 </ul>
 
   <h4>Previous topic</h4>

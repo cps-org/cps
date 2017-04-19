@@ -32,7 +32,7 @@ A |configuration| holds attributes that are specific to a particular configurati
 Attributes
 ''''''''''
 
-An optional attribute may have the value :keyword:`null`. This shall be equivalent to omitting the attribute.
+An optional attribute may have the value |null|. This shall be equivalent to omitting the attribute.
 
 Attribute names are case insensitive, although it is recommended that ``.cps`` files use the capitalization as shown.
 
@@ -120,6 +120,8 @@ Specifies the components which the package provides. Keys are the component name
 :Required: No
 
 Specifies a list of components which must be present in the required package in order for the requirement to be satisfied. Although the build tool will generally produce an error if a consumer uses a component which in turn requires a component that was not found, early specification via this attribute may help build tools to diagnose such issues earlier and/or produce better diagnostics.
+
+This may also be used to specify dependencies that are not expressed in component level dependencies, such as a package's requirement that a dependency includes a certain symbolic component, or if a dependency is only expressed at run-time.
 
 :attribute:`Configuration`
 --------------------------
@@ -316,14 +318,14 @@ Specifies an alternate location of the component that should be used when linkin
 
 If the path starts with ``@prefix@``, the package's install prefix is substituted (see `Package Searching`_). This is recommended, as it allows packages to be relocatable.
 
-:attribute:`Link-Only`
-----------------------
+:attribute:`Link-Requires`
+--------------------------
 
-:Type: :type:`bool`
-:Applies To: |requirement|
+:Type: |string-list|
+:Applies To: |component|, |configuration|
 :Required: No
 
-Specifies that consumers of a component which requires another component should apply only the required component's link dependencies when consuming the requiring component, and not additional properties such as compile and include attributes. If :keyword:`false` or omitted, the attributes of the required component shall be transitively applied to a consumer of the requiring component as if the required component was consumed directly.
+Specifies additional components required by a component which are needed only at the link stage. Unlike `Requires (Component)`_, only the required components' link dependencies should be applied transitively; additional properties such as compile and include attributes of the required component(s) should be ignored.
 
 :attribute:`Location`
 ---------------------
@@ -363,7 +365,9 @@ Specifies the platform on which a package's components may run. This allows tool
 :Applies To: |component|, |configuration|
 :Required: No
 
-Specifies additional components required by a component. This is used, for example, to indicate transitive dependencies. Relative component names are interpreted relative to the current package. Absolute component names must refer to a package required by this package (see `Requires (Package)`_).
+Specifies additional components required by a component. This is used, for example, to indicate transitive dependencies. Relative component names are interpreted relative to the current package. Absolute component names must refer to a package required by this package (see `Requires (Package)`_). Compile and link attributes should be applied transitively, as if the consuming component also directly consumed the components required by the component being consumed.
+
+See also `Link-Requires`_.
 
 :attribute:`Requires` :applies-to:`(Package)`
 ---------------------------------------------
@@ -372,7 +376,7 @@ Specifies additional components required by a component. This is used, for examp
 :Applies To: |package|
 :Required: No
 
-Specifies additional packages that are required by this package. Keys are the name of another required package. Values are a valid |requirement| object or :keyword:`null` (equivalent to an empty |requirement| object) describing the package required.
+Specifies additional packages that are required by this package. Keys are the name of another required package. Values are a valid |requirement| object or |null| (equivalent to an empty |requirement| object) describing the package required.
 
 :attribute:`Type`
 -----------------
@@ -381,11 +385,13 @@ Specifies additional packages that are required by this package. Keys are the na
 :Applies To: |component|
 :Required: Yes
 
-Specifies the type of a component. The component type affects how the component may be used. Officially supported values are :string:`"archive"` (CABI static library), :string:`"dylib"` (CABI shared library), :string:`"module"` (CABI plugin library), :string:`"jar"` (Java Archive), and :string:`"interface"`. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension.)
+Specifies the type of a component. The component type affects how the component may be used. Officially supported values are :string:`"executable"` (any artifact which the target platform can directly execute), :string:`"archive"` (CABI static library), :string:`"dylib"` (CABI shared library), :string:`"module"` (CABI plugin library), :string:`"jar"` (Java Archive), :string:`"interface"` and :string:`"symbolic"`. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension.)
 
 A :string:`"dylib"` is meant to be linked at compile time; the :attribute:`Location` specifies the artifact required for such linking (i.e. the import library on PE platforms). A :string:`"module"` is meant to be loaded at run time with :code:`dlopen` or similar; again, the :attribute:`Location` specifies the appropriate artifact.
 
 An :string:`"interface"` component is a special case; it may have the usual attributes of a component, but does not have a location. This can be used to create "virtual" components that do not have an associated artifact.
+
+A :string:`"symbolic"` component is even more special, as it has no (required) attributes at all, and the meaning of any attributes or configurations assigned to such a component is unspecified. A :string:`"symbolic"` component is intended to be used as a form of feature testing; a package that has a feature that is meaningful to users but does not otherwise map directly to a component may use a symbolic component to indicate availability of the feature to users.
 
 :attribute:`Version` :applies-to:`(Package)`
 --------------------------------------------
@@ -412,7 +418,7 @@ Notes
 
 - Unless otherwise specified, a relative file path appearing in a CPS shall be interpreted relative to the ``.cps`` file.
 
-- Unless otherwise specified, unrecognized attributes shall be ignored. This makes it easier for tools to add tool-specific extensions. (It is *strongly* recommended that the names of any such attributes start with ``X-<tool>-`` (where ``<tool>`` is the name of the tool which introduced the extension) in order to reduce the chance of conflicts with newer versions of the CPS.)
+- Unless otherwise specified, unrecognized attributes shall be ignored. This makes it easier for tools to add tool-specific extensions. (It is *strongly* recommended that the names of any such attributes start with ``X-<tool>-``, where ``<tool>`` is the name of the tool which introduced the extension, in order to reduce the chance of conflicts with newer versions of the CPS.)
 
 - The term "CABI", as used throughout, refers to (typically C/C++/Fortran) code compiled to the machine's native instruction set and using the platform's usual format for such binaries (ELF, PE32, etc.).
 
@@ -425,6 +431,8 @@ Notes
 .. _Java: https://en.wikipedia.org/wiki/Java_%28programming_language%29
 
 .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+
+.. |null| replace:: :keyword:`null`
 
 .. |string| replace:: :type:`string`
 

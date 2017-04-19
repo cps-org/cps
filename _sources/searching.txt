@@ -19,7 +19,7 @@ The complete list of search paths, above, shall be considered in the order speci
 
 It is recommended that tools should also provide a mechanism for specifying the path to a specific CPS which may be used to override the default search, or to provide the location of a package which is not installed to any of the standard search paths.
 
-When a candidate ``.cps`` file is found, the tool shall inspect the package's `Platform`_. If the package's platform does not match the target platform, the tool should ignore the ``.cps`` and continue the search. This allows for the installation of packages for different platforms (e.g. 32- and 64-bit builds) on a single machine. (Note that it is up to the tool to determine what constitutes a matching platform.)
+When a candidate ``.cps`` file is found, the tool shall inspect the package's `Platform`_. If the package's platform does not match the target platform, the tool should ignore the ``.cps`` and continue the search. This allows for the installation of packages for different platforms (e.g. 32- and 64-bit builds) on a single machine. (Note that it is up to the tool to determine what constitutes a matching platform.) Similarly, if the package's version does not satisfy the required version as specified by the user, the tool should continue searching. (In both cases, the tool may wish to make note of the incompatible packages, and the reason for rejection.)
 
 Prefix Determination
 ''''''''''''''''''''
