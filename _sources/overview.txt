@@ -51,6 +51,8 @@ Additional significant contributions have been made by:
 
 .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
 
+.. _JSON: http://www.json.org/
+
 .. _Matthew Woehlke: mwoehlke.floss@gmail.com
 
 .. kate: hl reStructuredText
