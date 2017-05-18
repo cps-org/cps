@@ -55,7 +55,7 @@ copyright = u'2017, Matthew Woehlke'
 # Increment the major version in case of breaking changes
 # Increment the minor version in case of non-breaking additions
 # Increment the patch version in case of non-breaking tweaks
-release = '.'.join(map(str, [0, 8, 0]))
+release = '.'.join(map(str, [0, 8, 1]))
 # The short X.Y version.
 version = re.match('\\d+\.\\d+', release).group(0)
 
