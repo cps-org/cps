@@ -182,9 +182,11 @@ Specifies the directory portion location of the ``.cps`` file. This shall be an 
 
 :Type: |string|
 :Applies To: |package|
-:Required: No
+:Required: Yes
 
-Specifies the version of the CPS to which this ``.cps`` file conforms. This may be used by tools to provide backwards compatibility in case of compatibility-breaking changes in the CPS. If not specified, behavior is implementation defined.
+Specifies the version of the CPS to which this ``.cps`` file conforms. This may be used by tools to provide backwards compatibility in case of compatibility-breaking changes in the CPS.
+
+CPS version numbering follows |semver|_. That is, tools that support CPS version ``<X>.<Y>`` are expected to be able to read files with :attribute:`Cps-Version` ``<X>.<Z>``, even for Z > Y (with the understanding that the tool may miss non-critical information that the CPS provided in such cases).
 
 :attribute:`Default-Components`
 -------------------------------
@@ -400,7 +402,7 @@ A :string:`"symbolic"` component is even more special, as it has no (required) a
 :Applies To: |package|
 :Required: No
 
-Specifies the version of the package. Although there is no restriction on the format of the version text, successful version matching may impose restrictions.
+Specifies the version of the package. The format of this string is determined by `Version-Schema`_.
 
 If not provided, the CPS will not satisfy any request for a specific version of the package.
 
@@ -412,6 +414,19 @@ If not provided, the CPS will not satisfy any request for a specific version of 
 :Required: No
 
 Specifies the required version of a package. If omitted, any version of the required package is acceptable. Semantics are the same as for the :attribute:`Version` attribute of a |package|.
+
+:attribute:`Version-Schema`
+---------------------------
+
+:Type: |string|
+:Applies To: |package|
+:Required: No
+
+Specifies the structure to which the package's version numbering conforms. Tools may use this to determine how to perform version comparisons. Officially supported (case-insensitive) values are :string:`"semver"` (|semver|_) and :string:`"custom"` (:string:`"rpm"` or :string:`"dpkg"` should be used where applicable, but may not be supported by all tools). If a package uses :string:`"custom"`, version numbers may be compared, but version ordering is not possible. The default is :string:`"semver"`.
+
+Needless to say, changing a package's version scheme between releases is *very strongly discouraged*.
+
+Note that this attribute determines only how version numbers are *ordered*. It does not also imply that a package actually maintains and breaks compatibility as specified by |semver|. See also `Compat-Version`_.
 
 Notes
 '''''
@@ -430,7 +445,11 @@ Notes
 
 .. _Java: https://en.wikipedia.org/wiki/Java_%28programming_language%29
 
+.. _semver: http://semver.org/
+
 .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+
+.. |semver| replace:: Semantic Versioning
 
 .. |null| replace:: :keyword:`null`
 

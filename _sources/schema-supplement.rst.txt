@@ -37,11 +37,13 @@ Provides a human readable name of the package. If provided, tools may use this i
 :Type: Special
 :Applies To: :object:`package`, :object:`component`
 
-Specifies the license or licenses under which the package is distributed. The set of possible licenses is not specified, however, use of short names is recommended. If parts of a package use different licenses, this attribute may also be specified on a component if doing so helps to clarifying the licensing. (See also `Default-License`_.)
 
-A :type:`string` value shall be used for a single license. If multiple licenses need to be specified, a :type:`list` shall be used. Each :type:`string` value of the :type:`list` is a license which *always* applies to the package. If a package is wholly or partly multi-licensed (that is, the user has a choice of license), the top level :type:`list` shall contain a :type:`list` of values representing possible licenses. For example, the value ``["CC-BY", ["GPLv2", "LGPLv3+"]]`` indicates that some portions of the package are licensed under :string:`"CC-BY"`, while others are licensed as (at the user's choice) either :string:`"GPLv2"` or :string:`"LGPLv3+"`. If necessary, further nesting may be employed; each nesting level alternates between inclusive ("A **and** B") and exclusive ("A **or** B") licensing.
 
-A recommended list of short names may be found at |licenses-uri|.
+Specifies the license or licenses under which the package is distributed. A :type:`string` value shall be used for a single license. If multiple licenses need to be specified, a :type:`list` shall be used. Each :type:`string` value of the :type:`list` is a license which *always* applies to the package. If a package is wholly or partly multi-licensed (that is, the user has a choice of license), the top level :type:`list` shall contain a :type:`list` of values representing possible licenses. For example, the value ``["CC-BY-4.0", ["GPL-2.0", "LGPL-3.0+"]]`` indicates that some portions of the package are licensed under :string:`"CC-BY-4.0"`, while others are licensed as (at the user's choice) either :string:`"GPL-2.0"` or :string:`"LGPL-3.0+"`. If necessary, further nesting may be employed; each nesting level alternates between inclusive ("A **and** B") and exclusive ("A **or** B") licensing.
+
+If parts of a package use different licenses, this attribute may also be specified on a component if doing so helps to clarifying the licensing. (See also `Default-License`_.)
+
+License identifiers should follow the |SPDX|_ `License List`_. The ``WITH`` operator may be used when appropriate, but structured data is used to express conjunctions and disjunctions, as described in the preceding paragraph.
 
 :attribute:`Meta-Comment`
 -------------------------
@@ -69,6 +71,12 @@ Specifies the URI at which the package's website may be found.
 
 .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
 
-.. |licenses-uri| replace:: https://fedoraproject.org/wiki/Licensing:Main
+.. _SPDX: https://spdx.org/
+
+.. _License List: https://spdx.org/licenses/
+
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+
+.. |SPDX| replace:: Software Package Data Exchange
 
 .. kate: hl reStructuredText

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>History &mdash; Common Package Specification v0.7</title>
+    <title>History &#8212; Common Package Specification v0.8.1</title>
     
     <link rel="stylesheet" href="_static/cps.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,21 +14,23 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7',
+        VERSION:     '0.8.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Common Package Specification v0.7" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Development Process" href="development.html" />
     <link rel="prev" title="Overview" href="overview.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -40,14 +42,14 @@
         <li class="right" >
           <a href="overview.html" title="Overview"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Common Package Specification v0.7</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.1</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="history">
 <h1>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h1>
@@ -57,9 +59,9 @@
 <p>CPS attempts to solve these issues by taking the lessons learned by CMake and providing compatible information in a format that is not tied to the language of a particular build system.</p>
 <div class="section" id="what-s-wrong-with-pkg-config">
 <h2>What&#8217;s wrong with pkg-config?<a class="headerlink" href="#what-s-wrong-with-pkg-config" title="Permalink to this headline">¶</a></h2>
-<p>pkg-config was created way back in the bad old days of autotools, when everyone was using the same compiler and linker. It handles everything by direct specification of compile flags, which breaks down when multiple compilers with incompatible front-ends come into play and/or in the face of &#8220;superseded&#8221; features. (For instance, given a project consuming packages &#8220;A&#8221; and &#8220;B&#8221;, requiring C++14 and C++11, respectively, pkg-config requires the build tool to translate compile flags back into features in order to know that the consumer should not be build with <tt class="docutils literal"><span class="pre">-std=c++14</span> <span class="pre">...</span> <span class="pre">-std=c++11</span></tt>.)</p>
-<p>Specification of link libraries via a combination of <tt class="docutils literal"><span class="pre">-L</span></tt> and <tt class="docutils literal"><span class="pre">-l</span></tt> flags is a problem, as it fails to ensure that consumers find the intended libraries. Not providing a full path to the library also places more work on the build tool (which must attempt to deduce full paths from the link flags) in order to compute appropriate dependencies in order to re-link targets when their link libraries have changed.</p>
-<p>Last, pkg-config is not an ideal solution for large projects consisting of multiple components, as each component needs its own <tt class="docutils literal"><span class="pre">.pc</span></tt> file.</p>
+<p>pkg-config was created way back in the bad old days of autotools, when everyone was using the same compiler and linker. It handles everything by direct specification of compile flags, which breaks down when multiple compilers with incompatible front-ends come into play and/or in the face of &#8220;superseded&#8221; features. (For instance, given a project consuming packages &#8220;A&#8221; and &#8220;B&#8221;, requiring C++14 and C++11, respectively, pkg-config requires the build tool to translate compile flags back into features in order to know that the consumer should not be build with <code class="docutils literal"><span class="pre">-std=c++14</span> <span class="pre">...</span> <span class="pre">-std=c++11</span></code>.)</p>
+<p>Specification of link libraries via a combination of <code class="docutils literal"><span class="pre">-L</span></code> and <code class="docutils literal"><span class="pre">-l</span></code> flags is a problem, as it fails to ensure that consumers find the intended libraries. Not providing a full path to the library also places more work on the build tool (which must attempt to deduce full paths from the link flags) in order to compute appropriate dependencies in order to re-link targets when their link libraries have changed.</p>
+<p>Last, pkg-config is not an ideal solution for large projects consisting of multiple components, as each component needs its own <code class="docutils literal"><span class="pre">.pc</span></code> file.</p>
 </div>
 <div class="section" id="what-s-wrong-with-cmake-exported-targets">
 <h2>What&#8217;s wrong with CMake exported targets?<a class="headerlink" href="#what-s-wrong-with-cmake-exported-targets" title="Permalink to this headline">¶</a></h2>
@@ -71,12 +73,12 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <h3><a href="index.html">Table Of Contents</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">History</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">History</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-wrong-with-pkg-config">What&#8217;s wrong with pkg-config?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-s-wrong-with-cmake-exported-targets">What&#8217;s wrong with CMake exported targets?</a></li>
 </ul>
@@ -102,29 +104,28 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="development.html"
                         title="next chapter">Development Process</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/history.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/history.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -136,12 +137,12 @@
         <li class="right" >
           <a href="overview.html" title="Overview"
              >previous</a> |</li>
-        <li><a href="index.html">Common Package Specification v0.7</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.1</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2017, Matthew Woehlke.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Matthew Woehlke.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
   </body>
 </html>
