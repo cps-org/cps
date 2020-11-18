@@ -273,6 +273,15 @@ Specifies the name of the operating system kernel required by the package's comp
 
 Specifies the minimum operating system kernel version required by the package's components.
 
+:attribute:`Userland`
+---------------------------
+
+:Type: |string|
+:Applies To: |platform|
+:Required: No
+
+Specifies the userland on top of the kernel. This is useful for differentiating different Operating Systems using the same kernel, such as Android/Linux vs GNU/Linux, or macOS/Darwin vs ios/Darwin. Some examples include :string:`"gnu"`, :string:`"ios"`, and :string:`"android"`. If this is not specified an conformant implementation should consider this to be the most common userland for the kernel, such as :string:`"gnu"` for Linux and :string:`"macOS"` for Darwin.
+
 :attribute:`Link-Features`
 --------------------------
 
