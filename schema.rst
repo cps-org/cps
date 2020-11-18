@@ -43,7 +43,7 @@ Attribute names are case insensitive, although it is recommended that ``.cps`` f
 :Applies To: |platform|
 :Required: No
 
-Specifies that the package's CABI components require the specified C standard/runtime library. Typical (case-insensitive) values include :string:`"bsd"` (libc), :string:`"gnu"` (glibc), :string:`"mingw"` and :string:`"microsoft"`.
+Specifies that the package's CABI components require the specified C standard/runtime library. Typical (case-insensitive) values include :string:`"bsd"` (libc), :string:`"android"` (), :string:`"gnu"` (glibc), :string:`"mingw"` and :string:`"microsoft"`.
 
 :attribute:`C-Runtime-Version`
 ------------------------------
