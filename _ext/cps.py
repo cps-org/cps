@@ -47,7 +47,7 @@ class InternalizeLinks(Transform):
                 ref.replace_self(xref)
 
 #==============================================================================
-def add_role(app, name, styles=None, parent=roles.generic_custom_role):
+def add_role(app, name, styles=None, parent=roles.generic_custom_role, override=False):
     options = {}
     if styles is None:
         styles=name
@@ -56,19 +56,16 @@ def add_role(app, name, styles=None, parent=roles.generic_custom_role):
 
     options['class'] = directives.class_option(styles)
     role = roles.CustomRole(name, parent, options)
-    app.add_role(name, role)
+    app.add_role(name, role, override=override)
 
 #==============================================================================
-def add_code_role(app, name, styles=None, parent=roles.code_role):
-    add_role(app, name, styles, parent)
+def add_code_role(app, name, styles=None, parent=roles.code_role, override=False):
+    add_role(app, name, styles, parent, override=override)
 
 #==============================================================================
 def setup(app):
     # Add custom transform to resolve cross-file references
     app.add_transform(InternalizeLinks)
-
-    # Remove built-in 'keyword' role so we can override it
-    del app.domains['std'].roles['keyword']
 
     # Add site-specific custom roles (these just apply styling)
     add_role(app, 'hidden')
@@ -79,7 +76,7 @@ def setup(app):
     add_code_role(app, 'feature')
     add_code_role(app, 'feature.opt', styles=['feature', 'optional'])
     add_code_role(app, 'feature.var', styles=['feature', 'var'])
-    add_code_role(app, 'keyword')
+    add_code_role(app, 'keyword', override=True)
     add_code_role(app, 'type')
     add_code_role(app, 'string')
     add_code_role(app, 'path')
