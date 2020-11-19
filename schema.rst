@@ -79,9 +79,11 @@ Specifies the minimum `Common Language Runtime`_ version required to use the pac
 :Applies To: |package|
 :Required: No
 
-Specifies the oldest version of the package with which this version is compatible. This information is used when a consumer requests a specific version. If the version requested is equal to or newer than the :attribute:`Compat-Version`, the package may be used.
+If :attribute:`Version-Schema` is set to :string:`"custom"` or :string:`"x.y.z"`, then this attribute specifies the oldest version of the package with which this version is compatible. This information is used when a consumer requests a specific version. If the version requested is equal to or newer than the :attribute:`compat-version`, the package may be used.
 
-If not specified, the package is not compatible with previous versions (i.e. :attribute:`Compat-Version` is implicitly equal to :attribute:`Version`).
+If :attribute:`Version-Schema` is :string:`"semver"` then this field should not be set, and a conforming implementation must not read this field. The compatibility should be calculated according to the rules described by |semver|_.
+
+Otherwise if not specified, the package is not compatible with previous versions (i.e. :attribute:`Compat-Version` is implicitly equal to :attribute:`version`).
 
 :attribute:`Compile-Features`
 -----------------------------
@@ -422,11 +424,9 @@ Specifies the required version of a package. If omitted, any version of the requ
 :Applies To: |package|
 :Required: No
 
-Specifies the structure to which the package's version numbering conforms. Tools may use this to determine how to perform version comparisons. Officially supported (case-insensitive) values are :string:`"semver"` (|semver|_) and :string:`"custom"` (:string:`"rpm"` or :string:`"dpkg"` should be used where applicable, but may not be supported by all tools). If a package uses :string:`"custom"`, version numbers may be compared, but version ordering is not possible. The default is :string:`"semver"`.
+Specifies the structure to which the package's version numbering conforms. Tools may use this to determine how to perform version comparisons. Officially supported (case-insensitive) values are :string:`"semver"` (|semver|_), :string:`"x.y.z"`, and :string:`"custom"` (:string:`"rpm"` or :string:`"dpkg"` should be used where applicable, but may not be supported by all tools). If a package uses :string:`"custom"`, version numbers may be compared, but version ordering is not possible. :string:`"semver"` and :string:`"x.y.z"` differ only in that :string:`"semver"` requires that the project conform to |semver|_, and should not set the :attribute:`Compat-Version`_", see that attribute for more details. The default is :string:`"x.y.z"`.
 
 Needless to say, changing a package's version scheme between releases is *very strongly discouraged*.
-
-Note that this attribute determines only how version numbers are *ordered*. It does not also imply that a package actually maintains and breaks compatibility as specified by |semver|. See also `Compat-Version`_.
 
 Notes
 '''''
