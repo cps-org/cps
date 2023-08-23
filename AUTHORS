@@ -1,0 +1,33 @@
+Common Packaging Specification
+==============================
+
+The Common Packaging Specification is written and maintained
+by Matthew Woehlke <mwoehlke.floss@gmail.com>.
+
+Other contributors, listed alphabetically, are:
+
+* Ben Boeckel <ben.boeckel@kitware.com>
+
+In addition, we would like to thank the following individuals and/or
+organizations for their feedback and support:
+
+* Bret Brown
+* Steve Downey
+* Rafi Hasib
+* Brad King
+* Daniel Ruoso
+* Kitware, Inc.
+
+Sphinx (Makefile)
+=================
+
+The Makefile template from which the Common Packaging Specification's Makefile
+was generated, as of the date of its generation, was written by:
+
+* Georg Brandl <georg@python.org>
+* Takeshi Komiya <i.tkomiya@gmail.com>
+* Takayuki Shimizukawa <shimizukawa@gmail.com>
+* Jakub Wilk <jwilk@jwilk.net>
+
+See https://github.com/sphinx-doc/sphinx/blob/master/AUTHORS for a complete
+list of Sphinx authors.
