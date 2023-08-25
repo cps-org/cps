@@ -18,8 +18,8 @@ organizations for their feedback and support:
 * Daniel Ruoso
 * Kitware, Inc.
 
-Sphinx (Makefile)
-=================
+Sphinx
+======
 
 The Makefile template from which the Common Packaging Specification's Makefile
 was generated, as of the date of its generation, was written by:
@@ -28,6 +28,9 @@ was generated, as of the date of its generation, was written by:
 * Takeshi Komiya <i.tkomiya@gmail.com>
 * Takayuki Shimizukawa <shimizukawa@gmail.com>
 * Jakub Wilk <jwilk@jwilk.net>
+
+The autosectionlabel extension, as of the date it was copied into this
+repository, was written by Takeshi Komiya <i.tkomiya@gmail.com>.
 
 See https://github.com/sphinx-doc/sphinx/blob/master/AUTHORS for a complete
 list of Sphinx authors.

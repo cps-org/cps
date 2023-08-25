@@ -13,7 +13,7 @@ class InternalizeLinks(Transform):
 
     #--------------------------------------------------------------------------
     def apply(self, **kwargs):
-        for ref in self.document.traverse(nodes.reference):
+        for ref in self.document.findall(nodes.reference):
             # Skip inter-document links
             if 'refname' in ref:
                 if self.document.nameids.get(ref['refname']):
@@ -47,42 +47,48 @@ class InternalizeLinks(Transform):
                 ref.replace_self(xref)
 
 #==============================================================================
-def add_role(app, name, styles=None, parent=roles.generic_custom_role):
-    options = {}
-    if styles is None:
-        styles=name
-    else:
-        styles=' '.join([name] + styles)
+class CpsDomain(domains.Domain):
+    name = 'cps'
 
-    options['class'] = directives.class_option(styles)
-    role = roles.CustomRole(name, parent, options)
-    app.add_role(name, role)
+    #--------------------------------------------------------------------------
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-#==============================================================================
-def add_code_role(app, name, styles=None, parent=roles.code_role):
-    add_role(app, name, styles, parent)
+        # Site-specific custom roles (these just apply styling)
+        self.add_role('hidden')
+        self.add_role('applies-to')
+        self.add_role('separator')
+        self.add_code_role('object')
+        self.add_code_role('attribute')
+        self.add_code_role('feature')
+        self.add_code_role('feature.opt', styles=['feature', 'optional'])
+        self.add_code_role('feature.var', styles=['feature', 'var'])
+        self.add_code_role('keyword')
+        self.add_code_role('type')
+        self.add_code_role('string')
+        self.add_code_role('path')
+        self.add_code_role('glob')
+        self.add_code_role('var')
+        self.add_code_role('env')
+
+    #--------------------------------------------------------------------------
+    def add_role(self, name, styles=None, parent=roles.generic_custom_role):
+        options = {}
+        if styles is None:
+            styles=name
+        else:
+            styles=' '.join([name] + styles)
+
+        options['class'] = directives.class_option(styles)
+        self.roles[name] = roles.CustomRole(name, parent, options)
+
+    #--------------------------------------------------------------------------
+    def add_code_role(self, name, styles=None, parent=roles.code_role):
+        self.add_role(name, styles, parent)
 
 #==============================================================================
 def setup(app):
+    app.add_domain(CpsDomain)
+
     # Add custom transform to resolve cross-file references
     app.add_transform(InternalizeLinks)
-
-    # Remove built-in 'keyword' role so we can override it
-    del app.domains['std'].roles['keyword']
-
-    # Add site-specific custom roles (these just apply styling)
-    add_role(app, 'hidden')
-    add_role(app, 'applies-to')
-    add_role(app, 'separator')
-    add_code_role(app, 'object')
-    add_code_role(app, 'attribute')
-    add_code_role(app, 'feature')
-    add_code_role(app, 'feature.opt', styles=['feature', 'optional'])
-    add_code_role(app, 'feature.var', styles=['feature', 'var'])
-    add_code_role(app, 'keyword')
-    add_code_role(app, 'type')
-    add_code_role(app, 'string')
-    add_code_role(app, 'path')
-    add_code_role(app, 'glob')
-    add_code_role(app, 'var')
-    add_code_role(app, 'env')
