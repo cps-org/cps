@@ -4,19 +4,10 @@ Common Packaging Specification
 The Common Packaging Specification is written and maintained
 by Matthew Woehlke <mwoehlke.floss@gmail.com>.
 
-Other contributors, listed alphabetically, are:
+The complete list of authors is maintained in AUTHORS.rst.
 
-* Ben Boeckel <ben.boeckel@kitware.com>
-
-In addition, we would like to thank the following individuals and/or
-organizations for their feedback and support:
-
-* Bret Brown
-* Steve Downey
-* Rafi Hasib
-* Brad King
-* Daniel Ruoso
-* Kitware, Inc.
+For their support, we would also like to thank the individuals and/or
+organizations listed in THANKS.rst.
 
 Sphinx
 ======

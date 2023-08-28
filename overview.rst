@@ -120,20 +120,12 @@ Advantages of CPS
 Contributors
 ''''''''''''
 
-The Common Packaging Specification
-was conceived by `Matthew Woehlke`_,
-who also serves as the primary editor.
-Additional significant contributions have been made by:
+.. include:: AUTHORS.rst
 
-.. NOTE: list in alphabetical order by surname
-
-- Ben Boeckel
-- Brad King
+.. include:: THANKS.rst
 
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
 
 .. _JSON: http://www.json.org/
-
-.. _Matthew Woehlke: mwoehlke.floss@gmail.com
 
 .. kate: hl reStructuredText

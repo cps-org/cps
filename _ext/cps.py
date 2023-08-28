@@ -12,6 +12,16 @@ class InternalizeLinks(Transform):
     default_priority = 200
 
     #--------------------------------------------------------------------------
+    def is_internal_link(self, refuri):
+        if not refuri:
+            return True
+
+        if '://' in refuri or 'mailto:' in refuri:
+            return False
+
+        return True
+
+    #--------------------------------------------------------------------------
     def apply(self, **kwargs):
         for ref in self.document.findall(nodes.reference):
             # Skip inter-document links
@@ -21,7 +31,7 @@ class InternalizeLinks(Transform):
 
             # Convert remaining non-external links to intra-document references
             refuri = ref['refuri'] if 'refuri' in ref else None
-            if not refuri or not '://' in refuri:
+            if self.is_internal_link(refuri):
                 # Get the raw text (strip ``s and _)
                 rawtext = re.sub('^`(.*)`_?$', '\\1', ref.rawsource)
 

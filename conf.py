@@ -11,7 +11,7 @@ needs_sphinx = '5.3'
 extensions = ['cps', 'autosectionlabel']
 
 source_suffix = '.rst'
-exclude_patterns = []
+exclude_patterns = ['AUTHORS.rst', 'THANKS.rst']
 
 master_doc = 'index'
 
