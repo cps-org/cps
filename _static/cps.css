@@ -1,5 +1,12 @@
 @import url("default.css");
 
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+Mono');
+
+tt, code {
+  font-family: 'Noto Sans Mono', monospace;
+}
+
 a:hover {
   color: #3d8ff2;
   text-decoration: underline;

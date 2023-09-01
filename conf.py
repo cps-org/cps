@@ -52,6 +52,8 @@ html_theme_options = {
     'visitedlinkcolor': '#2b63a8',
     'codebgcolor':      '#eeeeee',
     'codetextcolor':    '#333333',
+    'bodyfont':         "'Noto Sans', sans-serif",
+    'headfont':         "'Noto Sans', sans-serif",
 }
 
 html_title = f'{project} v{release}'
