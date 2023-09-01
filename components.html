@@ -1,35 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Component Specification &#8212; Common Package Specification v0.8.2</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cps.css" />
     
-    <title>Component Specification &#8212; Common Package Specification v0.8.1</title>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     
-    <link rel="stylesheet" href="_static/cps.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.8.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Package Configurations" href="configurations.html" />
     <link rel="prev" title="Compiler and Linker Features" href="features.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -42,7 +34,8 @@
         <li class="right" >
           <a href="features.html" title="Compiler and Linker Features"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.1</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Component Specification</a></li> 
       </ul>
     </div>  
 
@@ -51,20 +44,53 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="component-specification">
-<h1>Component Specification<a class="headerlink" href="#component-specification" title="Permalink to this headline">¶</a></h1>
-<p>Package, component and configuration names may consist of ASCII letters, numbers, hyphens (<code class="docutils literal"><span class="pre">-</span></code>), and underscores (<code class="docutils literal"><span class="pre">_</span></code>), and may not contain forward-stroke (<code class="docutils literal"><span class="pre">/</span></code>) or at-sign (<code class="docutils literal"><span class="pre">&#64;</span></code>). Colon (<code class="docutils literal"><span class="pre">:</span></code>) may be used in component and configuration names, but not package names. The behavior of other characters is implementation defined. Portable packages are recommended to use only those characters which are expressly permitted.</p>
-<p>A CPS component specification consists of either a package name, component name, or package-component name, either of which may optionally specify a configuration. A colon (<code class="docutils literal"><span class="pre">:</span></code>) is used to separate a package name from a component name, and always precedes a component name without a package name. A component specification including a package name is an &#8220;absolute&#8221; name. A component specification without a package name is a &#8220;relative&#8221; name; the package name in such case is implicitly the same as the package specification in which such name appears. The package and/or component name may be followed by the at-sign (<code class="docutils literal"><span class="pre">&#64;</span></code>) and a configuration name. The special case of using the at-sign as a configuration name (e.g. <code class="docutils literal"><span class="pre">foo:foo-core&#64;&#64;</span></code>) means that the named configuration is the same as the configuration in which the name appears. (For example, the component <code class="docutils literal"><span class="pre">foo-ui</span></code> has non-configuration-specific <code class="code attribute docutils literal"><span class="pre">Requires</span></code> <code class="code string docutils literal"><span class="pre">&quot;:foo-core&#64;&#64;&quot;</span></code> and <code class="code attribute docutils literal"><span class="pre">Configurations</span></code> <code class="code string docutils literal"><span class="pre">&quot;A&quot;</span></code> and <code class="code string docutils literal"><span class="pre">&quot;B&quot;</span></code>. The <code class="code string docutils literal"><span class="pre">&quot;A&quot;</span></code> configuration of <code class="docutils literal"><span class="pre">foo-ui</span></code> therefore requires <code class="docutils literal"><span class="pre">:foo-core&#64;A</span></code>, and similar for other configurations.)</p>
-<p>If a requirement does not specify a configuration, the <em>consumer</em> chooses the most appropriate configuration. This allows the consumer to, for example, link to the debug libraries of an indirect dependency when the consumer is build in debug mode, even if the consumer always uses the optimized configuration of the direct dependency.</p>
-</div>
+  <section id="component-specification">
+<h1>Component Specification<a class="headerlink" href="#component-specification" title="Permalink to this heading">¶</a></h1>
+<p>Package, component and configuration names may consist of
+ASCII letters, numbers, hyphens (<code class="docutils literal notranslate"><span class="pre">-</span></code>), and underscores (<code class="docutils literal notranslate"><span class="pre">_</span></code>),
+and may not contain forward-stroke (<code class="docutils literal notranslate"><span class="pre">/</span></code>) or at-sign (<code class="docutils literal notranslate"><span class="pre">&#64;</span></code>).
+Colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>) may be used in component and configuration names,
+but not package names.
+The behavior of other characters is implementation defined.
+Portable packages are recommended to use
+only those characters which are expressly permitted.</p>
+<p>A CPS component specification consists of either
+a package name, component name, or package-component name,
+either of which may optionally specify a configuration.
+A colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>) is used to separate a package name from a component name,
+and always precedes a component name without a package name.
+A component specification including a package name is an “absolute” name.
+A component specification without a package name is a “relative” name;
+the package name in such case is implicitly the same
+as the package specification in which such name appears.
+The package and/or component name may be followed
+by the at-sign (<code class="docutils literal notranslate"><span class="pre">&#64;</span></code>) and a configuration name.
+The special case of using the at-sign as a configuration name
+(e.g. <code class="docutils literal notranslate"><span class="pre">foo:foo-core&#64;&#64;</span></code>) means that the named configuration
+is the same as the configuration in which the name appears.
+(For example, the component <code class="docutils literal notranslate"><span class="pre">foo-ui</span></code> has
+non-configuration-specific <code class="code attribute docutils literal notranslate"><span class="pre">Requires</span></code> <code class="code string docutils literal notranslate"><span class="pre">&quot;:foo-core&#64;&#64;&quot;</span></code>
+and <code class="code attribute docutils literal notranslate"><span class="pre">Configurations</span></code> <code class="code string docutils literal notranslate"><span class="pre">&quot;A&quot;</span></code> and <code class="code string docutils literal notranslate"><span class="pre">&quot;B&quot;</span></code>.
+The <code class="code string docutils literal notranslate"><span class="pre">&quot;A&quot;</span></code> configuration of <code class="docutils literal notranslate"><span class="pre">foo-ui</span></code>
+therefore requires <code class="docutils literal notranslate"><span class="pre">:foo-core&#64;A</span></code>,
+and similar for other configurations.)</p>
+<p>If a requirement does not specify a configuration,
+the <em>consumer</em> chooses the most appropriate configuration.
+This allows the consumer to, for example,
+link to the debug libraries of an indirect dependency
+when the consumer is build in debug mode,
+even if the consumer always uses
+the optimized configuration of the direct dependency.</p>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table Of Contents</a></h3>
+<h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
@@ -83,12 +109,16 @@
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample CPS File</a></li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="features.html"
-                        title="previous chapter">Compiler and Linker Features</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="configurations.html"
-                        title="next chapter">Package Configurations</a></p>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="features.html"
+                          title="previous chapter">Compiler and Linker Features</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="configurations.html"
+                          title="next chapter">Package Configurations</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -97,15 +127,15 @@
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -122,12 +152,13 @@
         <li class="right" >
           <a href="features.html" title="Compiler and Linker Features"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.1</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Component Specification</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2017, Matthew Woehlke.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+        &#169; Copyright 2023, Matthew Woehlke.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>

@@ -1,35 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Usage and Implementation Recommendations &#8212; Common Package Specification v0.8.2</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cps.css" />
     
-    <title>Usage and Implementation Recommendations &#8212; Common Package Specification v0.8.1</title>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     
-    <link rel="stylesheet" href="_static/cps.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.8.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Sample CPS File" href="sample.html" />
     <link rel="prev" title="Supplemental Schema" href="schema-supplement.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -42,7 +34,8 @@
         <li class="right" >
           <a href="schema-supplement.html" title="Supplemental Schema"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.1</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Usage and Implementation Recommendations</a></li> 
       </ul>
     </div>  
 
@@ -51,72 +44,184 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="usage-and-implementation-recommendations">
-<h1>Usage and Implementation Recommendations<a class="headerlink" href="#usage-and-implementation-recommendations" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="configurations-as-flags">
-<h2>Configurations as Flags<a class="headerlink" href="#configurations-as-flags" title="Permalink to this headline">¶</a></h2>
-<p>Let&#8217;s say your package includes several configurations of a library, where the configuration is logically specified as a set of orthogonal attributes (e.g. debug/release, static/shared). What&#8217;s the best way to provide these to your users?</p>
-<p>This is best accomplished via interface components. For example:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="s2">&quot;Components&quot;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s2">&quot;foo-static&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;Type&quot;</span><span class="o">:</span> <span class="s2">&quot;archive&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Configurations&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;Release&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
-      <span class="s2">&quot;Debug&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
-    <span class="p">},</span> <span class="p">...</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;foo-shared&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;Type&quot;</span><span class="o">:</span> <span class="s2">&quot;dylib&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Configurations&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;Release&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span> <span class="p">},</span>
-      <span class="s2">&quot;Debug&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
-    <span class="p">},</span> <span class="p">...</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;Type&quot;</span><span class="o">:</span> <span class="s2">&quot;interface&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Configurations&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;Static&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;Requires&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;foo-static&quot;</span> <span class="p">]</span> <span class="p">},</span>
-      <span class="s2">&quot;Shared&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;Requires&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;foo-shared&quot;</span> <span class="p">]</span> <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
+  <section id="usage-and-implementation-recommendations">
+<h1>Usage and Implementation Recommendations<a class="headerlink" href="#usage-and-implementation-recommendations" title="Permalink to this heading">¶</a></h1>
+<section id="configurations-as-flags">
+<h2>Configurations as Flags<a class="headerlink" href="#configurations-as-flags" title="Permalink to this heading">¶</a></h2>
+<p>Let’s say your package includes
+several configurations of a library,
+where the configuration is logically specified
+as a set of orthogonal attributes
+(e.g. debug/release, static/shared).
+What’s the best way to provide these to your users?</p>
+<p>This is best accomplished via interface components.
+For example:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Components&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;foo-static&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;Type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;archive&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Configurations&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">&quot;Release&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="s2">&quot;Debug&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="p">...</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="s2">&quot;foo-shared&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;Type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;dylib&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Configurations&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">&quot;Release&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="s2">&quot;Debug&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="p">...</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="s2">&quot;foo&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;Type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Configurations&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">&quot;Static&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;Requires&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;foo-static&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="s2">&quot;Shared&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;Requires&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;foo-shared&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
 <span class="p">},</span>
 <span class="p">...</span>
 </pre></div>
 </div>
-<p>This pattern allows the user to specify their set of preferred configurations like <code class="docutils literal"><span class="pre">&quot;Static&quot;,</span> <span class="pre">&quot;Release&quot;</span></code> rather than <code class="docutils literal"><span class="pre">&quot;ReleaseStatic&quot;</span></code>. When consuming the <code class="docutils literal"><span class="pre">foo</span></code> component, the build tool will select on the static/shared axis, which will bring in a component whose configurations all match that choice. The tool will then select the transitive component on the remaining debug/release axis. Longer chains can be constructed to support configuration choices of arbitrary complexity. Where appropriate (and assuming that the package does not wish to support the user naming the &#8220;real&#8221; components directly), the component graph can be constructed in a way that allows shared attributes to be specified at the higher level interface components.</p>
-</div>
-<div class="section" id="single-package-multiple-platforms">
-<h2>Single Package, Multiple Platforms<a class="headerlink" href="#single-package-multiple-platforms" title="Permalink to this headline">¶</a></h2>
-<p>CPS intentionally does not directly provide for the possibility of a package that has multiple versions of components, built for different platforms. The recommended method for providing such a package is to provide a different <code class="docutils literal"><span class="pre">.cps</span></code> for each platform, such that the package bundle contains multiple <code class="docutils literal"><span class="pre">.cps</span></code> files. Components that are platform agnostic will appear in each <code class="docutils literal"><span class="pre">.cps</span></code>. Proper use of platform-specific library directories will address the need for unique paths in most instances. On POSIX platforms, use of supplemental <code class="docutils literal"><span class="pre">.cps</span></code> files and symbolic or hard links may allow for a single file specifying platform-agnostic components to be shared.</p>
-</div>
-<div class="section" id="cross-compiling">
-<h2>Cross Compiling<a class="headerlink" href="#cross-compiling" title="Permalink to this headline">¶</a></h2>
-<p>When cross compiling, it is sometimes necessary to consume parts of a package (e.g. a code generator) built for the host platform along with other parts of a package built for the target platform. As above, the CPS specification does not directly support a single package containing components for multiple platforms. In order to address this, it is recommended that tools (that support cross compiling) separately search for a package built for the host platform and a package built for the target platform, and select which instance&#8217;s components to use as is appropriate to the situation.</p>
-<p>When providing a package intended for cross-compiling use, keep in mind that the host-platform and target-platform packages do not need to contain the same components. Such a package might provide one <code class="docutils literal"><span class="pre">.cps</span></code> for the host platform containing only executables intended for compile-time use when building a consuming project, and a second <code class="docutils literal"><span class="pre">.cps</span></code> for the target platform that contains the libraries.</p>
-</div>
-<div class="section" id="link-only-requirements-and-link-order">
-<h2>Link-Only Requirements and Link Order<a class="headerlink" href="#link-only-requirements-and-link-order" title="Permalink to this headline">¶</a></h2>
-<p>In most cases, the order in which &#8220;full&#8221; and link-only dependencies are linked will not matter. When an exception occurs, it can be addressed in one of two manners:</p>
+<p>This pattern allows the user
+to specify their set of preferred configurations
+like <code class="docutils literal notranslate"><span class="pre">&quot;Static&quot;,</span> <span class="pre">&quot;Release&quot;</span></code> rather than <code class="docutils literal notranslate"><span class="pre">&quot;ReleaseStatic&quot;</span></code>.
+When consuming the <code class="docutils literal notranslate"><span class="pre">foo</span></code> component,
+the build tool will select on the static/shared axis,
+which will bring in a component
+whose configurations all match that choice.
+The tool will then select the transitive component
+on the remaining debug/release axis.
+Longer chains can be constructed
+to support configuration choices of arbitrary complexity.
+Where appropriate
+(and assuming that the package does not wish to support
+the user naming the “real” components directly),
+the component graph can be constructed in a way
+that allows shared attributes
+to be specified at the higher level interface components.</p>
+</section>
+<section id="single-package-multiple-platforms">
+<h2>Single Package, Multiple Platforms<a class="headerlink" href="#single-package-multiple-platforms" title="Permalink to this heading">¶</a></h2>
+<p>CPS intentionally does not directly
+provide for the possibility of a package
+that has multiple versions of components,
+built for different platforms.
+The recommended method for providing such a package
+is to provide a different <code class="docutils literal notranslate"><span class="pre">.cps</span></code> for each platform,
+such that the package bundle contains multiple <code class="docutils literal notranslate"><span class="pre">.cps</span></code> files.
+Components that are platform agnostic
+will appear in each <code class="docutils literal notranslate"><span class="pre">.cps</span></code>.
+Proper use of platform-specific library directories
+will address the need for unique paths in most instances.
+On POSIX platforms,
+use of supplemental <code class="docutils literal notranslate"><span class="pre">.cps</span></code> files
+and symbolic or hard links
+may allow for a single file
+specifying platform-agnostic components to be shared.</p>
+</section>
+<section id="cross-compiling">
+<h2>Cross Compiling<a class="headerlink" href="#cross-compiling" title="Permalink to this heading">¶</a></h2>
+<p>When cross compiling, it is sometimes necessary
+to consume parts of a package (e.g. a code generator)
+built for the host platform
+along with other parts of a package built for the target platform.
+As above, the CPS specification does not directly support
+a single package containing components for multiple platforms.
+In order to address this, it is recommended that tools
+(that support cross compiling)
+separately search for a package
+built for the host platform
+and a package built for the target platform,
+and select which instance’s components to use
+as is appropriate to the situation.</p>
+<p>When providing a package intended for cross-compiling use,
+keep in mind that the host-platform and target-platform packages
+do not need to contain the same components.
+Such a package might provide one <code class="docutils literal notranslate"><span class="pre">.cps</span></code> for the host platform
+containing only executables intended for compile-time use
+when building a consuming project,
+and a second <code class="docutils literal notranslate"><span class="pre">.cps</span></code> for the target platform
+that contains the libraries.</p>
+</section>
+<section id="link-only-requirements-and-link-order">
+<h2>Link-Only Requirements and Link Order<a class="headerlink" href="#link-only-requirements-and-link-order" title="Permalink to this heading">¶</a></h2>
+<p>In most cases, the order
+in which “full” and link-only dependencies
+are linked will not matter.
+When an exception occurs,
+it can be addressed in one of two manners:</p>
 <ul class="simple">
-<li>If a &#8220;full&#8221; dependency merely needs to be linked <em>after</em> a link-only dependency, the dependency can simply be listed twice; once in <code class="code attribute docutils literal"><span class="pre">Requires</span></code>, and again in <code class="code attribute docutils literal"><span class="pre">Link-Requires</span></code>. (Tools are encouraged to add link-only dependencies after &#8220;full&#8221; dependencies.) This is redundant, but often satisfactory.</li>
-<li>If strict linking order without duplication is required, the link-only dependency may be wrapped in an <code class="code string docutils literal"><span class="pre">&quot;interface&quot;</span></code> component which is listed as a &#8220;full&#8221; dependency. (Note that tools are expected to expand requirements depth-first rather than breadth-first.)</li>
+<li><p>If a “full” dependency
+merely needs to be linked <em>after</em> a link-only dependency,
+the dependency can simply be listed twice;
+once in <code class="code attribute docutils literal notranslate"><span class="pre">Requires</span></code>,
+and again in <code class="code attribute docutils literal notranslate"><span class="pre">Link-Requires</span></code>.
+(Tools are encouraged to add link-only dependencies
+after “full” dependencies.)
+This is redundant, but often satisfactory.</p></li>
+<li><p>If strict linking order without duplication is required,
+the link-only dependency may be wrapped
+in an <code class="code string docutils literal notranslate"><span class="pre">&quot;interface&quot;</span></code> component
+which is listed as a “full” dependency.
+(Note that tools are expected to expand requirements
+depth-first rather than breadth-first.)</p></li>
 </ul>
-</div>
-<div class="section" id="transitive-dependencies">
-<h2>Transitive Dependencies<a class="headerlink" href="#transitive-dependencies" title="Permalink to this headline">¶</a></h2>
-<p>When a package is located, it is intended that the tool would also locate any <a class="reference internal" href="schema.html#requires-package"><span class="std std-ref">Requires (Package)</span></a> mentioned by the package. In some cases, however, a user may want to use only some components of a package, which may have a more limited set of dependencies than the package as a whole when every component of the package is considered.</p>
-<p>It is plausible that a build tool would take the package&#8217;s requirements as advisory, and only enforce those that are mentioned by a component that the user has requested. However, this does not account for dependencies which apply only at run-time. Additionally, since the intention is that a CPS file originates from a compiled package, and CPS provides mechanisms for the package to indicate where its dependencies were located when the package was built, it would be a strange situation that a package&#8217;s requirements should exist when the package is compiled, but disappear before the package is used. Even when obtaining a package via a distributor, it is typical that installing the package requires that the package&#8217;s dependencies also be installed.</p>
-<p>The obvious exception to this case is when a package is split into multiple CPS files at a functional-group level. In this case, the CPS file for each group should list the requirements applicable to that group. Tools that support specifying that what components of a package must be provided are permitted to ignore the information in any supplemental CPS file that does not contribute requested components or configurations. This allows the tool to accept a package even if some of its requirements are not found, if such requirements apply only to a functional-group of the package that the user does not require. (Even in this case, however, the usual case would be that either the supplemental CPS file&#8217;s requirements can be satisfied anyway, for the reasons stated above, or else the supplemental CPS file for such group is not installed in the first place.)</p>
-</div>
-</div>
+</section>
+<section id="transitive-dependencies">
+<h2>Transitive Dependencies<a class="headerlink" href="#transitive-dependencies" title="Permalink to this heading">¶</a></h2>
+<p>When a package is located,
+it is intended that the tool would also
+locate any <a class="reference internal" href="schema.html#requires-package"><span class="std std-ref">Requires (Package)</span></a> mentioned by the package.
+In some cases, however, a user may want to use
+only some components of a package,
+which may have a more limited set of dependencies
+than the package as a whole
+when every component of the package is considered.</p>
+<p>It is plausible that a build tool
+would take the package’s requirements as advisory,
+and only enforce those that are mentioned
+by a component that the user has requested.
+However, this does not account for dependencies
+which apply only at run-time.
+Additionally, since the intention is that a CPS file
+originates from a compiled package,
+and CPS provides mechanisms for the package to indicate
+where its dependencies were located when the package was built,
+it would be a strange situation that a package’s requirements
+should exist when the package is compiled,
+but disappear before the package is used.
+Even when obtaining a package via a distributor,
+it is typical that installing the package
+requires that the package’s dependencies also be installed.</p>
+<p>The obvious exception to this case
+is when a package is split into multiple CPS files
+at a functional-group level.
+In this case, the CPS file for each group
+should list the requirements applicable to that group.
+Tools that support specifying
+what components of a package must be provided
+are permitted to ignore the information in any supplemental CPS file
+that does not contribute requested components or configurations.
+This allows the tool to accept a package
+even if some of its requirements are not found,
+if such requirements apply only to a functional-group
+of the package that the user does not require.
+(Even in this case, however, the usual case
+would be that either the supplemental CPS file’s requirements
+can be satisfied anyway, for the reasons stated above,
+or else the supplemental CPS file for such group
+is not installed in the first place.)</p>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table Of Contents</a></h3>
+<h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
@@ -142,12 +247,16 @@
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample CPS File</a></li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="schema-supplement.html"
-                        title="previous chapter">Supplemental Schema</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="sample.html"
-                        title="next chapter">Sample CPS File</a></p>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="schema-supplement.html"
+                          title="previous chapter">Supplemental Schema</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="sample.html"
+                          title="next chapter">Sample CPS File</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -156,15 +265,15 @@
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -181,12 +290,13 @@
         <li class="right" >
           <a href="schema-supplement.html" title="Supplemental Schema"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.1</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Usage and Implementation Recommendations</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2017, Matthew Woehlke.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+        &#169; Copyright 2023, Matthew Woehlke.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>

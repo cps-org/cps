@@ -1,35 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Supplemental Schema &#8212; Common Package Specification v0.8.2</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cps.css" />
     
-    <title>Supplemental Schema &#8212; Common Package Specification v0.8.1</title>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     
-    <link rel="stylesheet" href="_static/cps.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.8.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Usage and Implementation Recommendations" href="recommendations.html" />
     <link rel="prev" title="Package Searching" href="searching.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -42,7 +34,8 @@
         <li class="right" >
           <a href="searching.html" title="Package Searching"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.1</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Supplemental Schema</a></li> 
       </ul>
     </div>  
 
@@ -51,113 +44,150 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="supplemental-schema">
-<h1>Supplemental Schema<a class="headerlink" href="#supplemental-schema" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference internal" href="schema.html#package-schema"><span class="std std-ref">Package Schema</span></a> describes the normative specification, which conforming tools are required to support in a prescribed manner. This section describes additional, optional elements which are useful, but non-normative. Conforming tools are not required to be aware of these elements, but by including them in this supplement, it is hoped that tools for which these ideas are useful would operate in a way that allows these elements to be useful to all tools that implement functionality along the lines here described.</p>
-<p>These can be seen as &#8220;officially blessed&#8221; exceptions to the recommendation that extensions use the <code class="docutils literal"><span class="pre">X-</span></code> prefix.</p>
-<div class="section" id="attributes-supplemental">
-<h2>Attributes<span class="hidden">(Supplemental)</span><a class="headerlink" href="#attributes-supplemental" title="Permalink to this headline">¶</a></h2>
+  <section id="supplemental-schema">
+<h1>Supplemental Schema<a class="headerlink" href="#supplemental-schema" title="Permalink to this heading">¶</a></h1>
+<p>The <a class="reference internal" href="schema.html#package-schema"><span class="std std-ref">Package Schema</span></a> describes the normative specification,
+which conforming tools are required to support in a prescribed manner.
+This section describes additional, optional elements
+which are useful, but non-normative.
+Conforming tools are not required to be aware of these elements,
+but by including them in this supplement,
+it is hoped that tools for which these ideas are useful
+would operate in a way that allows these elements
+to be useful to all tools
+that implement functionality along the lines here described.</p>
+<p>These can be seen as “officially blessed” exceptions
+to the recommendation that extensions use the <code class="docutils literal notranslate"><span class="pre">X-</span></code> prefix.</p>
+<section id="attributes-supplemental">
+<h2>Attributes<span class="hidden">(Supplemental)</span><a class="headerlink" href="#attributes-supplemental" title="Permalink to this heading">¶</a></h2>
 <p>By definition, none of the following attributes are required.</p>
-<div class="section" id="default-license">
-<h3><code class="code attribute docutils literal"><span class="pre">Default-License</span></code><a class="headerlink" href="#default-license" title="Permalink to this headline">¶</a></h3>
-<p>Specifies the <a class="reference internal" href="#license">License</a> that is assumed to apply to a component, if none is otherwise specified. This is convenient for packages that wish their <a class="reference internal" href="#license">License</a> to reflect portions of the package that are not reflected by a component (such as data files) when most or all of the compiled artifacts use the same license.</p>
-</div>
-<div class="section" id="description">
-<h3><code class="code attribute docutils literal"><span class="pre">Description</span></code><a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code>, <code class="code object docutils literal"><span class="pre">component</span></code></td>
-</tr>
-</tbody>
-</table>
-<p>Provides a human readable description of the function which the package or component provides.</p>
-</div>
-<div class="section" id="display-name">
-<h3><code class="code attribute docutils literal"><span class="pre">Display-Name</span></code><a class="headerlink" href="#display-name" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-</tbody>
-</table>
-<p>Provides a human readable name of the package. If provided, tools may use this in informational messages instead of, or in addition to, the canonical package name.</p>
-</div>
-<div class="section" id="license">
-<h3><code class="code attribute docutils literal"><span class="pre">License</span></code><a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Special</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code>, <code class="code object docutils literal"><span class="pre">component</span></code></td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the license or licenses under which the package is distributed. A <code class="code type docutils literal"><span class="pre">string</span></code> value shall be used for a single license. If multiple licenses need to be specified, a <code class="code type docutils literal"><span class="pre">list</span></code> shall be used. Each <code class="code type docutils literal"><span class="pre">string</span></code> value of the <code class="code type docutils literal"><span class="pre">list</span></code> is a license which <em>always</em> applies to the package. If a package is wholly or partly multi-licensed (that is, the user has a choice of license), the top level <code class="code type docutils literal"><span class="pre">list</span></code> shall contain a <code class="code type docutils literal"><span class="pre">list</span></code> of values representing possible licenses. For example, the value <code class="docutils literal"><span class="pre">[&quot;CC-BY-4.0&quot;,</span> <span class="pre">[&quot;GPL-2.0&quot;,</span> <span class="pre">&quot;LGPL-3.0+&quot;]]</span></code> indicates that some portions of the package are licensed under <code class="code string docutils literal"><span class="pre">&quot;CC-BY-4.0&quot;</span></code>, while others are licensed as (at the user&#8217;s choice) either <code class="code string docutils literal"><span class="pre">&quot;GPL-2.0&quot;</span></code> or <code class="code string docutils literal"><span class="pre">&quot;LGPL-3.0+&quot;</span></code>. If necessary, further nesting may be employed; each nesting level alternates between inclusive (&#8220;A <strong>and</strong> B&#8221;) and exclusive (&#8220;A <strong>or</strong> B&#8221;) licensing.</p>
-<p>If parts of a package use different licenses, this attribute may also be specified on a component if doing so helps to clarifying the licensing. (See also <a class="reference internal" href="#default-license">Default-License</a>.)</p>
-<p>License identifiers should follow the <a class="reference external" href="https://spdx.org/">Software Package Data Exchange</a> <a class="reference external" href="https://spdx.org/licenses/">License List</a>. The <code class="docutils literal"><span class="pre">WITH</span></code> operator may be used when appropriate, but structured data is used to express conjunctions and disjunctions, as described in the preceding paragraph.</p>
-</div>
-<div class="section" id="meta-comment">
-<h3><code class="code attribute docutils literal"><span class="pre">Meta-Comment</span></code><a class="headerlink" href="#meta-comment" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-</tbody>
-</table>
-<p>Provides a description of the file contents, for readers that may not be familiar with CPS files. The typical value is <code class="code string docutils literal"><span class="pre">&quot;Common</span> <span class="pre">Package</span> <span class="pre">Specification</span> <span class="pre">for</span> <span class="pre">&lt;package</span> <span class="pre">name&gt;&quot;</span></code>.</p>
-</div>
-<div class="section" id="meta-schema">
-<h3><code class="code attribute docutils literal"><span class="pre">Meta-Schema</span></code><a class="headerlink" href="#meta-schema" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-</tbody>
-</table>
-<p>Provides a URI link to a document describing the format of the CPS file. The typical value is <code class="code string docutils literal"><span class="pre">&quot;https://mwoehlke.github.io/cps/&quot;</span></code> (i.e. the top level page of this site).</p>
-</div>
-<div class="section" id="website">
-<h3><code class="code attribute docutils literal"><span class="pre">Website</span></code><a class="headerlink" href="#website" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the URI at which the package&#8217;s website may be found.</p>
-</div>
-</div>
-</div>
+<section id="default-license">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Default-License</span></code><a class="headerlink" href="#default-license" title="Permalink to this heading">¶</a></h3>
+<p>Specifies the <a class="reference internal" href="#license">License</a> that is assumed to apply to a component,
+if none is otherwise specified.
+This is convenient for packages
+that wish their <a class="reference internal" href="#license">License</a> to reflect portions of the package
+that are not reflected by a component (such as data files)
+when most or all of the compiled artifacts use the same license.</p>
+</section>
+<section id="description">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Description</span></code><a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code>, <code class="code object docutils literal notranslate"><span class="pre">component</span></code></p>
+</dd>
+</dl>
+<p>Provides a human readable description of the function
+which the package or component provides.</p>
+</section>
+<section id="display-name">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Display-Name</span></code><a class="headerlink" href="#display-name" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+</dl>
+<p>Provides a human readable name of the package.
+If provided, tools may use this in informational messages
+instead of, or in addition to, the canonical package name.</p>
+</section>
+<section id="license">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">License</span></code><a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Special</p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code>, <code class="code object docutils literal notranslate"><span class="pre">component</span></code></p>
+</dd>
+</dl>
+<p>Specifies the license or licenses
+under which the package is distributed.
+A <code class="code type docutils literal notranslate"><span class="pre">string</span></code> value shall be used for a single license.
+If multiple licenses need to be specified,
+a <code class="code type docutils literal notranslate"><span class="pre">list</span></code> shall be used.
+Each <code class="code type docutils literal notranslate"><span class="pre">string</span></code> value of the <code class="code type docutils literal notranslate"><span class="pre">list</span></code>
+is a license which <em>always</em> applies to the package.
+If a package is wholly or partly multi-licensed
+(that is, the user has a choice of license),
+the top level <code class="code type docutils literal notranslate"><span class="pre">list</span></code> shall contain a <code class="code type docutils literal notranslate"><span class="pre">list</span></code> of values
+representing possible licenses.
+For example, the value <code class="docutils literal notranslate"><span class="pre">[&quot;CC-BY-4.0&quot;,</span> <span class="pre">[&quot;GPL-2.0&quot;,</span> <span class="pre">&quot;LGPL-3.0+&quot;]]</span></code>
+indicates that some portions of the package
+are licensed under <code class="code string docutils literal notranslate"><span class="pre">&quot;CC-BY-4.0&quot;</span></code>,
+while others are licensed as (at the user’s choice)
+either <code class="code string docutils literal notranslate"><span class="pre">&quot;GPL-2.0&quot;</span></code> or <code class="code string docutils literal notranslate"><span class="pre">&quot;LGPL-3.0+&quot;</span></code>.
+If necessary, further nesting may be employed;
+each nesting level alternates
+between inclusive (“A <strong>and</strong> B”)
+and exclusive (“A <strong>or</strong> B”) licensing.</p>
+<p>If parts of a package use different licenses,
+this attribute may also be specified on a component
+if doing so helps to clarifying the licensing.
+(See also <a class="reference internal" href="#default-license">Default-License</a>.)</p>
+<p>License identifiers should follow the <a class="reference external" href="https://spdx.org/">Software Package Data Exchange</a> <a class="reference external" href="https://spdx.org/licenses/">License List</a>.
+The <code class="docutils literal notranslate"><span class="pre">WITH</span></code> operator may be used when appropriate,
+but structured data is used to express conjunctions and disjunctions,
+as described in the preceding paragraph.</p>
+</section>
+<section id="meta-comment">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Meta-Comment</span></code><a class="headerlink" href="#meta-comment" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+</dl>
+<p>Provides a description of the file contents,
+for readers that may not be familiar with CPS files.
+The typical value is
+<code class="code string docutils literal notranslate"><span class="pre">&quot;Common</span> <span class="pre">Package</span> <span class="pre">Specification</span> <span class="pre">for</span> <span class="pre">&lt;package</span> <span class="pre">name&gt;&quot;</span></code>.</p>
+</section>
+<section id="meta-schema">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Meta-Schema</span></code><a class="headerlink" href="#meta-schema" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+</dl>
+<p>Provides a URI link to a document describing the format of the CPS file.
+The typical value is <code class="code string docutils literal notranslate"><span class="pre">&quot;https://mwoehlke.github.io/cps/&quot;</span></code>
+(i.e. the top level page of this site).</p>
+</section>
+<section id="website">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Website</span></code><a class="headerlink" href="#website" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+</dl>
+<p>Specifies the URI at which the package’s website may be found.</p>
+</section>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table Of Contents</a></h3>
+<h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
@@ -179,12 +209,16 @@
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample CPS File</a></li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="searching.html"
-                        title="previous chapter">Package Searching</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="recommendations.html"
-                        title="next chapter">Usage and Implementation Recommendations</a></p>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="searching.html"
+                          title="previous chapter">Package Searching</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="recommendations.html"
+                          title="next chapter">Usage and Implementation Recommendations</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -193,15 +227,15 @@
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -218,12 +252,13 @@
         <li class="right" >
           <a href="searching.html" title="Package Searching"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.1</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Supplemental Schema</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2017, Matthew Woehlke.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+        &#169; Copyright 2023, Matthew Woehlke.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>

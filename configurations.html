@@ -1,35 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Package Configurations &#8212; Common Package Specification v0.8.2</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cps.css" />
     
-    <title>Package Configurations &#8212; Common Package Specification v0.8.1</title>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     
-    <link rel="stylesheet" href="_static/cps.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.8.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Package Searching" href="searching.html" />
     <link rel="prev" title="Component Specification" href="components.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -42,7 +34,8 @@
         <li class="right" >
           <a href="components.html" title="Component Specification"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.1</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Package Configurations</a></li> 
       </ul>
     </div>  
 
@@ -51,37 +44,115 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="package-configurations">
-<h1>Package Configurations<a class="headerlink" href="#package-configurations" title="Permalink to this headline">¶</a></h1>
-<p>Configurations provide a mechanism for a package to provide multiple configurations from a single distribution. Such configurations might include separate debug and release libraries, builds with and without thread safety, and so forth. The possible configurations are determined by each individual package, and it is left to the consumer and build system to decide when and how to select a non-default configuration.</p>
-<p>When a consumer consumes a component, the build system must determine the attribute values for that component by selecting which configuration of the component to use (if the component has multiple configurations). It is recommended that build systems select a configuration as follows:</p>
+  <section id="package-configurations">
+<h1>Package Configurations<a class="headerlink" href="#package-configurations" title="Permalink to this heading">¶</a></h1>
+<p>Configurations provide a mechanism
+for a package to provide multiple configurations
+from a single distribution.
+Such configurations might include
+separate debug and release libraries,
+builds with and without thread safety,
+and so forth.
+The possible configurations
+are determined by each individual package,
+and it is left to the consumer and build system
+to decide when and how to select a non-default configuration.</p>
+<p>When a consumer consumes a component,
+the build system must determine the attribute values for that component
+by selecting which configuration of the component to use
+(if the component has multiple configurations).
+It is recommended that build systems select a configuration as follows:</p>
 <ul class="simple">
-<li>For each package, the consumer shall have a mechanism for providing a list of preferred configurations. The first configuration in this list which matches an available configuration of the component shall be used. (If the build system supports multiple configurations, it is recommended that the consuming project may specify different values and/or order of this list depending on its own active configuration.)</li>
-<li>If the build system supports multiple configurations, the build system may implement a mechanism to prefer a configuration which &#8220;matches&#8221; the consuming project&#8217;s active configuration.</li>
-<li>The package&#8217;s <a class="reference internal" href="schema.html#configurations-package"><span class="std std-ref">Configurations (Package)</span></a> shall be searched. The first configuration in this list which matches an available configuration of the component shall be used.</li>
+<li><p>For each package, the consumer shall have a mechanism
+for providing a list of preferred configurations.
+The first configuration in this list
+which matches an available configuration of the component
+shall be used.
+(If the build system supports multiple configurations,
+it is recommended that the consuming project
+may specify different values and/or order of this list
+depending on its own active configuration.)</p></li>
+<li><p>If the build system supports multiple configurations,
+the build system may implement a mechanism to prefer a configuration
+which “matches” the consuming project’s active configuration.</p></li>
+<li><p>The package’s <a class="reference internal" href="schema.html#configurations-package"><span class="std std-ref">Configurations (Package)</span></a> shall be searched.
+The first configuration in this list
+which matches an available configuration of the component
+shall be used.</p></li>
 </ul>
-<p>The value of an attribute for a component is determined in one of two ways: If the selected <code class="code object docutils literal"><span class="pre">configuration</span></code> of the <code class="code object docutils literal"><span class="pre">component</span></code> has the attribute, that value is used. Otherwise, if the <code class="code object docutils literal"><span class="pre">component</span></code> directly has the requested attribute, that value is used. This allows a configuration-specific attribute to override an attribute value that is not configuration-specific. If the attribute is required, and is not present on either the selected <code class="code object docutils literal"><span class="pre">configuration</span></code>, or the non-configuration-specific attributes of the <code class="code object docutils literal"><span class="pre">component</span></code>, then the CPS is ill-formed. Note that a value of <code class="code keyword docutils literal"><span class="pre">null</span></code> satisfies the condition of having the attribute. A value of <code class="code keyword docutils literal"><span class="pre">null</span></code> has the usual meaning where <code class="code keyword docutils literal"><span class="pre">null</span></code> is an acceptable value for the attribute; otherwise, a value of <code class="code keyword docutils literal"><span class="pre">null</span></code> shall be treated as the attribute being unset (and shall suppress falling back to the non-configuration-specific value).</p>
-<div class="section" id="configuration-merging">
-<h2>Configuration Merging<a class="headerlink" href="#configuration-merging" title="Permalink to this headline">¶</a></h2>
-<p>Some build systems may desire to output separate specifications per configuration, and/or to output separate CPS files per component. This is especially useful to permit piecemeal installation of individual components and/or configurations (for example, a &#8220;base&#8221; package with release libraries and common components, an optional package with debug libraries, and another optional package with optional components).</p>
-<p>When a tool locates a CPS file, <code class="code var docutils literal"><span class="pre">name</span></code><code class="code path docutils literal"><span class="pre">.cps</span></code>, the tool shall look in the same directory for any files named <code class="code var docutils literal"><span class="pre">name</span></code><code class="code path docutils literal"><span class="pre">:</span></code><code class="code glob docutils literal"><span class="pre">*</span></code><code class="code path docutils literal"><span class="pre">.cps</span></code>,  <code class="code var docutils literal"><span class="pre">name</span></code><code class="code path docutils literal"><span class="pre">&#64;</span></code><code class="code glob docutils literal"><span class="pre">*</span></code><code class="code path docutils literal"><span class="pre">.cps</span></code>, and <code class="code var docutils literal"><span class="pre">name</span></code><code class="code path docutils literal"><span class="pre">:</span></code><code class="code glob docutils literal"><span class="pre">*</span></code><code class="code path docutils literal"><span class="pre">&#64;</span></code><code class="code glob docutils literal"><span class="pre">*</span></code><code class="code path docutils literal"><span class="pre">.cps</span></code> (the asterisk (<code class="docutils literal"><span class="pre">*</span></code>) represents file globbing). If any such package specifications are found, they shall be loaded at the same time, and their contents appended to the information loaded from the base CPS. (Note, however, that tools are permitted to ignore the information in any such supplemental CPS file as they may determine is not relevant to the user&#8217;s needs. In particular, see <a class="reference internal" href="recommendations.html#transitive-dependencies"><span class="std std-ref">Transitive Dependencies</span></a>.)</p>
-<p>A <code class="docutils literal"><span class="pre">.cps</span></code> file whose name contains <code class="docutils literal"><span class="pre">&#64;</span></code> is a configuration-specific CPS. The structure of a configuration-specific CPS is the same as a common CPS, with three exceptions:</p>
+<p>The value of an attribute for a component
+is determined in one of two ways:
+If the selected <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code>
+of the <code class="code object docutils literal notranslate"><span class="pre">component</span></code> has the attribute,
+that value is used.
+Otherwise, if the <code class="code object docutils literal notranslate"><span class="pre">component</span></code>
+directly has the requested attribute,
+that value is used.
+This allows a configuration-specific attribute
+to override an attribute value that is not configuration-specific.
+If the attribute is required,
+and is not present on either the selected <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code>,
+or the non-configuration-specific attributes of the <code class="code object docutils literal notranslate"><span class="pre">component</span></code>,
+then the CPS is ill-formed.
+Note that a value of <code class="code keyword docutils literal notranslate"><span class="pre">null</span></code>
+satisfies the condition of having the attribute.
+A value of <code class="code keyword docutils literal notranslate"><span class="pre">null</span></code> has the usual meaning
+where <code class="code keyword docutils literal notranslate"><span class="pre">null</span></code> is an acceptable value for the attribute;
+otherwise, a value of <code class="code keyword docutils literal notranslate"><span class="pre">null</span></code>
+shall be treated as the attribute being unset
+(and shall suppress falling back to the non-configuration-specific value).</p>
+<section id="configuration-merging">
+<h2>Configuration Merging<a class="headerlink" href="#configuration-merging" title="Permalink to this heading">¶</a></h2>
+<p>Some build systems may desire to output
+separate specifications per configuration,
+and/or to output separate CPS files per component.
+This is especially useful to permit piecemeal installation
+of individual components and/or configurations
+(for example, a “base” package
+with release libraries and common components,
+an optional package with debug libraries,
+and another optional package with optional components).</p>
+<p>When a tool locates a CPS file, <code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code>,
+the tool shall look in the same directory for any files named
+<code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">:</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code>,
+<code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">&#64;</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code>, and
+<code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">:</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">&#64;</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code>
+(the asterisk (<code class="docutils literal notranslate"><span class="pre">*</span></code>) represents file globbing).
+If any such package specifications are found,
+they shall be loaded at the same time,
+and their contents appended to the information loaded from the base CPS.
+(Note, however, that tools are permitted
+to ignore the information in any such supplemental CPS file
+as they may determine is not relevant to the user’s needs.
+In particular, see <a class="reference internal" href="recommendations.html#transitive-dependencies"><span class="std std-ref">Transitive Dependencies</span></a>.)</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">.cps</span></code> file whose name contains <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>
+is a configuration-specific CPS.
+The structure of a configuration-specific CPS
+is the same as a common CPS, with three exceptions:</p>
 <ul class="simple">
-<li>The per-configuration specification must contain the <a class="reference internal" href="schema.html#configuration"><span class="std std-ref">Configuration</span></a> attribute.</li>
-<li>The per-configuration specification may not specify any <code class="code object docutils literal"><span class="pre">component</span></code> attributes (e.g. <code class="code attribute docutils literal"><span class="pre">Type</span></code>).</li>
-<li>An attribute on a <code class="code object docutils literal"><span class="pre">component</span></code> is considered to belong instead to the component-configuration identified by the configuration-specific CPS.</li>
+<li><p>The per-configuration specification
+must contain the <a class="reference internal" href="schema.html#configuration"><span class="std std-ref">Configuration</span></a> attribute.</p></li>
+<li><p>The per-configuration specification
+may not specify any <code class="code object docutils literal notranslate"><span class="pre">component</span></code> attributes
+(e.g. <code class="code attribute docutils literal notranslate"><span class="pre">Type</span></code>).</p></li>
+<li><p>An attribute on a <code class="code object docutils literal notranslate"><span class="pre">component</span></code>
+is considered to belong instead
+to the component-configuration
+identified by the configuration-specific CPS.</p></li>
 </ul>
-<p>The order in which the data from multiple CPS files is appended is implementation-defined.</p>
-</div>
-</div>
+<p>The order in which the data from multiple CPS files is appended
+is implementation-defined.</p>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table Of Contents</a></h3>
+<h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
@@ -103,12 +174,16 @@
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample CPS File</a></li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="components.html"
-                        title="previous chapter">Component Specification</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="searching.html"
-                        title="next chapter">Package Searching</a></p>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="components.html"
+                          title="previous chapter">Component Specification</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="searching.html"
+                          title="next chapter">Package Searching</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -117,15 +192,15 @@
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -142,12 +217,13 @@
         <li class="right" >
           <a href="components.html" title="Component Specification"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.1</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Package Configurations</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2017, Matthew Woehlke.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+        &#169; Copyright 2023, Matthew Woehlke.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>

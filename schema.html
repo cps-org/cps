@@ -1,35 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Package Schema &#8212; Common Package Specification v0.8.2</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/cps.css" />
     
-    <title>Package Schema &#8212; Common Package Specification v0.8.1</title>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     
-    <link rel="stylesheet" href="_static/cps.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.8.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Compiler and Linker Features" href="features.html" />
     <link rel="prev" title="Development Process" href="development.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -42,7 +34,8 @@
         <li class="right" >
           <a href="development.html" title="Development Process"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.1</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Package Schema</a></li> 
       </ul>
     </div>  
 
@@ -51,709 +44,927 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="package-schema">
-<h1>Package Schema<a class="headerlink" href="#package-schema" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="objects">
-<h2>Objects<a class="headerlink" href="#objects" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="package-object">
-<h3><code class="code object docutils literal"><span class="pre">Package</span></code><span class="hidden">(Object)</span><a class="headerlink" href="#package-object" title="Permalink to this headline">¶</a></h3>
-<p>The root of a CPS document is a <code class="code object docutils literal"><span class="pre">package</span></code> object. A <code class="code object docutils literal"><span class="pre">package</span></code> object describes a single package.</p>
-</div>
-<div class="section" id="platform-object">
-<h3><code class="code object docutils literal"><span class="pre">Platform</span></code><span class="hidden">(Object)</span><a class="headerlink" href="#platform-object" title="Permalink to this headline">¶</a></h3>
-<p>A <code class="code object docutils literal"><span class="pre">platform</span></code> describes the platform on which a package&#8217;s components may run.</p>
-</div>
-<div class="section" id="requirement-object">
-<h3><code class="code object docutils literal"><span class="pre">Requirement</span></code><span class="hidden">(Object)</span><a class="headerlink" href="#requirement-object" title="Permalink to this headline">¶</a></h3>
-<p>A <code class="code object docutils literal"><span class="pre">requirement</span></code> describes the specifics of a package dependency.</p>
-</div>
-<div class="section" id="component-object">
-<h3><code class="code object docutils literal"><span class="pre">Component</span></code><span class="hidden">(Object)</span><a class="headerlink" href="#component-object" title="Permalink to this headline">¶</a></h3>
-<p>A <code class="code object docutils literal"><span class="pre">component</span></code> is a consumable part of a package. Typical components include libraries and executables.</p>
-</div>
-<div class="section" id="configuration-object">
-<h3><code class="code object docutils literal"><span class="pre">Configuration</span></code><span class="hidden">(Object)</span><a class="headerlink" href="#configuration-object" title="Permalink to this headline">¶</a></h3>
-<p>A <code class="code object docutils literal"><span class="pre">configuration</span></code> holds attributes that are specific to a particular configuration of a <code class="code object docutils literal"><span class="pre">component</span></code>.</p>
-</div>
-</div>
-<div class="section" id="attributes">
-<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
-<p>An optional attribute may have the value <code class="code keyword docutils literal"><span class="pre">null</span></code>. This shall be equivalent to omitting the attribute.</p>
-<p>Attribute names are case insensitive, although it is recommended that <code class="docutils literal"><span class="pre">.cps</span></code> files use the capitalization as shown.</p>
-<div class="section" id="c-runtime-vendor">
-<h3><code class="code attribute docutils literal"><span class="pre">C-Runtime-Vendor</span></code><a class="headerlink" href="#c-runtime-vendor" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">platform</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies that the package&#8217;s CABI components require the specified C standard/runtime library. Typical (case-insensitive) values include <code class="code string docutils literal"><span class="pre">&quot;bsd&quot;</span></code> (libc), <code class="code string docutils literal"><span class="pre">&quot;gnu&quot;</span></code> (glibc), <code class="code string docutils literal"><span class="pre">&quot;mingw&quot;</span></code> and <code class="code string docutils literal"><span class="pre">&quot;microsoft&quot;</span></code>.</p>
-</div>
-<div class="section" id="c-runtime-version">
-<h3><code class="code attribute docutils literal"><span class="pre">C-Runtime-Version</span></code><a class="headerlink" href="#c-runtime-version" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">platform</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the minimum C standard/runtime library version required by the package&#8217;s CABI components.</p>
-</div>
-<div class="section" id="clr-vendor">
-<h3><code class="code attribute docutils literal"><span class="pre">Clr-Vendor</span></code><a class="headerlink" href="#clr-vendor" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">platform</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies that the package&#8217;s CLR (.NET) components require the specified <a class="reference external" href="https://en.wikipedia.org/wiki/Common_Language_Runtime">Common Language Runtime</a> vendor. Typical (case-insensitive) values include <code class="code string docutils literal"><span class="pre">&quot;microsoft&quot;</span></code> and <code class="code string docutils literal"><span class="pre">&quot;mono&quot;</span></code>.</p>
-</div>
-<div class="section" id="clr-version">
-<h3><code class="code attribute docutils literal"><span class="pre">Clr-Version</span></code><a class="headerlink" href="#clr-version" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">platform</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the minimum <a class="reference external" href="https://en.wikipedia.org/wiki/Common_Language_Runtime">Common Language Runtime</a> version required to use the package&#8217;s CLR (.NET) components.</p>
-</div>
-<div class="section" id="compat-version">
-<h3><code class="code attribute docutils literal"><span class="pre">Compat-Version</span></code><a class="headerlink" href="#compat-version" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the oldest version of the package with which this version is compatible. This information is used when a consumer requests a specific version. If the version requested is equal to or newer than the <code class="code attribute docutils literal"><span class="pre">Compat-Version</span></code>, the package may be used.</p>
-<p>If not specified, the package is not compatible with previous versions (i.e. <code class="code attribute docutils literal"><span class="pre">Compat-Version</span></code> is implicitly equal to <code class="code attribute docutils literal"><span class="pre">Version</span></code>).</p>
-</div>
-<div class="section" id="compile-features">
-<h3><code class="code attribute docutils literal"><span class="pre">Compile-Features</span></code><a class="headerlink" href="#compile-features" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code>, <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies a list of <a class="reference internal" href="features.html#compiler-features"><span class="std std-ref">Compiler Features</span></a> that must be enabled or disabled when compiling code that consumes the component.</p>
-</div>
-<div class="section" id="compile-flags">
-<h3><code class="code attribute docutils literal"><span class="pre">Compile-Flags</span></code><a class="headerlink" href="#compile-flags" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code> <span class="separator">or</span> <code class="code type docutils literal"><span class="pre">map</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code> to <code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code>, <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies a list of additional flags that must be supplied to the compiler when compiling code that consumes the component. Note that compiler flags may not be portable; use of this attribute is discouraged.</p>
-<p>A map may be used instead to give different values depending on the language of the consuming source file. Handling of such shall be the same as for <a class="reference internal" href="#definitions">Definitions</a>.</p>
-</div>
-<div class="section" id="components-package">
-<h3><code class="code attribute docutils literal"><span class="pre">Components</span></code> <span class="applies-to">(Package)</span><a class="headerlink" href="#components-package" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">map</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code> to <code class="code object docutils literal"><span class="pre">component</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">Yes</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the components which the package provides. Keys are the component names.</p>
-</div>
-<div class="section" id="components-requirement">
-<h3><code class="code attribute docutils literal"><span class="pre">Components</span></code> <span class="applies-to">(Requirement)</span><a class="headerlink" href="#components-requirement" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">requirement</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies a list of components which must be present in the required package in order for the requirement to be satisfied. Although the build tool will generally produce an error if a consumer uses a component which in turn requires a component that was not found, early specification via this attribute may help build tools to diagnose such issues earlier and/or produce better diagnostics.</p>
-<p>This may also be used to specify dependencies that are not expressed in component level dependencies, such as a package&#8217;s requirement that a dependency includes a certain symbolic component, or if a dependency is only expressed at run-time.</p>
-</div>
-<div class="section" id="configuration">
-<h3><code class="code attribute docutils literal"><span class="pre">Configuration</span></code><a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">Special</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the name of the configuration described by a configuration-specific <code class="docutils literal"><span class="pre">.cps</span></code> (see <a class="reference internal" href="configurations.html#configuration-merging"><span class="std std-ref">Configuration Merging</span></a>). This attribute is required in a configuration-specific <code class="docutils literal"><span class="pre">.cps</span></code>, and ignored otherwise.</p>
-</div>
-<div class="section" id="configurations-package">
-<h3><code class="code attribute docutils literal"><span class="pre">Configurations</span></code> <span class="applies-to">(Package)</span><a class="headerlink" href="#configurations-package" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the configurations that are available. See <a class="reference internal" href="configurations.html#package-configurations"><span class="std std-ref">Package Configurations</span></a> for a description of how configurations are used.</p>
-</div>
-<div class="section" id="configurations-component">
-<h3><code class="code attribute docutils literal"><span class="pre">Configurations</span></code> <span class="applies-to">(Component)</span><a class="headerlink" href="#configurations-component" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">map</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code> to <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies a set of configuration-specific attributes for a <code class="code object docutils literal"><span class="pre">component</span></code>. Keys are the configuration names.</p>
-</div>
-<div class="section" id="cpp-runtime-vendor">
-<h3><code class="code attribute docutils literal"><span class="pre">Cpp-Runtime-Vendor</span></code><a class="headerlink" href="#cpp-runtime-vendor" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">platform</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies that the package&#8217;s CABI components require the specified C standard/runtime library. Typical (case-insensitive) values include <code class="code string docutils literal"><span class="pre">&quot;gnu&quot;</span></code> (libstdc++), <code class="code string docutils literal"><span class="pre">&quot;llvm&quot;</span></code> (libc++) and <code class="code string docutils literal"><span class="pre">&quot;microsoft&quot;</span></code>.</p>
-</div>
-<div class="section" id="cpp-runtime-version">
-<h3><code class="code attribute docutils literal"><span class="pre">Cpp-Runtime-Version</span></code><a class="headerlink" href="#cpp-runtime-version" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">platform</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the minimum C standard/runtime library version required by the package&#8217;s CABI components.</p>
-</div>
-<div class="section" id="cps-path">
-<h3><code class="code attribute docutils literal"><span class="pre">Cps-Path</span></code><a class="headerlink" href="#cps-path" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the directory portion location of the <code class="docutils literal"><span class="pre">.cps</span></code> file. This shall be an &#8220;absolute&#8221; path which starts with <code class="docutils literal"><span class="pre">&#64;prefix&#64;</span></code>. This provides an additional mechanism by which the tool may deduce the package&#8217;s prefix, since the absolute location of the <code class="docutils literal"><span class="pre">.cps</span></code> file will be known by the tool. (See also <a class="reference internal" href="searching.html#prefix-determination"><span class="std std-ref">Prefix Determination</span></a>.)</p>
-</div>
-<div class="section" id="cps-version">
-<h3><code class="code attribute docutils literal"><span class="pre">Cps-Version</span></code><a class="headerlink" href="#cps-version" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">Yes</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the version of the CPS to which this <code class="docutils literal"><span class="pre">.cps</span></code> file conforms. This may be used by tools to provide backwards compatibility in case of compatibility-breaking changes in the CPS.</p>
-<p>CPS version numbering follows <a class="reference external" href="http://semver.org/">Semantic Versioning</a>. That is, tools that support CPS version <code class="docutils literal"><span class="pre">&lt;X&gt;.&lt;Y&gt;</span></code> are expected to be able to read files with <code class="code attribute docutils literal"><span class="pre">Cps-Version</span></code> <code class="docutils literal"><span class="pre">&lt;X&gt;.&lt;Z&gt;</span></code>, even for Z &gt; Y (with the understanding that the tool may miss non-critical information that the CPS provided in such cases).</p>
-</div>
-<div class="section" id="default-components">
-<h3><code class="code attribute docutils literal"><span class="pre">Default-Components</span></code><a class="headerlink" href="#default-components" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies a list of components that should be inferred if a consumer specifies a dependency on a package, but not a specific component.</p>
-</div>
-<div class="section" id="definitions">
-<h3><code class="code attribute docutils literal"><span class="pre">Definitions</span></code><a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code> <span class="separator">or</span> <code class="code type docutils literal"><span class="pre">map</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code> to <code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code>, <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies a list of compile definitions that must be defined when compiling code that consumes the component. Definitions should be in the form <code class="code string docutils literal"><span class="pre">&quot;FOO&quot;</span></code> or <code class="code string docutils literal"><span class="pre">&quot;FOO=BAR&quot;</span></code>. Additionally, a definition in the form <code class="code string docutils literal"><span class="pre">&quot;!FOO&quot;</span></code> indicates that the specified symbol (<code class="docutils literal"><span class="pre">FOO</span></code>, in this example) shall be explicitly undefined (e.g. <code class="docutils literal"><span class="pre">-UFOO</span></code> passed to the compiler).</p>
-<p>A map may be used instead to give different values depending on the language of the consuming source file. In this case, the build tool shall select the list from the map whose key matches the (case-insensitive) language of the source file being compiled. Recognized languages shall include <code class="code string docutils literal"><span class="pre">&quot;C&quot;</span></code>, <code class="code string docutils literal"><span class="pre">&quot;C++&quot;</span></code>, and <code class="code string docutils literal"><span class="pre">&quot;Fortran&quot;</span></code>.</p>
-</div>
-<div class="section" id="hints">
-<h3><code class="code attribute docutils literal"><span class="pre">Hints</span></code><a class="headerlink" href="#hints" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">requirement</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies a list of paths where a required dependency might be located. When given, this will usually provide the location of the dependency as it was consumed by the package when the package was built, so that consumers can easily find (correct) dependencies if they are in a location that is not searched by default.</p>
-</div>
-<div class="section" id="includes">
-<h3><code class="code attribute docutils literal"><span class="pre">Includes</span></code><a class="headerlink" href="#includes" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code> <span class="separator">or</span> <code class="code type docutils literal"><span class="pre">map</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code> to <code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code>, <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies a list of directories which should be added to the include search path when compiling code that consumes the component. If a path starts with <code class="docutils literal"><span class="pre">&#64;prefix&#64;</span></code>, the package&#8217;s install prefix is substituted (see <a class="reference internal" href="searching.html#package-searching"><span class="std std-ref">Package Searching</span></a>). This is recommended, as it allows packages to be relocatable.</p>
-<p>A map may be used instead to give different values depending on the language of the consuming source file. Handling of such shall be the same as for <a class="reference internal" href="#definitions">Definitions</a>.</p>
-</div>
-<div class="section" id="isa">
-<h3><code class="code attribute docutils literal"><span class="pre">Isa</span></code><a class="headerlink" href="#isa" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">platform</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies that the package&#8217;s CABI components require the specified <a class="reference external" href="https://en.wikipedia.org/wiki/Instruction_set_architecture">Instruction Set Architecture</a>. The value is case insensitive and should follow the output of <code class="docutils literal"><span class="pre">uname</span> <span class="pre">-m</span></code>.</p>
-</div>
-<div class="section" id="jvm-vendor">
-<h3><code class="code attribute docutils literal"><span class="pre">Jvm-Vendor</span></code><a class="headerlink" href="#jvm-vendor" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">platform</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies that the package&#8217;s Java components require the specified <a class="reference external" href="https://en.wikipedia.org/wiki/Java_%28programming_language%29">Java</a> vendor. Typical (case-insensitive) values include <code class="code string docutils literal"><span class="pre">&quot;oracle&quot;</span></code> and <code class="code string docutils literal"><span class="pre">&quot;openjdk&quot;</span></code>.</p>
-</div>
-<div class="section" id="jvm-version">
-<h3><code class="code attribute docutils literal"><span class="pre">Jvm-Version</span></code><a class="headerlink" href="#jvm-version" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">platform</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the minimum <a class="reference external" href="https://en.wikipedia.org/wiki/Java_%28programming_language%29">Java</a> Virtual Machine version required to use the package&#8217;s Java components.</p>
-</div>
-<div class="section" id="kernel">
-<h3><code class="code attribute docutils literal"><span class="pre">Kernel</span></code><a class="headerlink" href="#kernel" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">platform</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the name of the operating system kernel required by the package&#8217;s components. The value is case insensitive and should follow the output of <code class="docutils literal"><span class="pre">uname</span> <span class="pre">-s</span></code>. Typical values include <code class="code string docutils literal"><span class="pre">&quot;windows&quot;</span></code>, <code class="code string docutils literal"><span class="pre">&quot;cygwin&quot;</span></code>, <code class="code string docutils literal"><span class="pre">&quot;linux&quot;</span></code> and <code class="code string docutils literal"><span class="pre">&quot;darwin&quot;</span></code>.</p>
-</div>
-<div class="section" id="kernel-version">
-<h3><code class="code attribute docutils literal"><span class="pre">Kernel-Version</span></code><a class="headerlink" href="#kernel-version" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">platform</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the minimum operating system kernel version required by the package&#8217;s components.</p>
-</div>
-<div class="section" id="link-features">
-<h3><code class="code attribute docutils literal"><span class="pre">Link-Features</span></code><a class="headerlink" href="#link-features" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code>, <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies a list of <a class="reference internal" href="features.html#linker-features"><span class="std std-ref">Linker Features</span></a> that must be enabled or disabled when compiling code that consumes the component.</p>
-</div>
-<div class="section" id="link-flags">
-<h3><code class="code attribute docutils literal"><span class="pre">Link-Flags</span></code><a class="headerlink" href="#link-flags" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code>, <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies a list of additional flags that must be supplied to the linker when linking code that consumes the component. Note that linker flags may not be portable; use of this attribute is discouraged.</p>
-</div>
-<div class="section" id="link-languages">
-<h3><code class="code attribute docutils literal"><span class="pre">Link-Languages</span></code><a class="headerlink" href="#link-languages" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code>, <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the ABI language or languages of a static library (<a class="reference internal" href="#type">Type</a> <code class="code string docutils literal"><span class="pre">&quot;archive&quot;</span></code>). Officially supported (case-insensitive) values are <code class="code string docutils literal"><span class="pre">&quot;C&quot;</span></code> (no special handling required) and <code class="code string docutils literal"><span class="pre">&quot;C++&quot;</span></code> (consuming the static library also requires linking against the C++ standard runtime). The default is <code class="code string docutils literal"><span class="pre">&quot;C&quot;</span></code>.</p>
-</div>
-<div class="section" id="link-libraries">
-<h3><code class="code attribute docutils literal"><span class="pre">Link-Libraries</span></code><a class="headerlink" href="#link-libraries" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code>, <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies a list of additional libraries that must be linked against when linking code that consumes the component. (Note that packages should avoid using this attribute if at all possible. Use <a class="reference internal" href="#requires-component">Requires (Component)</a> instead whenever possible.)</p>
-</div>
-<div class="section" id="link-location">
-<h3><code class="code attribute docutils literal"><span class="pre">Link-Location</span></code><a class="headerlink" href="#link-location" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code>, <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies an alternate location of the component that should be used when linking against the component. This attribute typically applies only to <code class="code string docutils literal"><span class="pre">&quot;dylib&quot;</span></code> components on platforms where the library is separated into multiple file components. For example, on Windows, this attribute shall give the location of the <code class="docutils literal"><span class="pre">.lib</span></code>, while <a class="reference internal" href="#location">Location</a> shall give the location of the <code class="docutils literal"><span class="pre">.dll</span></code>.</p>
-<p>If the path starts with <code class="docutils literal"><span class="pre">&#64;prefix&#64;</span></code>, the package&#8217;s install prefix is substituted (see <a class="reference internal" href="searching.html#package-searching"><span class="std std-ref">Package Searching</span></a>). This is recommended, as it allows packages to be relocatable.</p>
-</div>
-<div class="section" id="link-requires">
-<h3><code class="code attribute docutils literal"><span class="pre">Link-Requires</span></code><a class="headerlink" href="#link-requires" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code>, <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies additional components required by a component which are needed only at the link stage. Unlike <a class="reference internal" href="#requires-component">Requires (Component)</a>, only the required components&#8217; link dependencies should be applied transitively; additional properties such as compile and include attributes of the required component(s) should be ignored.</p>
-</div>
-<div class="section" id="location">
-<h3><code class="code attribute docutils literal"><span class="pre">Location</span></code><a class="headerlink" href="#location" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code>, <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">Depends</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the location of the component. The exact meaning of this attribute depends on the component type, but typically it provides the path to the component&#8217;s primary artifact, such as a <code class="docutils literal"><span class="pre">.so</span></code> or <code class="docutils literal"><span class="pre">.jar</span></code>. (For Windows DLL components, this should be the location of the <code class="docutils literal"><span class="pre">.dll</span></code>. See also <a class="reference internal" href="#link-location">Link-Location</a>.)</p>
-<p>If the path starts with <code class="docutils literal"><span class="pre">&#64;prefix&#64;</span></code>, the package&#8217;s install prefix is substituted (see <a class="reference internal" href="searching.html#package-searching"><span class="std std-ref">Package Searching</span></a>). This is recommended, as it allows packages to be relocatable.</p>
-<p>This attribute is required for <code class="code object docutils literal"><span class="pre">component</span></code>s that are not of <code class="code string docutils literal"><span class="pre">&quot;interface&quot;</span></code> <code class="code attribute docutils literal"><span class="pre">Type</span></code>.</p>
-</div>
-<div class="section" id="name">
-<h3><code class="code attribute docutils literal"><span class="pre">Name</span></code><a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">Yes</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the canonical name of the package. In order for searching to succeed, this must exactly match the name of the CPS file without the <code class="docutils literal"><span class="pre">.cps</span></code> suffix.</p>
-</div>
-<div class="section" id="platform">
-<h3><code class="code attribute docutils literal"><span class="pre">Platform</span></code><a class="headerlink" href="#platform" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">platform</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the platform on which a package&#8217;s components may run. This allows tools to ignore packages which target a different platform than the platform that the consumer targets (see <a class="reference internal" href="searching.html#package-searching"><span class="std std-ref">Package Searching</span></a>). Any platform attribute not specified implies that the package&#8217;s components are agnostic to that platform attribute. If this attribute is not specified, the package is implied to be platform agnostic. (This might be the case for a &#8220;library&#8221; which consists entirely of C/C++ headers. Note that JVM/CLR versions are platform attributes, so packages consisting entirely of Java and/or CLR components will still typically use this attribute.)</p>
-</div>
-<div class="section" id="requires-component">
-<h3><code class="code attribute docutils literal"><span class="pre">Requires</span></code> <span class="applies-to">(Component)</span><a class="headerlink" href="#requires-component" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">list</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code>, <code class="code object docutils literal"><span class="pre">configuration</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies additional components required by a component. This is used, for example, to indicate transitive dependencies. Relative component names are interpreted relative to the current package. Absolute component names must refer to a package required by this package (see <a class="reference internal" href="#requires-package">Requires (Package)</a>). Compile and link attributes should be applied transitively, as if the consuming component also directly consumed the components required by the component being consumed.</p>
+  <section id="package-schema">
+<h1>Package Schema<a class="headerlink" href="#package-schema" title="Permalink to this heading">¶</a></h1>
+<section id="objects">
+<h2>Objects<a class="headerlink" href="#objects" title="Permalink to this heading">¶</a></h2>
+<section id="package-object">
+<h3><code class="code object docutils literal notranslate"><span class="pre">Package</span></code><span class="hidden">(Object)</span><a class="headerlink" href="#package-object" title="Permalink to this heading">¶</a></h3>
+<p>The root of a CPS document is a <code class="code object docutils literal notranslate"><span class="pre">package</span></code> object.
+A <code class="code object docutils literal notranslate"><span class="pre">package</span></code> object describes a single package.</p>
+</section>
+<section id="platform-object">
+<h3><code class="code object docutils literal notranslate"><span class="pre">Platform</span></code><span class="hidden">(Object)</span><a class="headerlink" href="#platform-object" title="Permalink to this heading">¶</a></h3>
+<p>A <code class="code object docutils literal notranslate"><span class="pre">platform</span></code> describes the platform
+on which a package’s components may run.</p>
+</section>
+<section id="requirement-object">
+<h3><code class="code object docutils literal notranslate"><span class="pre">Requirement</span></code><span class="hidden">(Object)</span><a class="headerlink" href="#requirement-object" title="Permalink to this heading">¶</a></h3>
+<p>A <code class="code object docutils literal notranslate"><span class="pre">requirement</span></code> describes the specifics of a package dependency.</p>
+</section>
+<section id="component-object">
+<h3><code class="code object docutils literal notranslate"><span class="pre">Component</span></code><span class="hidden">(Object)</span><a class="headerlink" href="#component-object" title="Permalink to this heading">¶</a></h3>
+<p>A <code class="code object docutils literal notranslate"><span class="pre">component</span></code> is a consumable part of a package.
+Typical components include libraries and executables.</p>
+</section>
+<section id="configuration-object">
+<h3><code class="code object docutils literal notranslate"><span class="pre">Configuration</span></code><span class="hidden">(Object)</span><a class="headerlink" href="#configuration-object" title="Permalink to this heading">¶</a></h3>
+<p>A <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code> holds attributes
+that are specific to a particular configuration of a <code class="code object docutils literal notranslate"><span class="pre">component</span></code>.</p>
+</section>
+</section>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this heading">¶</a></h2>
+<p>An optional attribute may have the value <code class="code keyword docutils literal notranslate"><span class="pre">null</span></code>.
+This shall be equivalent to omitting the attribute.</p>
+<p>Attribute names are case insensitive,
+although it is recommended that <code class="docutils literal notranslate"><span class="pre">.cps</span></code> files
+use the capitalization as shown.</p>
+<section id="c-runtime-vendor">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">C-Runtime-Vendor</span></code><a class="headerlink" href="#c-runtime-vendor" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">platform</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies that the package’s CABI components
+require the specified C standard/runtime library.
+Typical (case-insensitive) values include
+<code class="code string docutils literal notranslate"><span class="pre">&quot;bsd&quot;</span></code> (libc),
+<code class="code string docutils literal notranslate"><span class="pre">&quot;gnu&quot;</span></code> (glibc),
+<code class="code string docutils literal notranslate"><span class="pre">&quot;mingw&quot;</span></code> and
+<code class="code string docutils literal notranslate"><span class="pre">&quot;microsoft&quot;</span></code>.</p>
+</section>
+<section id="c-runtime-version">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">C-Runtime-Version</span></code><a class="headerlink" href="#c-runtime-version" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">platform</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the minimum C standard/runtime library version
+required by the package’s CABI components.</p>
+</section>
+<section id="clr-vendor">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Clr-Vendor</span></code><a class="headerlink" href="#clr-vendor" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">platform</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies that the package’s CLR (.NET) components
+require the specified <a class="reference external" href="https://en.wikipedia.org/wiki/Common_Language_Runtime">Common Language Runtime</a> vendor.
+Typical (case-insensitive) values include
+<code class="code string docutils literal notranslate"><span class="pre">&quot;microsoft&quot;</span></code> and
+<code class="code string docutils literal notranslate"><span class="pre">&quot;mono&quot;</span></code>.</p>
+</section>
+<section id="clr-version">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Clr-Version</span></code><a class="headerlink" href="#clr-version" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">platform</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the minimum <a class="reference external" href="https://en.wikipedia.org/wiki/Common_Language_Runtime">Common Language Runtime</a> version
+required to use the package’s CLR (.NET) components.</p>
+</section>
+<section id="compat-version">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Compat-Version</span></code><a class="headerlink" href="#compat-version" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the oldest version of the package
+with which this version is compatible.
+This information is used when a consumer requests a specific version.
+If the version requested is equal to or newer
+than the <code class="code attribute docutils literal notranslate"><span class="pre">Compat-Version</span></code>,
+the package may be used.</p>
+<p>If not specified,
+the package is not compatible with previous versions
+(i.e. <code class="code attribute docutils literal notranslate"><span class="pre">Compat-Version</span></code>
+is implicitly equal to <code class="code attribute docutils literal notranslate"><span class="pre">Version</span></code>).</p>
+</section>
+<section id="compile-features">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Compile-Features</span></code><a class="headerlink" href="#compile-features" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies a list of <a class="reference internal" href="features.html#compiler-features"><span class="std std-ref">Compiler Features</span></a>
+that must be enabled or disabled
+when compiling code that consumes the component.</p>
+</section>
+<section id="compile-flags">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Compile-Flags</span></code><a class="headerlink" href="#compile-flags" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code> <span class="separator">or</span> <code class="code type docutils literal notranslate"><span class="pre">map</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code> to <code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies a list of additional flags
+that must be supplied to the compiler
+when compiling code that consumes the component.
+Note that compiler flags may not be portable;
+use of this attribute is discouraged.</p>
+<p>A map may be used instead to give different values
+depending on the language of the consuming source file.
+Handling of such shall be the same as for <a class="reference internal" href="#definitions">Definitions</a>.</p>
+</section>
+<section id="components-package">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Components</span></code> <span class="applies-to">(Package)</span><a class="headerlink" href="#components-package" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">map</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code> to <code class="code object docutils literal notranslate"><span class="pre">component</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Yes</p>
+</dd>
+</dl>
+<p>Specifies the components which the package provides.
+Keys are the component names.</p>
+</section>
+<section id="components-requirement">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Components</span></code> <span class="applies-to">(Requirement)</span><a class="headerlink" href="#components-requirement" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">requirement</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies a list of components
+which must be present in the required package
+in order for the requirement to be satisfied.
+Although the build tool will generally produce an error
+if a consumer uses a component
+which in turn requires a component that was not found,
+early specification via this attribute
+may help build tools to diagnose such issues earlier
+and/or produce better diagnostics.</p>
+<p>This may also be used to specify dependencies
+that are not expressed in component level dependencies,
+such as a package’s requirement
+that a dependency includes a certain symbolic component,
+or if a dependency is only expressed at run-time.</p>
+</section>
+<section id="configuration">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Configuration</span></code><a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Special</p>
+</dd>
+</dl>
+<p>Specifies the name of the configuration
+described by a configuration-specific <code class="docutils literal notranslate"><span class="pre">.cps</span></code>
+(see <a class="reference internal" href="configurations.html#configuration-merging"><span class="std std-ref">Configuration Merging</span></a>).
+This attribute is required in a configuration-specific <code class="docutils literal notranslate"><span class="pre">.cps</span></code>,
+and shall be ignored otherwise.</p>
+</section>
+<section id="configurations-package">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Configurations</span></code> <span class="applies-to">(Package)</span><a class="headerlink" href="#configurations-package" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the configurations that are available.
+See <a class="reference internal" href="configurations.html#package-configurations"><span class="std std-ref">Package Configurations</span></a> for a description
+of how configurations are used.</p>
+</section>
+<section id="configurations-component">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Configurations</span></code> <span class="applies-to">(Component)</span><a class="headerlink" href="#configurations-component" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">map</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code> to <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies a set of configuration-specific attributes for a <code class="code object docutils literal notranslate"><span class="pre">component</span></code>.
+Keys are the configuration names.</p>
+</section>
+<section id="cpp-runtime-vendor">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Cpp-Runtime-Vendor</span></code><a class="headerlink" href="#cpp-runtime-vendor" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">platform</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies that the package’s CABI components
+require the specified C++ standard/runtime library.
+Typical (case-insensitive) values include
+<code class="code string docutils literal notranslate"><span class="pre">&quot;gnu&quot;</span></code> (libstdc++),
+<code class="code string docutils literal notranslate"><span class="pre">&quot;llvm&quot;</span></code> (libc++) and
+<code class="code string docutils literal notranslate"><span class="pre">&quot;microsoft&quot;</span></code>.</p>
+</section>
+<section id="cpp-runtime-version">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Cpp-Runtime-Version</span></code><a class="headerlink" href="#cpp-runtime-version" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">platform</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the minimum C++ standard/runtime library version
+required by the package’s CABI components.</p>
+</section>
+<section id="cps-path">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Cps-Path</span></code><a class="headerlink" href="#cps-path" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the directory portion location of the <code class="docutils literal notranslate"><span class="pre">.cps</span></code> file.
+This shall be an “absolute” path which starts with <code class="docutils literal notranslate"><span class="pre">&#64;prefix&#64;</span></code>.
+This provides an additional mechanism
+by which the tool may deduce the package’s prefix,
+since the absolute location of the <code class="docutils literal notranslate"><span class="pre">.cps</span></code> file
+will be known by the tool.
+(See also <a class="reference internal" href="searching.html#prefix-determination"><span class="std std-ref">Prefix Determination</span></a>.)</p>
+</section>
+<section id="cps-version">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Cps-Version</span></code><a class="headerlink" href="#cps-version" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Yes</p>
+</dd>
+</dl>
+<p>Specifies the version of the CPS
+to which this <code class="docutils literal notranslate"><span class="pre">.cps</span></code> file conforms.
+This may be used by tools to provide backwards compatibility
+in case of compatibility-breaking changes in the CPS.</p>
+<p>CPS version numbering follows <a class="reference external" href="http://semver.org/">Semantic Versioning</a>.
+That is, tools that support CPS version <code class="docutils literal notranslate"><span class="pre">&lt;X&gt;.&lt;Y&gt;</span></code>
+are expected to be able to read files
+with <code class="code attribute docutils literal notranslate"><span class="pre">Cps-Version</span></code> <code class="docutils literal notranslate"><span class="pre">&lt;X&gt;.&lt;Z&gt;</span></code>,
+even for Z &gt; Y
+(with the understanding that, in such cases, the tool
+may miss non-critical information that the CPS provided).</p>
+</section>
+<section id="default-components">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Default-Components</span></code><a class="headerlink" href="#default-components" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies a list of components that should be inferred
+if a consumer specifies a dependency on a package,
+but not a specific component.</p>
+</section>
+<section id="definitions">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Definitions</span></code><a class="headerlink" href="#definitions" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code> <span class="separator">or</span> <code class="code type docutils literal notranslate"><span class="pre">map</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code> to <code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies a list of compile definitions that must be defined
+when compiling code that consumes the component.
+Definitions should be in the form <code class="code string docutils literal notranslate"><span class="pre">&quot;FOO&quot;</span></code> or <code class="code string docutils literal notranslate"><span class="pre">&quot;FOO=BAR&quot;</span></code>.
+Additionally, a definition in the form <code class="code string docutils literal notranslate"><span class="pre">&quot;!FOO&quot;</span></code>
+indicates that the specified symbol (<code class="docutils literal notranslate"><span class="pre">FOO</span></code>, in this example)
+shall be explicitly undefined (e.g. <code class="docutils literal notranslate"><span class="pre">-UFOO</span></code> passed to the compiler).</p>
+<p>A map may be used instead to give different values
+depending on the language of the consuming source file.
+In this case, the build tool shall select the list
+from the map whose key matches the (case-insensitive) language
+of the source file being compiled.
+Recognized languages shall include
+<code class="code string docutils literal notranslate"><span class="pre">&quot;C&quot;</span></code>,
+<code class="code string docutils literal notranslate"><span class="pre">&quot;C++&quot;</span></code>, and
+<code class="code string docutils literal notranslate"><span class="pre">&quot;Fortran&quot;</span></code>.</p>
+</section>
+<section id="hints">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Hints</span></code><a class="headerlink" href="#hints" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">requirement</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies a list of paths
+where a required dependency might be located.
+When given, this will usually provide the location
+of the dependency as it was consumed by the package
+when the package was built,
+so that consumers can easily find (correct) dependencies
+if they are in a location that is not searched by default.</p>
+</section>
+<section id="includes">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Includes</span></code><a class="headerlink" href="#includes" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code> <span class="separator">or</span> <code class="code type docutils literal notranslate"><span class="pre">map</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code> to <code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies a list of directories
+which should be added to the include search path
+when compiling code that consumes the component.
+If a path starts with <code class="docutils literal notranslate"><span class="pre">&#64;prefix&#64;</span></code>,
+the package’s install prefix is substituted
+(see <a class="reference internal" href="searching.html#package-searching"><span class="std std-ref">Package Searching</span></a>).
+This is recommended, as it allows packages to be relocatable.</p>
+<p>A map may be used instead to give different values
+depending on the language of the consuming source file.
+Handling of such shall be the same as for <a class="reference internal" href="#definitions">Definitions</a>.</p>
+</section>
+<section id="isa">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Isa</span></code><a class="headerlink" href="#isa" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">platform</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies that the package’s CABI components
+require the specified <a class="reference external" href="https://en.wikipedia.org/wiki/Instruction_set_architecture">Instruction Set Architecture</a>.
+The value is case insensitive
+and should follow the output of <code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-m</span></code>.</p>
+</section>
+<section id="jvm-vendor">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Jvm-Vendor</span></code><a class="headerlink" href="#jvm-vendor" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">platform</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies that the package’s Java components
+require the specified <a class="reference external" href="https://en.wikipedia.org/wiki/Java_%28programming_language%29">Java</a> vendor.
+Typical (case-insensitive) values include
+<code class="code string docutils literal notranslate"><span class="pre">&quot;oracle&quot;</span></code> and
+<code class="code string docutils literal notranslate"><span class="pre">&quot;openjdk&quot;</span></code>.</p>
+</section>
+<section id="jvm-version">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Jvm-Version</span></code><a class="headerlink" href="#jvm-version" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">platform</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the minimum <a class="reference external" href="https://en.wikipedia.org/wiki/Java_%28programming_language%29">Java</a> Virtual Machine version
+required to use the package’s Java components.</p>
+</section>
+<section id="kernel">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Kernel</span></code><a class="headerlink" href="#kernel" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">platform</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the name of the operating system kernel
+required by the package’s components.
+The value is case insensitive
+and should follow the output of <code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-s</span></code>.
+Typical values include
+<code class="code string docutils literal notranslate"><span class="pre">&quot;windows&quot;</span></code>,
+<code class="code string docutils literal notranslate"><span class="pre">&quot;cygwin&quot;</span></code>,
+<code class="code string docutils literal notranslate"><span class="pre">&quot;linux&quot;</span></code> and
+<code class="code string docutils literal notranslate"><span class="pre">&quot;darwin&quot;</span></code>.</p>
+</section>
+<section id="kernel-version">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Kernel-Version</span></code><a class="headerlink" href="#kernel-version" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">platform</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the minimum operating system kernel version
+required by the package’s components.</p>
+</section>
+<section id="link-features">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Link-Features</span></code><a class="headerlink" href="#link-features" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies a list of <a class="reference internal" href="features.html#linker-features"><span class="std std-ref">Linker Features</span></a>
+that must be enabled or disabled
+when linking code that consumes the component.</p>
+</section>
+<section id="link-flags">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Link-Flags</span></code><a class="headerlink" href="#link-flags" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies a list of additional flags
+that must be supplied to the linker
+when linking code that consumes the component.
+Note that linker flags may not be portable;
+use of this attribute is discouraged.</p>
+</section>
+<section id="link-languages">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Link-Languages</span></code><a class="headerlink" href="#link-languages" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the ABI language or languages of a static library
+(<a class="reference internal" href="#type">Type</a> <code class="code string docutils literal notranslate"><span class="pre">&quot;archive&quot;</span></code>).
+Officially supported (case-insensitive) values are
+<code class="code string docutils literal notranslate"><span class="pre">&quot;C&quot;</span></code> (no special handling required) and
+<code class="code string docutils literal notranslate"><span class="pre">&quot;C++&quot;</span></code> (consuming the static library
+also requires linking against the C++ standard runtime).
+The default is <code class="code string docutils literal notranslate"><span class="pre">&quot;C&quot;</span></code>.</p>
+</section>
+<section id="link-libraries">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Link-Libraries</span></code><a class="headerlink" href="#link-libraries" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies a list of additional libraries that must be linked against
+when linking code that consumes the component.
+(Note that packages should avoid using this attribute if at all possible.
+Use <a class="reference internal" href="#requires-component">Requires (Component)</a> instead whenever possible.)</p>
+</section>
+<section id="link-location">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Link-Location</span></code><a class="headerlink" href="#link-location" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies an alternate location of the component
+that should be used when linking against the component.
+This attribute typically applies only to <code class="code string docutils literal notranslate"><span class="pre">&quot;dylib&quot;</span></code> components
+on platforms where the library is separated into multiple file components.
+For example, on Windows,
+this attribute shall give the location of the <code class="docutils literal notranslate"><span class="pre">.lib</span></code>,
+while <a class="reference internal" href="#location">Location</a> shall give the location of the <code class="docutils literal notranslate"><span class="pre">.dll</span></code>.</p>
+<p>If the path starts with <code class="docutils literal notranslate"><span class="pre">&#64;prefix&#64;</span></code>,
+the package’s install prefix is substituted
+(see <a class="reference internal" href="searching.html#package-searching"><span class="std std-ref">Package Searching</span></a>).
+This is recommended, as it allows packages to be relocatable.</p>
+</section>
+<section id="link-requires">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Link-Requires</span></code><a class="headerlink" href="#link-requires" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies additional components required by a component
+which are needed only at the link stage.
+Unlike <a class="reference internal" href="#requires-component">Requires (Component)</a>,
+only the required components’ link dependencies
+should be applied transitively;
+additional properties such as compile and include attributes
+of the required component(s) should be ignored.</p>
+</section>
+<section id="location">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Location</span></code><a class="headerlink" href="#location" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Depends</p>
+</dd>
+</dl>
+<p>Specifies the location of the component.
+The exact meaning of this attribute
+depends on the component type,
+but typically it provides the path
+to the component’s primary artifact,
+such as a <code class="docutils literal notranslate"><span class="pre">.so</span></code> or <code class="docutils literal notranslate"><span class="pre">.jar</span></code>.
+(For Windows DLL components,
+this should be the location of the <code class="docutils literal notranslate"><span class="pre">.dll</span></code>.
+See also <a class="reference internal" href="#link-location">Link-Location</a>.)</p>
+<p>If the path starts with <code class="docutils literal notranslate"><span class="pre">&#64;prefix&#64;</span></code>,
+the package’s install prefix is substituted
+(see <a class="reference internal" href="searching.html#package-searching"><span class="std std-ref">Package Searching</span></a>).
+This is recommended, as it allows packages to be relocatable.</p>
+<p>This attribute is required for <code class="code object docutils literal notranslate"><span class="pre">component</span></code>s
+that are not of <code class="code string docutils literal notranslate"><span class="pre">&quot;interface&quot;</span></code> <code class="code attribute docutils literal notranslate"><span class="pre">Type</span></code>.</p>
+</section>
+<section id="name">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Name</span></code><a class="headerlink" href="#name" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Yes</p>
+</dd>
+</dl>
+<p>Specifies the canonical name of the package.
+In order for searching to succeed,
+this must exactly match the name of the CPS file
+without the <code class="docutils literal notranslate"><span class="pre">.cps</span></code> suffix.</p>
+</section>
+<section id="platform">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Platform</span></code><a class="headerlink" href="#platform" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code object docutils literal notranslate"><span class="pre">platform</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the platform on which a package’s components may run.
+This allows tools to ignore packages
+which target a different platform
+than the platform that the consumer targets
+(see <a class="reference internal" href="searching.html#package-searching"><span class="std std-ref">Package Searching</span></a>).
+Any platform attribute not specified
+implies that the package’s components
+are agnostic to that platform attribute.
+If this attribute is not specified,
+the package is implied to be platform agnostic.
+(This might be the case for a “library”
+which consists entirely of C/C++ headers.
+Note that JVM/CLR versions are platform attributes,
+so packages consisting entirely of Java and/or CLR components
+will still typically use this attribute.)</p>
+</section>
+<section id="requires-component">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Requires</span></code> <span class="applies-to">(Component)</span><a class="headerlink" href="#requires-component" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies additional components required by a component.
+This is used, for example, to indicate transitive dependencies.
+Relative component names are interpreted relative to the current package.
+Absolute component names must refer to a package required by this package
+(see <a class="reference internal" href="#requires-package">Requires (Package)</a>).
+Compile and link attributes should be applied transitively,
+as if the consuming component also directly consumed the components
+required by the component being consumed.</p>
 <p>See also <a class="reference internal" href="#link-requires">Link-Requires</a>.</p>
-</div>
-<div class="section" id="requires-package">
-<h3><code class="code attribute docutils literal"><span class="pre">Requires</span></code> <span class="applies-to">(Package)</span><a class="headerlink" href="#requires-package" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">map</span></code> of <code class="code type docutils literal"><span class="pre">string</span></code> to <code class="code object docutils literal"><span class="pre">requirement</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies additional packages that are required by this package. Keys are the name of another required package. Values are a valid <code class="code object docutils literal"><span class="pre">requirement</span></code> object or <code class="code keyword docutils literal"><span class="pre">null</span></code> (equivalent to an empty <code class="code object docutils literal"><span class="pre">requirement</span></code> object) describing the package required.</p>
-</div>
-<div class="section" id="type">
-<h3><code class="code attribute docutils literal"><span class="pre">Type</span></code><a class="headerlink" href="#type" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code> (restricted)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">component</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">Yes</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the type of a component. The component type affects how the component may be used. Officially supported values are <code class="code string docutils literal"><span class="pre">&quot;executable&quot;</span></code> (any artifact which the target platform can directly execute), <code class="code string docutils literal"><span class="pre">&quot;archive&quot;</span></code> (CABI static library), <code class="code string docutils literal"><span class="pre">&quot;dylib&quot;</span></code> (CABI shared library), <code class="code string docutils literal"><span class="pre">&quot;module&quot;</span></code> (CABI plugin library), <code class="code string docutils literal"><span class="pre">&quot;jar&quot;</span></code> (Java Archive), <code class="code string docutils literal"><span class="pre">&quot;interface&quot;</span></code> and <code class="code string docutils literal"><span class="pre">&quot;symbolic&quot;</span></code>. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension.)</p>
-<p>A <code class="code string docutils literal"><span class="pre">&quot;dylib&quot;</span></code> is meant to be linked at compile time; the <code class="code attribute docutils literal"><span class="pre">Location</span></code> specifies the artifact required for such linking (i.e. the import library on PE platforms). A <code class="code string docutils literal"><span class="pre">&quot;module&quot;</span></code> is meant to be loaded at run time with <code class="code docutils literal"><span class="pre">dlopen</span></code> or similar; again, the <code class="code attribute docutils literal"><span class="pre">Location</span></code> specifies the appropriate artifact.</p>
-<p>An <code class="code string docutils literal"><span class="pre">&quot;interface&quot;</span></code> component is a special case; it may have the usual attributes of a component, but does not have a location. This can be used to create &#8220;virtual&#8221; components that do not have an associated artifact.</p>
-<p>A <code class="code string docutils literal"><span class="pre">&quot;symbolic&quot;</span></code> component is even more special, as it has no (required) attributes at all, and the meaning of any attributes or configurations assigned to such a component is unspecified. A <code class="code string docutils literal"><span class="pre">&quot;symbolic&quot;</span></code> component is intended to be used as a form of feature testing; a package that has a feature that is meaningful to users but does not otherwise map directly to a component may use a symbolic component to indicate availability of the feature to users.</p>
-</div>
-<div class="section" id="version-package">
-<h3><code class="code attribute docutils literal"><span class="pre">Version</span></code> <span class="applies-to">(Package)</span><a class="headerlink" href="#version-package" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the version of the package. The format of this string is determined by <a class="reference internal" href="#version-schema">Version-Schema</a>.</p>
-<p>If not provided, the CPS will not satisfy any request for a specific version of the package.</p>
-</div>
-<div class="section" id="version-requirement">
-<h3><code class="code attribute docutils literal"><span class="pre">Version</span></code> <span class="applies-to">(Requirement)</span><a class="headerlink" href="#version-requirement" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">requirement</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the required version of a package. If omitted, any version of the required package is acceptable. Semantics are the same as for the <code class="code attribute docutils literal"><span class="pre">Version</span></code> attribute of a <code class="code object docutils literal"><span class="pre">package</span></code>.</p>
-</div>
-<div class="section" id="version-schema">
-<h3><code class="code attribute docutils literal"><span class="pre">Version-Schema</span></code><a class="headerlink" href="#version-schema" title="Permalink to this headline">¶</a></h3>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="code type docutils literal"><span class="pre">string</span></code></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Applies To:</th><td class="field-body"><code class="code object docutils literal"><span class="pre">package</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">No</td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the structure to which the package&#8217;s version numbering conforms. Tools may use this to determine how to perform version comparisons. Officially supported (case-insensitive) values are <code class="code string docutils literal"><span class="pre">&quot;semver&quot;</span></code> (<a class="reference external" href="http://semver.org/">Semantic Versioning</a>) and <code class="code string docutils literal"><span class="pre">&quot;custom&quot;</span></code> (<code class="code string docutils literal"><span class="pre">&quot;rpm&quot;</span></code> or <code class="code string docutils literal"><span class="pre">&quot;dpkg&quot;</span></code> should be used where applicable, but may not be supported by all tools). If a package uses <code class="code string docutils literal"><span class="pre">&quot;custom&quot;</span></code>, version numbers may be compared, but version ordering is not possible. The default is <code class="code string docutils literal"><span class="pre">&quot;semver&quot;</span></code>.</p>
-<p>Needless to say, changing a package&#8217;s version scheme between releases is <em>very strongly discouraged</em>.</p>
-<p>Note that this attribute determines only how version numbers are <em>ordered</em>. It does not also imply that a package actually maintains and breaks compatibility as specified by Semantic Versioning. See also <a class="reference internal" href="#compat-version">Compat-Version</a>.</p>
-</div>
-</div>
-<div class="section" id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="requires-package">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Requires</span></code> <span class="applies-to">(Package)</span><a class="headerlink" href="#requires-package" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">map</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code> to <code class="code object docutils literal notranslate"><span class="pre">requirement</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies additional packages that are required by this package.
+Keys are the name of another required package.
+Values are a valid <code class="code object docutils literal notranslate"><span class="pre">requirement</span></code> object or <code class="code keyword docutils literal notranslate"><span class="pre">null</span></code>
+(equivalent to an empty <code class="code object docutils literal notranslate"><span class="pre">requirement</span></code> object)
+describing the package required.</p>
+</section>
+<section id="type">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Type</span></code><a class="headerlink" href="#type" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code> (restricted)</p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Yes</p>
+</dd>
+</dl>
+<p>Specifies the type of a component.
+The component type affects how the component may be used.
+Officially supported values are <code class="code string docutils literal notranslate"><span class="pre">&quot;executable&quot;</span></code>
+(any artifact which the target platform can directly execute),
+<code class="code string docutils literal notranslate"><span class="pre">&quot;archive&quot;</span></code> (CABI static library),
+<code class="code string docutils literal notranslate"><span class="pre">&quot;dylib&quot;</span></code> (CABI shared library),
+<code class="code string docutils literal notranslate"><span class="pre">&quot;module&quot;</span></code> (CABI plugin library),
+<code class="code string docutils literal notranslate"><span class="pre">&quot;jar&quot;</span></code> (Java Archive),
+<code class="code string docutils literal notranslate"><span class="pre">&quot;interface&quot;</span></code> and <code class="code string docutils literal notranslate"><span class="pre">&quot;symbolic&quot;</span></code>.
+If the type is not recognized by the parser,
+the component shall be ignored.
+(Parsers are permitted to support additional types
+as a conforming extension.)</p>
+<p>A <code class="code string docutils literal notranslate"><span class="pre">&quot;dylib&quot;</span></code> is meant to be linked at compile time;
+the <code class="code attribute docutils literal notranslate"><span class="pre">Location</span></code> specifies the artifact
+required for such linking (i.e. the import library on PE platforms).
+A <code class="code string docutils literal notranslate"><span class="pre">&quot;module&quot;</span></code> is meant to be loaded at run time
+with <code class="code docutils literal notranslate"><span class="pre">dlopen</span></code> or similar;
+again, the <code class="code attribute docutils literal notranslate"><span class="pre">Location</span></code> specifies the appropriate artifact.</p>
+<p>An <code class="code string docutils literal notranslate"><span class="pre">&quot;interface&quot;</span></code> component is a special case;
+it may have the usual attributes of a component,
+but does not have a location.
+This can be used to create “virtual” components
+that do not have an associated artifact.</p>
+<p>A <code class="code string docutils literal notranslate"><span class="pre">&quot;symbolic&quot;</span></code> component is even more special,
+as it has no (required) attributes at all,
+and the meaning of any attributes or configurations
+assigned to such a component is unspecified.
+A <code class="code string docutils literal notranslate"><span class="pre">&quot;symbolic&quot;</span></code> component is intended
+to be used as a form of feature testing;
+a package that has a feature that is meaningful to users
+but does not otherwise map directly to a component
+may use a symbolic component
+to indicate availability of the feature to users.</p>
+</section>
+<section id="version-package">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Version</span></code> <span class="applies-to">(Package)</span><a class="headerlink" href="#version-package" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the version of the package.
+The format of this string is determined by <a class="reference internal" href="#version-schema">Version-Schema</a>.</p>
+<p>If not provided, the CPS will not satisfy any request
+for a specific version of the package.</p>
+</section>
+<section id="version-requirement">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Version</span></code> <span class="applies-to">(Requirement)</span><a class="headerlink" href="#version-requirement" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">requirement</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the required version of a package.
+If omitted, any version of the required package is acceptable.
+Semantics are the same
+as for the <code class="code attribute docutils literal notranslate"><span class="pre">Version</span></code> attribute of a <code class="code object docutils literal notranslate"><span class="pre">package</span></code>.</p>
+</section>
+<section id="version-schema">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Version-Schema</span></code><a class="headerlink" href="#version-schema" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">package</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies the structure
+to which the package’s version numbering conforms.
+Tools may use this to determine how to perform version comparisons.
+Officially supported (case-insensitive) values are
+<code class="code string docutils literal notranslate"><span class="pre">&quot;semver&quot;</span></code> (<a class="reference external" href="http://semver.org/">Semantic Versioning</a>) and <code class="code string docutils literal notranslate"><span class="pre">&quot;custom&quot;</span></code>
+(<code class="code string docutils literal notranslate"><span class="pre">&quot;rpm&quot;</span></code> or <code class="code string docutils literal notranslate"><span class="pre">&quot;dpkg&quot;</span></code> should be used where applicable,
+but may not be supported by all tools).
+If a package uses <code class="code string docutils literal notranslate"><span class="pre">&quot;custom&quot;</span></code>,
+version numbers may be compared,
+but version ordering is not possible.
+The default is <code class="code string docutils literal notranslate"><span class="pre">&quot;semver&quot;</span></code>.</p>
+<p>Needless to say,
+changing a package’s version scheme between releases
+is <em>very strongly discouraged</em>.</p>
+<p>Note that this attribute determines
+only how version numbers are <em>ordered</em>.
+It does not also imply that a package
+actually maintains and breaks compatibility
+as specified by Semantic Versioning.
+See also <a class="reference internal" href="#compat-version">Compat-Version</a>.</p>
+</section>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li>Unless otherwise specified, a relative file path appearing in a CPS shall be interpreted relative to the <code class="docutils literal"><span class="pre">.cps</span></code> file.</li>
-<li>Unless otherwise specified, unrecognized attributes shall be ignored. This makes it easier for tools to add tool-specific extensions. (It is <em>strongly</em> recommended that the names of any such attributes start with <code class="docutils literal"><span class="pre">X-&lt;tool&gt;-</span></code>, where <code class="docutils literal"><span class="pre">&lt;tool&gt;</span></code> is the name of the tool which introduced the extension, in order to reduce the chance of conflicts with newer versions of the CPS.)</li>
-<li>The term &#8220;CABI&#8221;, as used throughout, refers to (typically C/C++/Fortran) code compiled to the machine&#8217;s native instruction set and using the platform&#8217;s usual format for such binaries (ELF, PE32, etc.).</li>
+<li><p>Unless otherwise specified,
+a relative file path appearing in a CPS
+shall be interpreted relative to the <code class="docutils literal notranslate"><span class="pre">.cps</span></code> file.</p></li>
+<li><p>Unless otherwise specified,
+unrecognized attributes shall be ignored.
+This makes it easier for tools to add tool-specific extensions.
+(It is <em>strongly</em> recommended that the names of any such attributes
+start with <code class="docutils literal notranslate"><span class="pre">X-&lt;tool&gt;-</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;tool&gt;</span></code>
+is the name of the tool which introduced the extension,
+in order to reduce the chance of conflicts
+with newer versions of the CPS.)</p></li>
+<li><p>The term “CABI”, as used throughout,
+refers to (typically C/C++/Fortran) code
+compiled to the machine’s native instruction set
+and using the platform’s usual format for such binaries
+(ELF, PE32, etc.).</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table Of Contents</a></h3>
+<h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
@@ -777,12 +988,16 @@
 <li class="toctree-l1"><a class="reference internal" href="sample.html">Sample CPS File</a></li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="development.html"
-                        title="previous chapter">Development Process</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="features.html"
-                        title="next chapter">Compiler and Linker Features</a></p>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="development.html"
+                          title="previous chapter">Development Process</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="features.html"
+                          title="next chapter">Compiler and Linker Features</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -791,15 +1006,15 @@
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -816,12 +1031,13 @@
         <li class="right" >
           <a href="development.html" title="Development Process"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.1</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Package Schema</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2017, Matthew Woehlke.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+        &#169; Copyright 2023, Matthew Woehlke.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>
