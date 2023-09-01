@@ -8,16 +8,16 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:svg="http://www.w3.org/2000/svg"
-   inkscape:export-filename="logo-256.png"
+   inkscape:export-filename="logo-16.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
-   inkscape:version="0.92+devel unknown"
-   sodipodi:docname="logo-256.svg"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="logo-16.svg"
    version="1.1"
    id="SVGRoot"
-   width="256px"
-   height="256px"
-   viewBox="0 0 256 256">
+   width="16"
+   height="16"
+   viewBox="0 0 16 16">
   <sodipodi:namedview
      inkscape:document-units="px"
      inkscape:grid-bbox="true"
@@ -32,75 +32,68 @@
      showgrid="false"
      id="base">
     <inkscape:grid
+       units="px"
        id="grid26"
        type="xygrid"
-       empspacing="8" />
+       empspacing="8"
+       originx="0"
+       originy="0"
+       spacingx="1"
+       spacingy="1"
+       visible="false" />
   </sodipodi:namedview>
-  <defs>
-    <mask
-       id="box-mask"
-       maskUnits="userSpaceOnUse">
-      <g
-         style="fill:#ffffff;stroke:#000000;stroke-width:8;stroke-miterlimit:4">
-        <path
-           d="M 128,248 16,184 V 72 l 112,64 z" />
-        <path
-           d="M 128,248 240,184 V 72 l -112,64 z" />
-        <path
-           d="M 240,72 128,136 16,72 128,8 Z" />
-      </g>
-    </mask>
-  </defs>
   <g
      inkscape:groupmode="layer"
      inkscape:label="Layer 1"
      id="layer1">
-    <g>
+    <g
+       transform="matrix(0.0625,0,0,0.0625,0,0)">
       <rect
          style="fill:none;stroke:none"
          x="0"
          y="0"
-         width="256"
-         height="256" />
+         width="128"
+         height="128" />
       <g
-         mask="url(#box-mask)">
+         style="stroke-width:2"
+         mask="none">
         <path
            style="fill:#afc6e9;stroke:none"
-           d="M 128,248 16,184 V 72 l 112,64 z" />
+           d="M 112,240 16,184 V 88 l 96,56 z" />
         <path
            style="fill:#87aade;stroke:none"
-           d="M 128,248 240,184 V 72 l -112,64 z" />
+           d="m 128,240 96,-56 V 88 l -96,56 z" />
         <path
            style="fill:#d7e3f4;stroke:none"
-           d="M 240,72 128,136 16,72 128,8 Z" />
+           d="M 216,72 120,128 24,72 120,16 Z" />
       </g>
       <g
-         style="opacity:0.5;fill:none;stroke:#ffffff;stroke-width:24;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1">
+         style="opacity:0.7;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:40;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1">
         <path
-           d="M 32,96 C 80,64 176,64 224,96" />
+           d="M 24,104 C 72,72 168,72 216,104" />
         <path
            sodipodi:nodetypes="csc"
-           d="m 86,178 c -14,4 -44,-2 -44,-34 0,-32 30,-38 44,-34" />
+           d="m 78,186 c -14,4 -44,-2 -44,-34 0,-32 30,-38 44,-34" />
         <path
            sodipodi:nodetypes="ccsssc"
-           d="m 110,178 v -68 h 20 c 8,0 20,4 20,20 0,16 -12,20 -20,20 h -20" />
+           d="m 104,186 v -68 h 20 c 8,0 20,4 20,20 0,16 -12,20 -20,20 h -20" />
         <path
            sodipodi:nodetypes="czzc"
-           d="m 172,176 c 26,8 42,-8 36,-22 -6,-14 -30,-6 -36,-20 -6,-14 10,-30 36,-22" />
+           d="m 168,184 c 26,8 42,-8 36,-22 -6,-14 -30,-6 -36,-20 -6,-14 10,-30 36,-22" />
       </g>
       <g
-         style="opacity:1;fill:none;stroke:#2c5aa0;stroke-width:12;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1">
+         style="opacity:1;fill:none;stroke:#2c5aa0;stroke-width:16;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1">
         <path
-           d="M 32,96 C 80,64 176,64 224,96" />
+           d="M 24,104 C 72,72 168,72 216,104" />
         <path
            sodipodi:nodetypes="csc"
-           d="m 86,178 c -14,4 -44,-2 -44,-34 0,-32 30,-38 44,-34" />
+           d="m 78,186 c -14,4 -44,-2 -44,-34 0,-32 30,-38 44,-34" />
         <path
            sodipodi:nodetypes="ccsssc"
-           d="m 110,178 v -68 h 20 c 8,0 20,4 20,20 0,16 -12,20 -20,20 h -20" />
+           d="m 104,186 v -68 h 20 c 8,0 20,4 20,20 0,16 -12,20 -20,20 h -20" />
         <path
            sodipodi:nodetypes="czzc"
-           d="m 172,176 c 26,8 42,-8 36,-22 -6,-14 -30,-6 -36,-20 -6,-14 10,-30 36,-22" />
+           d="m 168,184 c 26,8 42,-8 36,-22 -6,-14 -30,-6 -36,-20 -6,-14 10,-30 36,-22" />
       </g>
     </g>
   </g>

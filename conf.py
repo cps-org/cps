@@ -55,7 +55,7 @@ html_theme_options = {
 }
 
 html_title = f'{project} v{release}'
-# html_favicon = '_static/cps-favicon.ico'
+html_favicon = '_static/cps-favicon.ico'
 
 html_static_path = ['_static']
 
