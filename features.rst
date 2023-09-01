@@ -63,7 +63,18 @@ Compiler Features
 The component's public interface makes use
 of features which are GNU extensions.
 |should-use| GNU extensions
-(e.g. ``--std=gnu`` or ``--std=gnu++``).
+(e.g. ``-std=gnu`` or ``-std=gnu++``).
+
+:feature:`threads`
+------------------
+
+Code using the component should be built
+with run-time threading support.
+On Windows, this would typically be used
+to select the multi-threaded CRT library
+rather than the single-threaded CRT.
+On POSIX platforms, it typically indicates
+that the application should be built with ``-pthread``.
 
 :feature.opt:`no`\ :feature:`warn:`\ :feature.var:`...`
 -------------------------------------------------------
@@ -104,16 +115,11 @@ only that if it is issued, it should not be promoted to an error.
 Linker Features
 '''''''''''''''
 
-:feature:`threads`
-------------------
+:feature:`threads` *(deprecated)*
+---------------------------------
 
-Code using the component should be built
-with run-time threading support.
-On Windows, this would typically be used
-to select the multi-threaded CRT library
-rather than the single-threaded CRT.
-On POSIX platforms, it typically indicates
-that the application should be built with ``-pthread``.
+Implementations should treat this
+as if the compile feature :feature:`threads` was specified.
 
 .. TODO do we need `pic`? `sanitize:<...>`?
 

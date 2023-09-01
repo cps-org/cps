@@ -404,7 +404,7 @@ required by the package's components.
 
 Specifies a list of `Linker Features`_
 that must be enabled or disabled
-when compiling code that consumes the component.
+when linking code that consumes the component.
 
 :attribute:`Link-Flags`
 -----------------------
