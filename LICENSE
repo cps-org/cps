@@ -1,9 +1,10 @@
 License for Common Packaging Specification
 ==========================================
 
-The textual prose (i.e. all .rst files) of the Common Packaging Specification
-is provided under the Creative Commons CC-BY-SA 4.0 license. See the
-accompanying LICENSE.CC-BY-SA file.
+The textual prose (i.e. all .rst files) and accompanying graphical resources
+(i.e. all .png and .svg files) of the Common Packaging Specification are
+provided under the Creative Commons CC-BY-SA 4.0 license. See the accompanying
+LICENSE.CC-BY-SA file.
 
 Machine-executable content for the Common Packaging Specification (i.e.
 Makefile and associates scripts, but specifically excluding any .rst files)
