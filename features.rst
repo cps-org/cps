@@ -25,45 +25,57 @@ Compiler Features
 --------------
 
 |code-uses| |c99|.
-|should-use| |c99| (e.g. ``--std=c99`` or later).
+|should-use| |c99| (e.g. ``-std=c99`` or later).
 
 :feature:`c11`
 --------------
 
 |code-uses| |c11|.
-|should-use| |c11| (e.g. ``--std=c11`` or later).
+|should-use| |c11| (e.g. ``-std=c11`` or later).
+
+:feature:`cXX`
+--------------
+
+This is a placeholder for later versions of the |ISO-C| standard.
+It is strongly recommended that CPS implementations be proactive
+about supporting current and future language specifications
+(e.g. |c17|, spelled :feature:`c17`).
+
+In order to avoid the need for continuous updates
+for features whose spelling and meaning is readily inferred,
+this specification does not attempt to list these exhaustively.
 
 :feature:`c++03`
 ----------------
 
 |code-uses| |cpp03|.
-|should-use| |cpp03| (e.g. ``--std=c++03`` or later).
+|should-use| |cpp03| (e.g. ``-std=c++03`` or later).
 
 :feature:`c++11`
 ----------------
 
 |code-uses| |cpp11|.
-|should-use| |cpp11| (e.g. ``--std=c++11`` or later).
+|should-use| |cpp11| (e.g. ``-std=c++11`` or later).
 
-:feature:`c++14`
+:feature:`c++XX`
 ----------------
 
-|code-uses| |cpp14|.
-|should-use| |cpp14| (e.g. ``--std=c++14`` or later).
+This is a placeholder for later versions of the |ISO-Cpp| standard.
+It is strongly recommended that CPS implementations be proactive
+about supporting current and future language specifications
+(e.g. |cpp14|, spelled :feature:`c++14`).
 
-:feature:`c++17`
-----------------
-
-|code-uses| |cpp17|.
-|should-use| |cpp17| (e.g. ``--std=c++17`` or later).
+In order to avoid the need for continuous updates
+for features whose spelling and meaning is readily inferred,
+this specification does not attempt to list these exhaustively.
 
 :feature:`gnu`
 --------------
 
 The component's public interface makes use
 of features which are GNU extensions.
-|should-use| GNU extensions
-(e.g. ``-std=gnu`` or ``-std=gnu++``).
+|should-use| GNU extensions.
+(Note that this is orthogonal to specifying a language level.)
 
 :feature:`threads`
 ------------------
@@ -133,10 +145,13 @@ as if the compile feature :feature:`threads` was specified.
 
 .. |c99| replace:: ISO/IEC 9899:1999
 .. |c11| replace:: ISO/IEC 9899:2011
+.. |c17| replace:: ISO/IEC 9899:2017
 .. |cpp03| replace:: ISO/IEC 14882:2003
 .. |cpp11| replace:: ISO/IEC 14882:2011
 .. |cpp14| replace:: ISO/IEC 14882:2014
-.. |cpp17| replace:: ISO/IEC 14882:2017
+
+.. |ISO-C| replace:: ISO/IEC 9899 "C"
+.. |ISO-Cpp| replace:: ISO/IEC 14882 "C++"
 
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
 
