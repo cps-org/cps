@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   inkscape:export-filename="logo-256.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="0.92+devel unknown"
+   sodipodi:docname="logo-256.svg"
+   version="1.1"
+   id="SVGRoot"
+   width="256px"
+   height="256px"
+   viewBox="0 0 256 256">
+  <sodipodi:namedview
+     inkscape:document-units="px"
+     inkscape:grid-bbox="true"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:window-maximized="1"
+     inkscape:zoom="1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     showgrid="false"
+     id="base">
+    <inkscape:grid
+       id="grid26"
+       type="xygrid"
+       empspacing="8" />
+  </sodipodi:namedview>
+  <defs>
+    <mask
+       id="box-mask"
+       maskUnits="userSpaceOnUse">
+      <g
+         style="fill:#ffffff;stroke:#000000;stroke-width:8;stroke-miterlimit:4">
+        <path
+           d="M 128,248 16,184 V 72 l 112,64 z" />
+        <path
+           d="M 128,248 240,184 V 72 l -112,64 z" />
+        <path
+           d="M 240,72 128,136 16,72 128,8 Z" />
+      </g>
+    </mask>
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1"
+     id="layer1">
+    <g>
+      <rect
+         style="fill:none;stroke:none"
+         x="0"
+         y="0"
+         width="256"
+         height="256" />
+      <g
+         mask="url(#box-mask)">
+        <path
+           style="fill:#afc6e9;stroke:none"
+           d="M 128,248 16,184 V 72 l 112,64 z" />
+        <path
+           style="fill:#87aade;stroke:none"
+           d="M 128,248 240,184 V 72 l -112,64 z" />
+        <path
+           style="fill:#d7e3f4;stroke:none"
+           d="M 240,72 128,136 16,72 128,8 Z" />
+      </g>
+      <g
+         style="opacity:0.5;fill:none;stroke:#ffffff;stroke-width:24;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1">
+        <path
+           d="M 32,96 C 80,64 176,64 224,96" />
+        <path
+           sodipodi:nodetypes="csc"
+           d="m 86,178 c -14,4 -44,-2 -44,-34 0,-32 30,-38 44,-34" />
+        <path
+           sodipodi:nodetypes="ccsssc"
+           d="m 110,178 v -68 h 20 c 8,0 20,4 20,20 0,16 -12,20 -20,20 h -20" />
+        <path
+           sodipodi:nodetypes="czzc"
+           d="m 172,176 c 26,8 42,-8 36,-22 -6,-14 -30,-6 -36,-20 -6,-14 10,-30 36,-22" />
+      </g>
+      <g
+         style="opacity:1;fill:none;stroke:#2c5aa0;stroke-width:12;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1">
+        <path
+           d="M 32,96 C 80,64 176,64 224,96" />
+        <path
+           sodipodi:nodetypes="csc"
+           d="m 86,178 c -14,4 -44,-2 -44,-34 0,-32 30,-38 44,-34" />
+        <path
+           sodipodi:nodetypes="ccsssc"
+           d="m 110,178 v -68 h 20 c 8,0 20,4 20,20 0,16 -12,20 -20,20 h -20" />
+        <path
+           sodipodi:nodetypes="czzc"
+           d="m 172,176 c 26,8 42,-8 36,-22 -6,-14 -30,-6 -36,-20 -6,-14 10,-30 36,-22" />
+      </g>
+    </g>
+  </g>
+</svg>

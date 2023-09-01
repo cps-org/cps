@@ -12,8 +12,9 @@
 Introduction
 ============
 
-.. image:: logo-128.png
+.. image:: logo-256.svg
   :class: float-right
+  :width: 128
 
 This document describes the schema for Common Package Specification files. A Common Package Specification file (hereafter "CPS") is a mechanism for describing how users may consume a package. "User" here refers to another package, not an end user. CPS deals with *building* software, not *installing* software.
 

@@ -1,8 +1,9 @@
 Overview
 ========
 
-.. image:: logo-128.png
+.. image:: logo-256.svg
   :class: float-left
+  :width: 128
 
 The **Common Package Specification** (CPS)
 is a mechanism for describing the useful artifacts of a software package.
