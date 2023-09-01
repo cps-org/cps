@@ -74,6 +74,16 @@ to consume CMake package specifications
 without effectively reimplementing most or all of CMake itself.
 Clearly, this is not practical.
 
+Even so, certain tasks that should be easy,
+such as handling transitive dependencies
+or specifying version compatibility,
+are difficult and may require hand-writing code.
+While there is plenty of room for improvement
+without leaving the CMake ecosystem,
+CPS offers similar room for growth
+while also opening up package distribution
+to a wider audience of consumers.
+
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
 
 .. _pkg-config: https://www.freedesktop.org/wiki/Software/pkg-config/
