@@ -139,11 +139,10 @@ This can be accomplished in three ways:
 
   - Otherwise:
 
-    - If the tail-portion of the path matches any of
+    - If the tail-portion of the path matches
+      :path:`/cps/`\ :var:`name-like`\ :path:`/` or
       :path:`/cps/`,
-      :path:`/`\ :var:`name`\ :path:`/cps/` or
-      :path:`/cps/`\ :var:`name`\ :path:`/`,
-      the longest such matching portion is removed.
+      that portion is removed.
 
     - If the tail-portion of the remaining path matches any of
       :path:`/`\ :var:`libdir`\ :path:`/` or :path:`/share/`,
