@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Package Searching &#8212; Common Package Specification v0.8.2</title>
+    <title>Package Searching &#8212; Common Package Specification v0.9.0</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/cps.css" />
     
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="configurations.html" title="Package Configurations"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.9.0</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Package Searching</a></li> 
       </ul>
     </div>  
@@ -47,50 +47,61 @@
             
   <section id="package-searching">
 <h1>Package Searching<a class="headerlink" href="#package-searching" title="Permalink to this heading">¶</a></h1>
-<p>Tools shall locate a package by searching for a file
-<code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code> or
-<code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">-</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code>
-(where the asterisk (<code class="docutils literal notranslate"><span class="pre">*</span></code>) is one or more characters
-excluding colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>) and at-sign (<code class="docutils literal notranslate"><span class="pre">&#64;</span></code>),
-allowing <code class="docutils literal notranslate"><span class="pre">.cps</span></code> files to supply a version number as part of their name
-so that multiple versions may be co-installed)
+<p>Tools shall locate a package
+by searching for a file
+<code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code>
 in the following paths:</p>
 <ul class="simple">
-<li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/cps/</span></code> <span class="applies-to">(Windows)</span></p></li>
-<li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">.framework/Resources/CPS/</span></code>
-<span class="applies-to">(MacOS)</span></p></li>
+<li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/cps/</span></code>
+<span class="applies-to">(Windows)</span></p></li>
+<li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/cps/</span></code><code class="code var docutils literal notranslate"><span class="pre">name-like</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code>
+<span class="applies-to">(Windows)</span></p></li>
 <li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">.framework/Versions/</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">/Resources/CPS/</span></code>
-<span class="applies-to">(MacOS)</span></p></li>
+<span class="applies-to">(macOS)</span></p></li>
+<li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">.framework/Resources/CPS/</span></code>
+<span class="applies-to">(macOS)</span></p></li>
 <li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">.app/Contents/Resources/CPS/</span></code>
-<span class="applies-to">(MacOS)</span></p></li>
-<li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code var docutils literal notranslate"><span class="pre">libdir</span></code><code class="code path docutils literal notranslate"><span class="pre">/cps/</span></code><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code></p></li>
-<li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code var docutils literal notranslate"><span class="pre">libdir</span></code><code class="code path docutils literal notranslate"><span class="pre">/cps/</span></code><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code></p></li>
+<span class="applies-to">(macOS)</span></p></li>
+<li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code var docutils literal notranslate"><span class="pre">libdir</span></code><code class="code path docutils literal notranslate"><span class="pre">/cps/</span></code><code class="code var docutils literal notranslate"><span class="pre">name-like</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code></p></li>
 <li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code var docutils literal notranslate"><span class="pre">libdir</span></code><code class="code path docutils literal notranslate"><span class="pre">/cps/</span></code></p></li>
-<li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/share/cps/</span></code><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code></p></li>
-<li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/share/cps/</span></code><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code></p></li>
+<li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/share/cps/</span></code><code class="code var docutils literal notranslate"><span class="pre">name-like</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code></p></li>
 <li><p><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code><code class="code path docutils literal notranslate"><span class="pre">/share/cps/</span></code></p></li>
 </ul>
-<p>The placeholder <code class="code var docutils literal notranslate"><span class="pre">name</span></code> shall represent
-the name of the package to be located,
-and shall include both the proper case name,
-and the name converted to lower case.
-The placeholder <code class="code var docutils literal notranslate"><span class="pre">libdir</span></code> shall be
-the platform defined directories, sans root prefix,
+<p>The various placeholders are as follows:</p>
+<dl>
+<dt><code class="code var docutils literal notranslate"><span class="pre">name</span></code>:</dt><dd><p>The name of the package to be located,
+including both the proper case name,
+and the name converted to lower case.</p>
+</dd>
+<dt><code class="code var docutils literal notranslate"><span class="pre">name-like</span></code>:</dt><dd><p>Any of
+<code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code>,
+<code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">-</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code>, or
+<code class="code var docutils literal notranslate"><span class="pre">name</span></code>,
+where <code class="code var docutils literal notranslate"><span class="pre">name</span></code>: is as previously defined,
+and the asterisk (<code class="docutils literal notranslate"><span class="pre">*</span></code>) is one or more
+valid filename characters, excluding the path separator.
+This is intended to allow multiple versions of a package
+to be installed into the same <code class="code var docutils literal notranslate"><span class="pre">prefix</span></code>.</p>
+</dd>
+<dt><code class="code var docutils literal notranslate"><span class="pre">libdir</span></code>:</dt><dd><p>The platform defined directories, sans root prefix,
 in which matching architecture
 and/or architecture-neutral libraries reside
 (e.g. <code class="code path docutils literal notranslate"><span class="pre">lib</span></code>, <code class="code path docutils literal notranslate"><span class="pre">lib32</span></code>, <code class="code path docutils literal notranslate"><span class="pre">lib64</span></code>,
-<code class="code path docutils literal notranslate"><span class="pre">lib/i386-linux-gnu</span></code>…).
-The placeholder <code class="code var docutils literal notranslate"><span class="pre">prefix</span></code> shall represent
-one of the set of default install prefixes to be searched,
+<code class="code path docutils literal notranslate"><span class="pre">lib/x86_64-linux-gnu</span></code>…).</p>
+</dd>
+<dt><code class="code var docutils literal notranslate"><span class="pre">prefix</span></code>:</dt><dd><p>One of the set of default install prefixes to be searched,
 which shall include, at minimum and in order,
 the set of paths (separated by <code class="code path docutils literal notranslate"><span class="pre">;</span></code> on Windows, <code class="code path docutils literal notranslate"><span class="pre">:</span></code> otherwise)
 in the environment variable <code class="code env docutils literal notranslate"><span class="pre">CPS_PATH</span></code>,
-<code class="code path docutils literal notranslate"><span class="pre">/usr/local</span></code>, and <code class="code path docutils literal notranslate"><span class="pre">/usr</span></code>.
-In addition,
+<code class="code path docutils literal notranslate"><span class="pre">/usr/local</span></code>, and <code class="code path docutils literal notranslate"><span class="pre">/usr</span></code>.</p>
+<p>In addition,
 for all such package-neutral prefixes <code class="code var docutils literal notranslate"><span class="pre">prefix-root</span></code>,
-the package-specific prefix <code class="code var docutils literal notranslate"><span class="pre">prefix-root</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code var docutils literal notranslate"><span class="pre">name</span></code>
-shall also be considered.
-The complete list of search paths, above,
+the package-specific prefixes
+<code class="code var docutils literal notranslate"><span class="pre">prefix-root</span></code><code class="code path docutils literal notranslate"><span class="pre">/</span></code><code class="code var docutils literal notranslate"><span class="pre">name-like</span></code>
+shall also be considered.</p>
+</dd>
+</dl>
+<p>The complete list of search paths, above,
 shall be considered in the order specified above,
 for each prefix, before the next prefix is searched.
 Package-specific prefixes shall be searched
@@ -132,7 +143,7 @@ the prefix is known from the path which was searched.</p></li>
 <ul>
 <li><p>The path is initially taken to be the directory portion
 (i.e. without file name) of the absolute path to the <code class="docutils literal notranslate"><span class="pre">.cps</span></code> file.</p></li>
-<li><p><span class="applies-to">(MacOS)</span>
+<li><p><span class="applies-to">(macOS)</span>
 If the tail-portion matches
 <code class="code path docutils literal notranslate"><span class="pre">/Resources/</span></code> or <code class="code path docutils literal notranslate"><span class="pre">/Resources/CPS/</span></code>,
 then:</p>
@@ -237,7 +248,7 @@ that portion is removed.</p></li>
         <li class="right" >
           <a href="configurations.html" title="Package Configurations"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.9.0</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Package Searching</a></li> 
       </ul>
     </div>

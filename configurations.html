@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Package Configurations &#8212; Common Package Specification v0.8.2</title>
+    <title>Package Configurations &#8212; Common Package Specification v0.9.0</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/cps.css" />
     
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="components.html" title="Component Specification"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.9.0</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Package Configurations</a></li> 
       </ul>
     </div>  
@@ -114,12 +114,22 @@ with release libraries and common components,
 an optional package with debug libraries,
 and another optional package with optional components).</p>
 <p>When a tool locates a CPS file, <code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code>,
-the tool shall look in the same directory for any files named
-<code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">:</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code>,
-<code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">&#64;</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code>, and
-<code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">:</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">&#64;</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code>
-(the asterisk (<code class="docutils literal notranslate"><span class="pre">*</span></code>) represents file globbing).
-If any such package specifications are found,
+the tool shall look in the same directory for any files
+which match any of the patterns
+(the asterisk (<code class="docutils literal notranslate"><span class="pre">*</span></code>) represents file globbing):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">:</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code></p></li>
+<li><p><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">-</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code></p></li>
+<li><p><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">&#64;</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code></p></li>
+<li><p><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">:</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">&#64;</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code></p></li>
+<li><p><code class="code var docutils literal notranslate"><span class="pre">name</span></code><code class="code path docutils literal notranslate"><span class="pre">-</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">&#64;</span></code><code class="code glob docutils literal notranslate"><span class="pre">*</span></code><code class="code path docutils literal notranslate"><span class="pre">.cps</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>Patterns containing colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>) shall be skipped
+on platforms for which that character
+is not permitted in file names (e.g. Windows).</p>
+<p>If any such package specifications are found,
 they shall be loaded at the same time,
 and their contents appended to the information loaded from the base CPS.
 (Note, however, that tools are permitted
@@ -131,11 +141,13 @@ is a configuration-specific CPS.
 The structure of a configuration-specific CPS
 is the same as a common CPS, with three exceptions:</p>
 <ul class="simple">
-<li><p>The per-configuration specification
-must contain the <a class="reference internal" href="schema.html#configuration"><span class="std std-ref">Configuration</span></a> attribute.</p></li>
-<li><p>The per-configuration specification
-may not specify any <code class="code object docutils literal notranslate"><span class="pre">component</span></code> attributes
-(e.g. <code class="code attribute docutils literal notranslate"><span class="pre">Type</span></code>).</p></li>
+<li><p>The only defined <code class="code object docutils literal notranslate"><span class="pre">package</span></code> keys are
+<a class="reference internal" href="schema.html#name"><span class="std std-ref">Name</span></a>, <a class="reference internal" href="schema.html#configuration"><span class="std std-ref">Configuration</span></a>, and <a class="reference internal" href="schema.html#components-package"><span class="std std-ref">Components</span></a>.
+The first two are required.
+Use of other attributes specified in the schema is ill-formed.</p></li>
+<li><p>The per-configuration specification may not specify
+any <code class="code object docutils literal notranslate"><span class="pre">component</span></code> attributes (e.g. <code class="code attribute docutils literal notranslate"><span class="pre">Type</span></code>).
+Only <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code> attributes are allowed.</p></li>
 <li><p>An attribute on a <code class="code object docutils literal notranslate"><span class="pre">component</span></code>
 is considered to belong instead
 to the component-configuration
@@ -218,7 +230,7 @@ is implementation-defined.</p>
         <li class="right" >
           <a href="components.html" title="Component Specification"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.9.0</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Package Configurations</a></li> 
       </ul>
     </div>

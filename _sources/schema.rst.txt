@@ -653,13 +653,13 @@ Specifies the structure
 to which the package's version numbering conforms.
 Tools may use this to determine how to perform version comparisons.
 Officially supported (case-insensitive) values are
-:string:`"semver"` (|semver|_) and :string:`"custom"`
+:string:`"simple"` and :string:`"custom"`
 (:string:`"rpm"` or :string:`"dpkg"` should be used where applicable,
 but may not be supported by all tools).
 If a package uses :string:`"custom"`,
 version numbers may be compared,
 but version ordering is not possible.
-The default is :string:`"semver"`.
+The default is :string:`"simple"`.
 
 Needless to say,
 changing a package's version scheme between releases
@@ -667,10 +667,29 @@ is *very strongly discouraged*.
 
 Note that this attribute determines
 only how version numbers are *ordered*.
-It does not also imply that a package
-actually maintains and breaks compatibility
-as specified by |semver|.
+It does not imply anything
+about the compatibility or incompatibility
+of various versions of a package.
 See also `Compat-Version`_.
+
+- :string:`simple`
+
+  The package's version number
+  shall match the regular expression
+  ``[0-9]+([.][0-9]+)*([-+].*)?``.
+
+  The portion of the version
+  which precedes the optional ``-`` or ``+``
+  may be interpreted as a tuple of integers,
+  in which leading zeros are ignored.
+  Version numbers are compared according to numerical order,
+  starting from the first (left-most) number of the tuples.
+  If two version numbers have different tuple sizes,
+  the shorter tuple shall be implicitly filled with zeros.
+
+.. deprecated:: 0.9.0
+
+    :string:`"semver"` is a deprecated alias for :string:`"simple"`.
 
 Notes
 '''''

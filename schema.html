@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Package Schema &#8212; Common Package Specification v0.8.2</title>
+    <title>Package Schema &#8212; Common Package Specification v0.9.0</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/cps.css" />
     
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="development.html" title="Development Process"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.9.0</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Package Schema</a></li> 
       </ul>
     </div>  
@@ -917,22 +917,40 @@ as for the <code class="code attribute docutils literal notranslate"><span class
 to which the package’s version numbering conforms.
 Tools may use this to determine how to perform version comparisons.
 Officially supported (case-insensitive) values are
-<code class="code string docutils literal notranslate"><span class="pre">&quot;semver&quot;</span></code> (<a class="reference external" href="http://semver.org/">Semantic Versioning</a>) and <code class="code string docutils literal notranslate"><span class="pre">&quot;custom&quot;</span></code>
+<code class="code string docutils literal notranslate"><span class="pre">&quot;simple&quot;</span></code> and <code class="code string docutils literal notranslate"><span class="pre">&quot;custom&quot;</span></code>
 (<code class="code string docutils literal notranslate"><span class="pre">&quot;rpm&quot;</span></code> or <code class="code string docutils literal notranslate"><span class="pre">&quot;dpkg&quot;</span></code> should be used where applicable,
 but may not be supported by all tools).
 If a package uses <code class="code string docutils literal notranslate"><span class="pre">&quot;custom&quot;</span></code>,
 version numbers may be compared,
 but version ordering is not possible.
-The default is <code class="code string docutils literal notranslate"><span class="pre">&quot;semver&quot;</span></code>.</p>
+The default is <code class="code string docutils literal notranslate"><span class="pre">&quot;simple&quot;</span></code>.</p>
 <p>Needless to say,
 changing a package’s version scheme between releases
 is <em>very strongly discouraged</em>.</p>
 <p>Note that this attribute determines
 only how version numbers are <em>ordered</em>.
-It does not also imply that a package
-actually maintains and breaks compatibility
-as specified by Semantic Versioning.
+It does not imply anything
+about the compatibility or incompatibility
+of various versions of a package.
 See also <a class="reference internal" href="#compat-version">Compat-Version</a>.</p>
+<ul>
+<li><p><code class="code string docutils literal notranslate"><span class="pre">simple</span></code></p>
+<p>The package’s version number
+shall match the regular expression
+<code class="docutils literal notranslate"><span class="pre">[0-9]+([.][0-9]+)*([-+].*)?</span></code>.</p>
+<p>The portion of the version
+which precedes the optional <code class="docutils literal notranslate"><span class="pre">-</span></code> or <code class="docutils literal notranslate"><span class="pre">+</span></code>
+may be interpreted as a tuple of integers,
+in which leading zeros are ignored.
+Version numbers are compared according to numerical order,
+starting from the first (left-most) number of the tuples.
+If two version numbers have different tuple sizes,
+the shorter tuple shall be implicitly filled with zeros.</p>
+</li>
+</ul>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 0.9.0: </span><code class="code string docutils literal notranslate"><span class="pre">&quot;semver&quot;</span></code> is a deprecated alias for <code class="code string docutils literal notranslate"><span class="pre">&quot;simple&quot;</span></code>.</p>
+</div>
 </section>
 </section>
 <section id="notes">
@@ -1032,7 +1050,7 @@ and using the platform’s usual format for such binaries
         <li class="right" >
           <a href="development.html" title="Development Process"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.8.2</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.9.0</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Package Schema</a></li> 
       </ul>
     </div>

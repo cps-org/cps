@@ -74,11 +74,24 @@ an optional package with debug libraries,
 and another optional package with optional components).
 
 When a tool locates a CPS file, :var:`name`\ :path:`.cps`,
-the tool shall look in the same directory for any files named
-:var:`name`\ :path:`:`\ :glob:`*`\ :path:`.cps`,
-:var:`name`\ :path:`@`\ :glob:`*`\ :path:`.cps`, and
-:var:`name`\ :path:`:`\ :glob:`*`\ :path:`@`\ :glob:`*`\ :path:`.cps`
-(the asterisk (``*``) represents file globbing).
+the tool shall look in the same directory for any files
+which match any of the patterns
+(the asterisk (``*``) represents file globbing):
+
+  - :var:`name`\ :path:`:`\ :glob:`*`\ :path:`.cps`
+
+  - :var:`name`\ :path:`-`\ :glob:`*`\ :path:`.cps`
+
+  - :var:`name`\ :path:`@`\ :glob:`*`\ :path:`.cps`
+
+  - :var:`name`\ :path:`:`\ :glob:`*`\ :path:`@`\ :glob:`*`\ :path:`.cps`
+
+  - :var:`name`\ :path:`-`\ :glob:`*`\ :path:`@`\ :glob:`*`\ :path:`.cps`
+
+Patterns containing colon (``:``) shall be skipped
+on platforms for which that character
+is not permitted in file names (e.g. Windows).
+
 If any such package specifications are found,
 they shall be loaded at the same time,
 and their contents appended to the information loaded from the base CPS.
@@ -92,12 +105,14 @@ is a configuration-specific CPS.
 The structure of a configuration-specific CPS
 is the same as a common CPS, with three exceptions:
 
-- The per-configuration specification
-  must contain the `Configuration`_ attribute.
+- The only defined :object:`package` keys are
+  `Name`_, `Configuration`_, and `Components <Components\ (Package)>`_.
+  The first two are required.
+  Use of other attributes specified in the schema is ill-formed.
 
-- The per-configuration specification
-  may not specify any :object:`component` attributes
-  (e.g. :attribute:`Type`).
+- The per-configuration specification may not specify
+  any :object:`component` attributes (e.g. :attribute:`Type`).
+  Only :object:`configuration` attributes are allowed.
 
 - An attribute on a :object:`component`
   is considered to belong instead
