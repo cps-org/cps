@@ -33,6 +33,16 @@ th { background-color: inherit; }
 .code.object:before { content: "<"; }
 .code.object:after { content: ">"; }
 
+.code.type .pre,
+.code.keyword .pre,
+.code.string .pre,
+.code.attribute .pre,
+.code.feature .pre,
+.code.object .pre {
+  hyphens: auto;
+  white-space: normal;
+}
+
 .applies-to { font-size: 70%; color: #777; }
 
 .path { color: #641; }
