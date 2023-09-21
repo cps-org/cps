@@ -33,6 +33,12 @@ Typical components include libraries and executables.
 A |configuration| holds attributes
 that are specific to a particular configuration of a |component|.
 
+:object:`Environment-Variable`\ :hidden:`(Object)`
+--------------------------------------------------
+
+An |envvar| holds attributes
+that describe an environment variable alteration.
+
 Attributes
 ''''''''''
 
@@ -42,6 +48,34 @@ This shall be equivalent to omitting the attribute.
 Attribute names are case insensitive,
 although it is recommended that ``.cps`` files
 use the capitalization as shown.
+
+:attribute:`Action`
+-------------------
+
+:Type: |string| (restricted)
+:Applies To: |envvar|
+:Required: No
+
+This specifies how an environment variable's specified values
+are combined with any existing values of the environment variable.
+Note that "existing values" may also refer to values
+specified for the same environment variable by other components.
+
+- :string:`prepend`
+
+  The specified `Values`_ are inserted before
+  the environment variable's existing value(s), if any.
+  This is the default behavior.
+
+- :string:`append`
+
+  The specified `Values`_ are inserted after
+  the environment variable's existing value(s), if any.
+
+- :string:`replace`
+
+  The specified `Values`_ replace
+  the environment variable's existing value(s), if any.
 
 :attribute:`C-Runtime-Vendor`
 -----------------------------
@@ -263,6 +297,26 @@ with :attribute:`Cps-Version` ``<X>.<Z>``,
 even for Z > Y
 (with the understanding that, in such cases, the tool
 may miss non-critical information that the CPS provided).
+
+:attribute:`Deduplicate`
+------------------------
+
+:Type: |bool| :separator:`or` |string| (restricted)
+:Applies To: |envvar|
+:Required: No
+
+Specifies whether duplicate values
+in the environment variable should be removed.
+(Values are separated by the specified `Separator`_.)
+
+If enabled, deduplication takes place *after*
+the environment variable has been modified.
+If set to :string:`keep-last`,
+only the right-most value is retained.
+Otherwise (|true| or :string:`keep-first`)
+only the left-most value is retained.
+
+The default is |false|.
 
 :attribute:`Default-Components`
 -------------------------------
@@ -575,6 +629,36 @@ Values are a valid |requirement| object or |null|
 (equivalent to an empty |requirement| object)
 describing the package required.
 
+:attribute:`Runtime-Environment`
+--------------------------------
+
+:Type: |map| to [ |string-list| :separator:`or` |envvar| ]
+:Applies To: |component|, |configuration|
+:Required: No
+
+Specifies environment variables that should be set
+when executing an application that uses the component.
+Keys are the environment variable names.
+
+If a value is a |string-list|,
+the value is treated as the `Values`_ attribute
+of an |envvar| object
+whose other attributes are unspecified.
+
+:attribute:`Separator`
+----------------------
+
+:Type: |string|
+:Applies To: |envvar|
+:Required: No
+
+Specifies what character or sequence of characters
+is used to join multiple values of an environment variable.
+
+If not specified, the default
+is :string:`;` on Windows
+or :string:`:` otherwise.
+
 :attribute:`Type`
 -----------------
 
@@ -619,6 +703,22 @@ a package that has a feature that is meaningful to users
 but does not otherwise map directly to a component
 may use a symbolic component
 to indicate availability of the feature to users.
+
+:attribute:`Values`
+-------------------
+
+:Type: |string-list|
+:Applies To: |envvar|
+:Required: Yes
+
+Specifies the list of values
+to assign to the environment variable.
+Values are assigned according to the specified `Action`_
+and are joined by the specified `Separator`_.
+
+If a value starts with ``@prefix@``,
+the package's install prefix is substituted
+(see `Package Searching`_).
 
 :attribute:`Version` :applies-to:`(Package)`
 --------------------------------------------
@@ -732,6 +832,12 @@ Notes
 
 .. |null| replace:: :keyword:`null`
 
+.. |bool| replace:: :type:`boolean`
+
+.. |true| replace:: :keyword:`true`
+
+.. |false| replace:: :keyword:`false`
+
 .. |string| replace:: :type:`string`
 
 .. |list| replace:: :type:`list`
@@ -751,6 +857,8 @@ Notes
 .. |component| replace:: :object:`component`
 
 .. |configuration| replace:: :object:`configuration`
+
+.. |envvar| replace:: :object:`environment-variable`
 
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
 
