@@ -515,8 +515,11 @@ that are not of :string:`"interface"` :attribute:`Type`.
 
 Specifies the canonical name of the package.
 In order for searching to succeed,
-this must exactly match the name of the CPS file
-without the ``.cps`` suffix.
+the name of the CPS file
+without the ``.cps`` suffix
+must exactly match (including case)
+either :attribute:`Name` as-is,
+or :attribute:`Name` converted to lower case.
 
 :attribute:`Platform`
 ---------------------
