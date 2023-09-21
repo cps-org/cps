@@ -292,7 +292,7 @@ and shall be ignored otherwise.</p>
 <dd class="field-odd"><p>No</p>
 </dd>
 </dl>
-<p>Specifies the configurations that are available.
+<p>Specifies the configurations that are preferred.
 See <a class="reference internal" href="configurations.html#package-configurations"><span class="std std-ref">Package Configurations</span></a> for a description
 of how configurations are used.</p>
 </section>
@@ -742,8 +742,11 @@ that are not of <code class="code string docutils literal notranslate"><span cla
 </dl>
 <p>Specifies the canonical name of the package.
 In order for searching to succeed,
-this must exactly match the name of the CPS file
-without the <code class="docutils literal notranslate"><span class="pre">.cps</span></code> suffix.</p>
+the name of the CPS file
+without the <code class="docutils literal notranslate"><span class="pre">.cps</span></code> suffix
+must exactly match (including case)
+either <code class="code attribute docutils literal notranslate"><span class="pre">Name</span></code> as-is,
+or <code class="code attribute docutils literal notranslate"><span class="pre">Name</span></code> converted to lower case.</p>
 </section>
 <section id="platform">
 <h3><code class="code attribute docutils literal notranslate"><span class="pre">Platform</span></code><a class="headerlink" href="#platform" title="Permalink to this heading">¶</a></h3>
