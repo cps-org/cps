@@ -191,7 +191,7 @@ and shall be ignored otherwise.
 :Applies To: |package|
 :Required: No
 
-Specifies the configurations that are available.
+Specifies the configurations that are preferred.
 See `Package Configurations`_ for a description
 of how configurations are used.
 
