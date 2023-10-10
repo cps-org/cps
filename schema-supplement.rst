@@ -104,7 +104,7 @@ The typical value is
 :Applies To: :object:`package`
 
 Provides a URI link to a document describing the format of the CPS file.
-The typical value is :string:`"https://mwoehlke.github.io/cps/"`
+The typical value is :string:`"https://cps-org.github.io/cps/"`
 (i.e. the top level page of this site).
 
 :attribute:`Website`

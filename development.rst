@@ -21,7 +21,7 @@ For now, please direct comments to `the editor`_.
 
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
 
-.. _github repository: https://github.com/mwoehlke/cps
+.. _github repository: https://github.com/cps-org/cps
 
 .. _the editor: mwoehlke.floss@gmail.com
 
