@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Package Schema &#8212; Common Package Specification v0.9.0</title>
+    <title>Package Schema &#8212; Common Package Specification v0.9.1</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/cps.css" />
     
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="development.html" title="Development Process"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.9.0</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.9.1</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Package Schema</a></li> 
       </ul>
     </div>  
@@ -73,6 +73,11 @@ Typical components include libraries and executables.</p>
 <p>A <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code> holds attributes
 that are specific to a particular configuration of a <code class="code object docutils literal notranslate"><span class="pre">component</span></code>.</p>
 </section>
+<section id="environment-variable-object">
+<h3><code class="code object docutils literal notranslate"><span class="pre">Environment-Variable</span></code><span class="hidden">(Object)</span><a class="headerlink" href="#environment-variable-object" title="Permalink to this heading">¶</a></h3>
+<p>An <code class="code object docutils literal notranslate"><span class="pre">environment-variable</span></code> holds attributes
+that describe an environment variable alteration.</p>
+</section>
 </section>
 <section id="attributes">
 <h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this heading">¶</a></h2>
@@ -81,6 +86,39 @@ This shall be equivalent to omitting the attribute.</p>
 <p>Attribute names are case insensitive,
 although it is recommended that <code class="docutils literal notranslate"><span class="pre">.cps</span></code> files
 use the capitalization as shown.</p>
+<section id="action">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Action</span></code><a class="headerlink" href="#action" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code> (restricted)</p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">environment-variable</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>This specifies how an environment variable’s specified values
+are combined with any existing values of the environment variable.
+Note that “existing values” may also refer to values
+specified for the same environment variable by other components.</p>
+<ul>
+<li><p><code class="code string docutils literal notranslate"><span class="pre">prepend</span></code></p>
+<p>The specified <a class="reference internal" href="#values">Values</a> are inserted before
+the environment variable’s existing value(s), if any.
+This is the default behavior.</p>
+</li>
+<li><p><code class="code string docutils literal notranslate"><span class="pre">append</span></code></p>
+<p>The specified <a class="reference internal" href="#values">Values</a> are inserted after
+the environment variable’s existing value(s), if any.</p>
+</li>
+<li><p><code class="code string docutils literal notranslate"><span class="pre">replace</span></code></p>
+<p>The specified <a class="reference internal" href="#values">Values</a> replace
+the environment variable’s existing value(s), if any.</p>
+</li>
+</ul>
+</section>
 <section id="c-runtime-vendor">
 <h3><code class="code attribute docutils literal notranslate"><span class="pre">C-Runtime-Vendor</span></code><a class="headerlink" href="#c-runtime-vendor" title="Permalink to this heading">¶</a></h3>
 <dl class="field-list simple">
@@ -393,6 +431,30 @@ with <code class="code attribute docutils literal notranslate"><span class="pre"
 even for Z &gt; Y
 (with the understanding that, in such cases, the tool
 may miss non-critical information that the CPS provided).</p>
+</section>
+<section id="deduplicate">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Deduplicate</span></code><a class="headerlink" href="#deduplicate" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">boolean</span></code> <span class="separator">or</span> <code class="code type docutils literal notranslate"><span class="pre">string</span></code> (restricted)</p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">environment-variable</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies whether duplicate values
+in the environment variable should be removed.
+(Values are separated by the specified <a class="reference internal" href="#separator">Separator</a>.)</p>
+<p>If enabled, deduplication takes place <em>after</em>
+the environment variable has been modified.
+If set to <code class="code string docutils literal notranslate"><span class="pre">keep-last</span></code>,
+only the right-most value is retained.
+Otherwise (<code class="code keyword docutils literal notranslate"><span class="pre">true</span></code> or <code class="code string docutils literal notranslate"><span class="pre">keep-first</span></code>)
+only the left-most value is retained.</p>
+<p>The default is <code class="code keyword docutils literal notranslate"><span class="pre">false</span></code>.</p>
 </section>
 <section id="default-components">
 <h3><code class="code attribute docutils literal notranslate"><span class="pre">Default-Components</span></code><a class="headerlink" href="#default-components" title="Permalink to this heading">¶</a></h3>
@@ -819,6 +881,46 @@ Values are a valid <code class="code object docutils literal notranslate"><span 
 (equivalent to an empty <code class="code object docutils literal notranslate"><span class="pre">requirement</span></code> object)
 describing the package required.</p>
 </section>
+<section id="runtime-environment">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Runtime-Environment</span></code><a class="headerlink" href="#runtime-environment" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">map</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code> to [ <code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code> <span class="separator">or</span> <code class="code object docutils literal notranslate"><span class="pre">environment-variable</span></code> ]</p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">component</span></code>, <code class="code object docutils literal notranslate"><span class="pre">configuration</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies environment variables that should be set
+when executing an application that uses the component.
+Keys are the environment variable names.</p>
+<p>If a value is a <code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code>,
+the value is treated as the <a class="reference internal" href="#values">Values</a> attribute
+of an <code class="code object docutils literal notranslate"><span class="pre">environment-variable</span></code> object
+whose other attributes are unspecified.</p>
+</section>
+<section id="separator">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Separator</span></code><a class="headerlink" href="#separator" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">environment-variable</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>No</p>
+</dd>
+</dl>
+<p>Specifies what character or sequence of characters
+is used to join multiple values of an environment variable.</p>
+<p>If not specified, the default
+is <code class="code string docutils literal notranslate"><span class="pre">;</span></code> on Windows
+or <code class="code string docutils literal notranslate"><span class="pre">:</span></code> otherwise.</p>
+</section>
 <section id="type">
 <h3><code class="code attribute docutils literal notranslate"><span class="pre">Type</span></code><a class="headerlink" href="#type" title="Permalink to this heading">¶</a></h3>
 <dl class="field-list simple">
@@ -866,6 +968,27 @@ a package that has a feature that is meaningful to users
 but does not otherwise map directly to a component
 may use a symbolic component
 to indicate availability of the feature to users.</p>
+</section>
+<section id="values">
+<h3><code class="code attribute docutils literal notranslate"><span class="pre">Values</span></code><a class="headerlink" href="#values" title="Permalink to this heading">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="code type docutils literal notranslate"><span class="pre">list</span></code> of <code class="code type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Applies To<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="code object docutils literal notranslate"><span class="pre">environment-variable</span></code></p>
+</dd>
+<dt class="field-odd">Required<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Yes</p>
+</dd>
+</dl>
+<p>Specifies the list of values
+to assign to the environment variable.
+Values are assigned according to the specified <a class="reference internal" href="#action">Action</a>
+and are joined by the specified <a class="reference internal" href="#separator">Separator</a>.</p>
+<p>If a value starts with <code class="docutils literal notranslate"><span class="pre">&#64;prefix&#64;</span></code>,
+the package’s install prefix is substituted
+(see <a class="reference internal" href="searching.html#package-searching"><span class="std std-ref">Package Searching</span></a>).</p>
 </section>
 <section id="version-package">
 <h3><code class="code attribute docutils literal notranslate"><span class="pre">Version</span></code> <span class="applies-to">(Package)</span><a class="headerlink" href="#version-package" title="Permalink to this heading">¶</a></h3>
@@ -1053,7 +1176,7 @@ and using the platform’s usual format for such binaries
         <li class="right" >
           <a href="development.html" title="Development Process"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.9.0</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Common Package Specification v0.9.1</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Package Schema</a></li> 
       </ul>
     </div>

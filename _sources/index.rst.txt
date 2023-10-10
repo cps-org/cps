@@ -20,7 +20,7 @@ This document describes the schema for Common Package Specification files. A Com
 
 CPS is based on `JSON`_. A CPS file is a valid JSON object.
 
-The official version of the specification is maintained at https://github.com/mwoehlke/cps.
+The official version of the specification is maintained at https://github.com/cps-org/cps.
 
 Contents
 ========
