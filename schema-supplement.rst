@@ -23,6 +23,9 @@ By definition, none of the following attributes are required.
 :attribute:`default_license`
 ----------------------------
 
+:Type: Special
+:Applies To: :object:`package`
+
 Specifies the `license`_ that is assumed to apply to a component,
 if none is otherwise specified.
 This is convenient for packages
