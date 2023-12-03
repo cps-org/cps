@@ -279,7 +279,8 @@
     },
     "cps-version": {
       "description": "Specifies the version of the CPS to which this .cps file conforms. This may be used by tools to provide backwards compatibility in case of compatibility-breaking changes in the CPS.",
-      "$ref": "cps-schema-definitions.schema.json#/definitions/semantic-version"
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
     },
     "default-components": {
       "description": "Specifies a list of components that should be inferred if a consumer specifies a dependency on a package, but not a specific component.",
