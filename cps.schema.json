@@ -75,6 +75,10 @@
       "description": "Specifies the location of the component. The exact meaning of this attribute depends on the component type, but typically it provides the path to the component's primary artifact, such as a .so or .jar. (For Windows DLL components, this should be the location of the .dll. See also Link-Location.) If the path starts with @prefix@, the package's install prefix is substituted (see Package Searching). This is recommended, as it allows packages to be relocatable. This attribute is required for components that are not of 'interface' Type.",
       "type": "string"
     },
+    "requires": {
+      "description": "Specifies additional components required by a component. This is used, for example, to indicate transitive dependencies. Relative component names are interpreted relative to the current package. Absolute component names must refer to a package required by this package (see Requires (Package)). Compile and link attributes should be applied transitively, as if the consuming component also directly consumed the components required by the component being consumed.",
+      "$ref": "#/definitions/string-array"
+    },
     "configuration": {
       "description": "A configuration holds attributes that are specific to a particular configuration of a component.",
       "type": "object",
@@ -111,48 +115,80 @@
         },
         "location": {
           "$ref": "#/definitions/location"
+        },
+        "requires": {
+          "$ref": "#/definitions/requires"
         }
       },
       "additionalProperties": false
     },
     "component": {
       "description": "A component is a consumable part of a package. Typical components include libraries and executables.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/configuration"
+      "type": "object",
+      "properties": {
+        "compile-features": {
+          "$ref": "#/definitions/compile-features"
         },
-        {
-          "type": "object",
-          "properties": {
-            "type": {
-              "description": "Specifies the type of a component. The component type affects how the component may be used. Officially supported values are 'executable' (any artifact which the target platform can directly execute), 'archive' (CABI static library), 'dylib' (CABI shared library), 'module' (CABI plugin library), 'jar' (Java Archive), 'interface' and 'symbolic'. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension.)\n\nA 'dylib' is meant to be linked at compile time; the Location specifies the artifact required for such linking (i.e. the import library on PE platforms). A 'module' is meant to be loaded at run time with dlopen or similar; again, the Location specifies the appropriate artifact.\n\nAn 'interface' component is a special case; it may have the usual attributes of a component, but does not have a location. This can be used to create “virtual” components that do not have an associated artifact.\n\nA 'symbolic' component is even more special, as it has no (required) attributes at all, and the meaning of any attributes or configurations assigned to such a component is unspecified. A 'symbolic' component is intended to be used as a form of feature testing; a package that has a feature that is meaningful to users but does not otherwise map directly to a component may use a symbolic component to indicate availability of the feature to users.",
-              "type": "string",
-              "examples": [
-                "executable",
-                "archive",
-                "dylib",
-                "module",
-                "jar",
-                "interface",
-                "symbolic"
-              ]
-            },
-            "configurations": {
-              "description": "Specifies the configurations that are preferred. See Package Configurations for a description of how configurations are used.",
-              "type": "object",
-              "patternProperties": {
-                "": {
-                  "$ref": "#/definitions/configuration"
-                }
-              }
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "type"
+        "compile-flags": {
+          "$ref": "#/definitions/compile-flags"
+        },
+        "definitions": {
+          "$ref": "#/definitions/definitions"
+        },
+        "includes": {
+          "$ref": "#/definitions/includes"
+        },
+        "link-features": {
+          "$ref": "#/definitions/link-features"
+        },
+        "link-flags": {
+          "$ref": "#/definitions/link-flags"
+        },
+        "link-languages": {
+          "$ref": "#/definitions/link-languages"
+        },
+        "link-libraries": {
+          "$ref": "#/definitions/link-libraries"
+        },
+        "link-location": {
+          "$ref": "#/definitions/link-location"
+        },
+        "link-requires": {
+          "$ref": "#/definitions/link-requires"
+        },
+        "location": {
+          "$ref": "#/definitions/location"
+        },
+        "requires": {
+          "$ref": "#/definitions/requires"
+        },
+        "type": {
+          "description": "Specifies the type of a component. The component type affects how the component may be used. Officially supported values are 'executable' (any artifact which the target platform can directly execute), 'archive' (CABI static library), 'dylib' (CABI shared library), 'module' (CABI plugin library), 'jar' (Java Archive), 'interface' and 'symbolic'. If the type is not recognized by the parser, the component shall be ignored. (Parsers are permitted to support additional types as a conforming extension.)\n\nA 'dylib' is meant to be linked at compile time; the Location specifies the artifact required for such linking (i.e. the import library on PE platforms). A 'module' is meant to be loaded at run time with dlopen or similar; again, the Location specifies the appropriate artifact.\n\nAn 'interface' component is a special case; it may have the usual attributes of a component, but does not have a location. This can be used to create “virtual” components that do not have an associated artifact.\n\nA 'symbolic' component is even more special, as it has no (required) attributes at all, and the meaning of any attributes or configurations assigned to such a component is unspecified. A 'symbolic' component is intended to be used as a form of feature testing; a package that has a feature that is meaningful to users but does not otherwise map directly to a component may use a symbolic component to indicate availability of the feature to users.",
+          "type": "string",
+          "examples": [
+            "executable",
+            "archive",
+            "dylib",
+            "module",
+            "jar",
+            "interface",
+            "symbolic"
           ]
+        },
+        "configurations": {
+          "description": "Specifies the configurations that are preferred. See Package Configurations for a description of how configurations are used.",
+          "type": "object",
+          "patternProperties": {
+            "": {
+              "$ref": "#/definitions/configuration"
+            }
+          }
         }
-      ]
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
     },
     "platform": {
       "description": "Specifies the platform on which a package's components may run. This allows tools to ignore packages which target a different platform than the platform that the consumer targets (see Package Searching). Any platform attribute not specified implies that the package's components are agnostic to that platform attribute. If this attribute is not specified, the package is implied to be platform agnostic. (This might be the case for a “library” which consists entirely of C/C++ headers. Note that JVM/CLR versions are platform attributes, so packages consisting entirely of Java and/or CLR components will still typically use this attribute.)",
@@ -255,6 +291,10 @@
       "description": "Specifies the canonical name of the package. In order for searching to succeed, the name of the CPS file without the .cps suffix must exactly match (including case) either Name as-is, or Name converted to lower case.",
       "type": "string"
     },
+    "description": {
+      "description": "A description of the package. This may be used by tools to provide additional information to users.",
+      "type": "string"
+    },
     "compat-version": {
       "description": "Specifies the oldest version of the package with which this version is compatible. This information is used when a consumer requests a specific version. If the version requested is equal to or newer than the Compat-Version, the package may be used. If not specified, the package is not compatible with previous versions (i.e. Compat-Version is implicitly equal to Version).",
       "type": "string"
@@ -300,6 +340,10 @@
           "$ref": "#/definitions/component"
         }
       }
+    },
+    "configurations": {
+      "description": "Specifies the configurations that are preferred. See Package Configurations for a description of how configurations are used.",
+      "$ref": "#/definitions/string-array"
     },
     "requires": {
       "description": "Specifies additional packages that are required by this package. Keys are the name of another required package. Values are a valid requirement object or null (equivalent to an empty requirement object) describing the package required.",
