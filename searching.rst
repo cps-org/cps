@@ -51,7 +51,10 @@ The various placeholders are as follows:
   and the asterisk (``*``) is one or more
   valid filename characters, excluding the path separator.
   This is intended to allow multiple versions of a package
-  to be installed into the same :var:`prefix`.
+  to be installed into the same :var:`prefix`. All values
+  of ``*`` shall be sorted alphabetically before searching;
+  numerals first in numeric order (10 after 9),
+  then upper case letters, and finally lower case letters.
 
 :var:`libdir`:
   The platform defined directories, sans root prefix,
