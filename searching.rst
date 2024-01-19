@@ -38,8 +38,9 @@ The various placeholders are as follows:
 
 :var:`name`:
   The name of the package to be located,
-  including both the proper case name,
-  and the name converted to lower case.
+  It shall be tried first in the given case,
+  and then with all characters converted
+  to lower case.
 
 :var:`name-like`:
   Any of
