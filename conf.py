@@ -20,7 +20,7 @@ project = u'Common Package Specification'
 copyright = u'2023, Matthew Woehlke'
 
 release = '.'.join(map(str, [0, 9, 0]))
-version = re.match('\\d+\.\\d+', release).group(0)
+version = re.match(r'\d+\.\d+', release).group(0)
 
 language = 'en'
 primary_domain = 'cps'

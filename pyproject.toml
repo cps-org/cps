@@ -1,0 +1,28 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "cps"
+version = "0.dev"
+description = ""
+authors = ["The CPS Project <@>"]
+readme = "README.md"
+packages = [
+  { include = "cps.py", from = "extensions" },
+  { include = "autosectionlabel.py", from = "extensions" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.docs.dependencies]
+python = "^3.10"
+sphinx = ">=7.2.6"
+
+[tool.poetry.plugins."sphinx.builders"]
+cps = "cps"
+autosectionlabel = "autosectionlabel"
+
+[tool.typos]
+files.extend-exclude = ["*.css", "*.svg"]

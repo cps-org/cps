@@ -1,0 +1,57 @@
+name: Docs
+on:
+  pull_request:
+    types: [synchronize, edited, opened]
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Poetry
+        run: pipx install poetry
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          cache: poetry
+      - name: Install Environment
+        run: poetry install
+      - name: Build Documentation
+        run: >-
+          poetry run sphinx-build
+          --color
+          -b html
+          ${{github.workspace}}
+          ${{github.workspace}}/_site
+      - name: Archive Documentation
+        run: >-
+          tar
+          --create
+          --gzip
+          --verbose
+          --mode=a+rw
+          --file=cps-docs.tar.gz
+          --directory=${{_site
+          .
+      - name: Upload Archive
+        uses: actions/upload-artifact@v4
+        with:
+          if-no-files-found: error
+          name: github-pages
+          path: ${{github.workspace}}/cps-docs.tar.gz
+  deploy:
+    if: github.event.repository.default_branch == github.ref_name
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url}}
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        id: deployment
