@@ -9,8 +9,8 @@ description = ""
 authors = ["The CPS Project <@>"]
 readme = "README.md"
 packages = [
-  { include = "cps.py", from = "extensions" },
-  { include = "autosectionlabel.py", from = "extensions" }
+  { include = "cps.py", from = "_extensions" },
+  { include = "autosectionlabel.py", from = "_extensions" }
 ]
 
 [tool.poetry.dependencies]

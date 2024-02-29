@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-cd site
+cd _site
 git diff-index --quiet HEAD -- && exit 0
 
 git add .
