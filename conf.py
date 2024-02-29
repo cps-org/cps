@@ -4,10 +4,8 @@ import os
 import re
 import sys
 
-sys.path.insert(0, os.path.abspath('_ext'))
-
 # -- General configuration ------------------------------------------------
-needs_sphinx = '5.3'
+needs_sphinx = '6.2'
 extensions = ['cps', 'autosectionlabel']
 
 source_suffix = '.rst'
@@ -16,11 +14,10 @@ exclude_patterns = ['AUTHORS.rst', 'THANKS.rst']
 master_doc = 'index'
 
 # General information about the project.
-project = u'Common Package Specification'
-copyright = u'2023, Matthew Woehlke'
+project = 'Common Package Specification'
+copyright = '2023, Matthew Woehlke'
 
-release = '.'.join(map(str, [0, 9, 0]))
-version = re.match(r'\d+\.\d+', release).group(0)
+release = version = "0.9.0"
 
 language = 'en'
 primary_domain = 'cps'
