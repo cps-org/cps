@@ -85,7 +85,7 @@ or to provide the location of a package
 which is not installed to any of the standard search paths.
 
 When a candidate ``.cps`` file is found,
-the tool shall inspect the package's `Platform`_.
+the tool shall inspect the package's `platform`_.
 If the package's platform does not match the target platform,
 the tool should ignore the ``.cps`` and continue the search.
 This allows for the installation of packages for different platforms
@@ -109,7 +109,7 @@ it is necessary to determine the effective prefix
 from the canonical location of the ``.cps`` file.
 This can be accomplished in three ways:
 
-- If the package specifies a :attribute:`Cps-Path`,
+- If the package specifies a :attribute:`cps_path`,
   that value shall be used.
 
 - Otherwise, if the tool has just completed a search

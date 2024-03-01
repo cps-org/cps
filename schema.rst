@@ -4,30 +4,30 @@ Package Schema
 Objects
 '''''''
 
-:object:`Package`\ :hidden:`(Object)`
+:object:`package`\ :hidden:`(object)`
 -------------------------------------
 
 The root of a CPS document is a |package| object.
 A |package| object describes a single package.
 
-:object:`Platform`\ :hidden:`(Object)`
+:object:`platform`\ :hidden:`(object)`
 --------------------------------------
 
 A |platform| describes the platform
 on which a package's components may run.
 
-:object:`Requirement`\ :hidden:`(Object)`
+:object:`requirement`\ :hidden:`(object)`
 -----------------------------------------
 
 A |requirement| describes the specifics of a package dependency.
 
-:object:`Component`\ :hidden:`(Object)`
+:object:`component`\ :hidden:`(object)`
 ---------------------------------------
 
 A |component| is a consumable part of a package.
 Typical components include libraries and executables.
 
-:object:`Configuration`\ :hidden:`(Object)`
+:object:`configuration`\ :hidden:`(object)`
 -------------------------------------------
 
 A |configuration| holds attributes
@@ -39,11 +39,9 @@ Attributes
 An optional attribute may have the value |null|.
 This shall be equivalent to omitting the attribute.
 
-Attribute names are case insensitive,
-although it is recommended that ``.cps`` files
-use the capitalization as shown.
+Attribute names are case sensitive.
 
-:attribute:`C-Runtime-Vendor`
+:attribute:`c_runtime_vendor`
 -----------------------------
 
 :Type: |string|
@@ -58,7 +56,7 @@ Typical (case-insensitive) values include
 :string:`"mingw"` and
 :string:`"microsoft"`.
 
-:attribute:`C-Runtime-Version`
+:attribute:`c_runtime_version`
 ------------------------------
 
 :Type: |string|
@@ -68,7 +66,7 @@ Typical (case-insensitive) values include
 Specifies the minimum C standard/runtime library version
 required by the package's CABI components.
 
-:attribute:`Clr-Vendor`
+:attribute:`clr_vendor`
 -----------------------
 
 :Type: |string|
@@ -81,7 +79,7 @@ Typical (case-insensitive) values include
 :string:`"microsoft"` and
 :string:`"mono"`.
 
-:attribute:`Clr-Version`
+:attribute:`clr_version`
 ------------------------
 
 :Type: |string|
@@ -91,7 +89,7 @@ Typical (case-insensitive) values include
 Specifies the minimum `Common Language Runtime`_ version
 required to use the package's CLR (.NET) components.
 
-:attribute:`Compat-Version`
+:attribute:`compat_version`
 ---------------------------
 
 :Type: |string|
@@ -102,15 +100,15 @@ Specifies the oldest version of the package
 with which this version is compatible.
 This information is used when a consumer requests a specific version.
 If the version requested is equal to or newer
-than the :attribute:`Compat-Version`,
+than the :attribute:`compat_version`,
 the package may be used.
 
 If not specified,
 the package is not compatible with previous versions
-(i.e. :attribute:`Compat-Version`
-is implicitly equal to :attribute:`Version`).
+(i.e. :attribute:`compat_version`
+is implicitly equal to :attribute:`version`).
 
-:attribute:`Compile-Features`
+:attribute:`compile_features`
 -----------------------------
 
 :Type: |string-list|
@@ -121,7 +119,7 @@ Specifies a list of `Compiler Features`_
 that must be enabled or disabled
 when compiling code that consumes the component.
 
-:attribute:`Compile-Flags`
+:attribute:`compile_flags`
 --------------------------
 
 :Type: |language-string-list|
@@ -136,9 +134,9 @@ use of this attribute is discouraged.
 
 A map may be used instead to give different values
 depending on the language of the consuming source file.
-Handling of such shall be the same as for `Definitions`_.
+Handling of such shall be the same as for `definitions`_.
 
-:attribute:`Components` :applies-to:`(Package)`
+:attribute:`components` :applies-to:`(package)`
 -----------------------------------------------
 
 :Type: |map| to |component|
@@ -148,7 +146,7 @@ Handling of such shall be the same as for `Definitions`_.
 Specifies the components which the package provides.
 Keys are the component names.
 
-:attribute:`Components` :applies-to:`(Requirement)`
+:attribute:`components` :applies-to:`(requirement)`
 ---------------------------------------------------
 
 :Type: |string-list|
@@ -171,7 +169,7 @@ such as a package's requirement
 that a dependency includes a certain symbolic component,
 or if a dependency is only expressed at run-time.
 
-:attribute:`Configuration`
+:attribute:`configuration`
 --------------------------
 
 :Type: |string|
@@ -184,7 +182,7 @@ described by a configuration-specific ``.cps``
 This attribute is required in a configuration-specific ``.cps``,
 and shall be ignored otherwise.
 
-:attribute:`Configurations` :applies-to:`(Package)`
+:attribute:`configurations` :applies-to:`(package)`
 ---------------------------------------------------
 
 :Type: |string-list|
@@ -195,7 +193,7 @@ Specifies the configurations that are preferred.
 See `Package Configurations`_ for a description
 of how configurations are used.
 
-:attribute:`Configurations` :applies-to:`(Component)`
+:attribute:`configurations` :applies-to:`(component)`
 -----------------------------------------------------
 
 :Type: |map| to |configuration|
@@ -205,7 +203,7 @@ of how configurations are used.
 Specifies a set of configuration-specific attributes for a |component|.
 Keys are the configuration names.
 
-:attribute:`Cpp-Runtime-Vendor`
+:attribute:`cpp_runtime_vendor`
 -------------------------------
 
 :Type: |string|
@@ -219,7 +217,7 @@ Typical (case-insensitive) values include
 :string:`"llvm"` (libc++) and
 :string:`"microsoft"`.
 
-:attribute:`Cpp-Runtime-Version`
+:attribute:`cpp_runtime_version`
 --------------------------------
 
 :Type: |string|
@@ -229,7 +227,7 @@ Typical (case-insensitive) values include
 Specifies the minimum C++ standard/runtime library version
 required by the package's CABI components.
 
-:attribute:`Cps-Path`
+:attribute:`cps_path`
 ---------------------
 
 :Type: |string|
@@ -244,7 +242,7 @@ since the absolute location of the ``.cps`` file
 will be known by the tool.
 (See also `Prefix Determination`_.)
 
-:attribute:`Cps-Version`
+:attribute:`cps_version`
 ------------------------
 
 :Type: |string|
@@ -259,12 +257,12 @@ in case of compatibility-breaking changes in the CPS.
 CPS version numbering follows |semver|_.
 That is, tools that support CPS version ``<X>.<Y>``
 are expected to be able to read files
-with :attribute:`Cps-Version` ``<X>.<Z>``,
+with :attribute:`cps_version` ``<X>.<Z>``,
 even for Z > Y
 (with the understanding that, in such cases, the tool
 may miss non-critical information that the CPS provided).
 
-:attribute:`Default-Components`
+:attribute:`default_components`
 -------------------------------
 
 :Type: |string-list|
@@ -275,7 +273,7 @@ Specifies a list of components that should be inferred
 if a consumer specifies a dependency on a package,
 but not a specific component.
 
-:attribute:`Definitions`
+:attribute:`definitions`
 ------------------------
 
 :Type: |language-string-list|
@@ -291,15 +289,15 @@ shall be explicitly undefined (e.g. ``-UFOO`` passed to the compiler).
 
 A map may be used instead to give different values
 depending on the language of the consuming source file.
-In this case, the build tool shall select the list
-from the map whose key matches the (case-insensitive) language
+In this case, the build tool shall select the list from the map
+whose (case-sensitive) key matches the (lower case) language
 of the source file being compiled.
 Recognized languages shall include
-:string:`"C"`,
-:string:`"C++"`, and
-:string:`"Fortran"`.
+:string:`"c"`,
+:string:`"cpp"`, and
+:string:`"fortran"`.
 
-:attribute:`Hints`
+:attribute:`hints`
 ------------------
 
 :Type: |string-list|
@@ -314,7 +312,7 @@ when the package was built,
 so that consumers can easily find (correct) dependencies
 if they are in a location that is not searched by default.
 
-:attribute:`Includes`
+:attribute:`includes`
 ---------------------
 
 :Type: |language-string-list|
@@ -331,9 +329,9 @@ This is recommended, as it allows packages to be relocatable.
 
 A map may be used instead to give different values
 depending on the language of the consuming source file.
-Handling of such shall be the same as for `Definitions`_.
+Handling of such shall be the same as for `definitions`_.
 
-:attribute:`Isa`
+:attribute:`isa`
 ----------------
 
 :Type: |string|
@@ -345,7 +343,7 @@ require the specified `Instruction Set Architecture`_.
 The value is case insensitive
 and should follow the output of ``uname -m``.
 
-:attribute:`Jvm-Vendor`
+:attribute:`jvm_vendor`
 -----------------------
 
 :Type: |string|
@@ -358,7 +356,7 @@ Typical (case-insensitive) values include
 :string:`"oracle"` and
 :string:`"openjdk"`.
 
-:attribute:`Jvm-Version`
+:attribute:`jvm_version`
 ------------------------
 
 :Type: |string|
@@ -368,7 +366,7 @@ Typical (case-insensitive) values include
 Specifies the minimum Java_ Virtual Machine version
 required to use the package's Java components.
 
-:attribute:`Kernel`
+:attribute:`kernel`
 -------------------
 
 :Type: |string|
@@ -385,7 +383,7 @@ Typical values include
 :string:`"linux"` and
 :string:`"darwin"`.
 
-:attribute:`Kernel-Version`
+:attribute:`kernel_version`
 ---------------------------
 
 :Type: |string|
@@ -395,7 +393,7 @@ Typical values include
 Specifies the minimum operating system kernel version
 required by the package's components.
 
-:attribute:`Link-Features`
+:attribute:`link_features`
 --------------------------
 
 :Type: |string-list|
@@ -406,7 +404,7 @@ Specifies a list of `Linker Features`_
 that must be enabled or disabled
 when linking code that consumes the component.
 
-:attribute:`Link-Flags`
+:attribute:`link_flags`
 -----------------------
 
 :Type: |string-list|
@@ -419,7 +417,7 @@ when linking code that consumes the component.
 Note that linker flags may not be portable;
 use of this attribute is discouraged.
 
-:attribute:`Link-Languages`
+:attribute:`link_languages`
 ---------------------------
 
 :Type: |string-list|
@@ -427,14 +425,14 @@ use of this attribute is discouraged.
 :Required: No
 
 Specifies the ABI language or languages of a static library
-(`Type`_ :string:`"archive"`).
+(`type`_ :string:`"archive"`).
 Officially supported (case-insensitive) values are
-:string:`"C"` (no special handling required) and
-:string:`"C++"` (consuming the static library
+:string:`"c"` (no special handling required) and
+:string:`"cpp"` (consuming the static library
 also requires linking against the C++ standard runtime).
-The default is :string:`"C"`.
+The default is :string:`"c"`.
 
-:attribute:`Link-Libraries`
+:attribute:`link_libraries`
 ---------------------------
 
 :Type: |string-list|
@@ -444,9 +442,9 @@ The default is :string:`"C"`.
 Specifies a list of additional libraries that must be linked against
 when linking code that consumes the component.
 (Note that packages should avoid using this attribute if at all possible.
-Use `Requires (Component)`_ instead whenever possible.)
+Use `requires (component)`_ instead whenever possible.)
 
-:attribute:`Link-Location`
+:attribute:`link_location`
 --------------------------
 
 :Type: |string|
@@ -459,14 +457,14 @@ This attribute typically applies only to :string:`"dylib"` components
 on platforms where the library is separated into multiple file components.
 For example, on Windows,
 this attribute shall give the location of the ``.lib``,
-while `Location`_ shall give the location of the ``.dll``.
+while `location`_ shall give the location of the ``.dll``.
 
 If the path starts with ``@prefix@``,
 the package's install prefix is substituted
 (see `Package Searching`_).
 This is recommended, as it allows packages to be relocatable.
 
-:attribute:`Link-Requires`
+:attribute:`link_requires`
 --------------------------
 
 :Type: |string-list|
@@ -475,13 +473,13 @@ This is recommended, as it allows packages to be relocatable.
 
 Specifies additional components required by a component
 which are needed only at the link stage.
-Unlike `Requires (Component)`_,
+Unlike `requires (component)`_,
 only the required components' link dependencies
 should be applied transitively;
 additional properties such as compile and include attributes
 of the required component(s) should be ignored.
 
-:attribute:`Location`
+:attribute:`location`
 ---------------------
 
 :Type: |string|
@@ -496,7 +494,7 @@ to the component's primary artifact,
 such as a ``.so`` or ``.jar``.
 (For Windows DLL components,
 this should be the location of the ``.dll``.
-See also `Link-Location`_.)
+See also `link_location`_.)
 
 If the path starts with ``@prefix@``,
 the package's install prefix is substituted
@@ -504,9 +502,9 @@ the package's install prefix is substituted
 This is recommended, as it allows packages to be relocatable.
 
 This attribute is required for |component|\ s
-that are not of :string:`"interface"` :attribute:`Type`.
+that are not of :string:`"interface"` :attribute:`type`.
 
-:attribute:`Name`
+:attribute:`name`
 -----------------
 
 :Type: |string|
@@ -518,10 +516,10 @@ In order for searching to succeed,
 the name of the CPS file
 without the ``.cps`` suffix
 must exactly match (including case)
-either :attribute:`Name` as-is,
-or :attribute:`Name` converted to lower case.
+either :attribute:`name` as-is,
+or :attribute:`name` converted to lower case.
 
-:attribute:`Platform`
+:attribute:`platform`
 ---------------------
 
 :Type: |platform|
@@ -544,7 +542,7 @@ Note that JVM/CLR versions are platform attributes,
 so packages consisting entirely of Java and/or CLR components
 will still typically use this attribute.)
 
-:attribute:`Requires` :applies-to:`(Component)`
+:attribute:`requires` :applies-to:`(component)`
 -----------------------------------------------
 
 :Type: |string-list|
@@ -555,14 +553,14 @@ Specifies additional components required by a component.
 This is used, for example, to indicate transitive dependencies.
 Relative component names are interpreted relative to the current package.
 Absolute component names must refer to a package required by this package
-(see `Requires (Package)`_).
+(see `requires (package)`_).
 Compile and link attributes should be applied transitively,
 as if the consuming component also directly consumed the components
 required by the component being consumed.
 
-See also `Link-Requires`_.
+See also `link_requires`_.
 
-:attribute:`Requires` :applies-to:`(Package)`
+:attribute:`requires` :applies-to:`(package)`
 ---------------------------------------------
 
 :Type: |map| to |requirement|
@@ -575,7 +573,7 @@ Values are a valid |requirement| object or |null|
 (equivalent to an empty |requirement| object)
 describing the package required.
 
-:attribute:`Type`
+:attribute:`type`
 -----------------
 
 :Type: |string| (restricted)
@@ -597,11 +595,11 @@ the component shall be ignored.
 as a conforming extension.)
 
 A :string:`"dylib"` is meant to be linked at compile time;
-the :attribute:`Location` specifies the artifact
+the :attribute:`location` specifies the artifact
 required for such linking (i.e. the import library on PE platforms).
 A :string:`"module"` is meant to be loaded at run time
 with :code:`dlopen` or similar;
-again, the :attribute:`Location` specifies the appropriate artifact.
+again, the :attribute:`location` specifies the appropriate artifact.
 
 An :string:`"interface"` component is a special case;
 it may have the usual attributes of a component,
@@ -620,7 +618,7 @@ but does not otherwise map directly to a component
 may use a symbolic component
 to indicate availability of the feature to users.
 
-:attribute:`Version` :applies-to:`(Package)`
+:attribute:`version` :applies-to:`(package)`
 --------------------------------------------
 
 :Type: |string|
@@ -628,12 +626,12 @@ to indicate availability of the feature to users.
 :Required: No
 
 Specifies the version of the package.
-The format of this string is determined by `Version-Schema`_.
+The format of this string is determined by `version_schema`_.
 
 If not provided, the CPS will not satisfy any request
 for a specific version of the package.
 
-:attribute:`Version` :applies-to:`(Requirement)`
+:attribute:`version` :applies-to:`(requirement)`
 ------------------------------------------------
 
 :Type: |string|
@@ -643,9 +641,9 @@ for a specific version of the package.
 Specifies the required version of a package.
 If omitted, any version of the required package is acceptable.
 Semantics are the same
-as for the :attribute:`Version` attribute of a |package|.
+as for the :attribute:`version` attribute of a |package|.
 
-:attribute:`Version-Schema`
+:attribute:`version_schema`
 ---------------------------
 
 :Type: |string|
@@ -673,7 +671,7 @@ only how version numbers are *ordered*.
 It does not imply anything
 about the compatibility or incompatibility
 of various versions of a package.
-See also `Compat-Version`_.
+See also `compat_version`_.
 
 - :string:`simple`
 
@@ -705,8 +703,8 @@ Notes
   unrecognized attributes shall be ignored.
   This makes it easier for tools to add tool-specific extensions.
   (It is *strongly* recommended that the names of any such attributes
-  start with ``X-<tool>-``, where ``<tool>``
-  is the name of the tool which introduced the extension,
+  start with ``x_<tool>_``, where ``<tool>`` is the (lower case) name
+  of the tool which introduced the extension,
   in order to reduce the chance of conflicts
   with newer versions of the CPS.)
 
