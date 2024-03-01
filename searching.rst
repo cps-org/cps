@@ -46,7 +46,7 @@ The various placeholders are as follows:
   :var:`name`\ :path:`/`\ :glob:`*`,
   :var:`name`\ :path:`-`\ :glob:`*`, or
   :var:`name`,
-  where :var:`name`: is as previously defined,
+  where :var:`name` is as previously defined,
   and the asterisk (``*``) is one or more
   valid filename characters, excluding the path separator.
   This is intended to allow multiple versions of a package
