@@ -33,7 +33,7 @@ jobs:
           --verbose
           --mode=a+rw
           --file=cps-docs.tar.gz
-          --directory=${{_site}}
+          --directory=${{github.workspace}}/_site
           .
       - name: Upload Archive
         uses: actions/upload-artifact@v4
