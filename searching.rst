@@ -43,8 +43,7 @@ The various placeholders are as follows:
 
 :var:`name-like`:
   Any of
-  :var:`name`\ :path:`/`\ :glob:`*`,
-  :var:`name`\ :path:`-`\ :glob:`*`, or
+  :var:`name`\ :path:`/`\ :glob:`*` or
   :var:`name`,
   where :var:`name` is as previously defined,
   and the asterisk (``*``) is one or more
