@@ -17,7 +17,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Common Package Specification'
-copyright = u'2023, Matthew Woehlke'
+copyright = u'2024, Matthew Woehlke'
 
 release = '.'.join(map(str, [0, 10, 0]))
 version = re.match('\\d+\.\\d+', release).group(0)
