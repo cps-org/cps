@@ -19,8 +19,9 @@ master_doc = 'index'
 project = u'Common Package Specification'
 copyright = u'2024, Matthew Woehlke'
 
-release = '.'.join(map(str, [0, 10, 0]))
-version = re.match('\\d+\.\\d+', release).group(0)
+version_info = (0, 10, 0)
+release = '.'.join(map(str, version_info))
+version = '.'.join(map(str, version_info[:2]))
 
 language = 'en'
 primary_domain = 'cps'
