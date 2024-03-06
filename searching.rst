@@ -6,10 +6,13 @@ by searching for a file
 :var:`name`\ :path:`.cps`
 in the following paths:
 
-- :var:`prefix`\ :path:`/cps/`
+- :var:`prefix`\ :path:`/`\ :var:`name-like`\ :path:`/cps/`
   :applies-to:`(Windows)`
 
 - :var:`prefix`\ :path:`/cps/`\ :var:`name-like`\ :path:`/`
+  :applies-to:`(Windows)`
+
+- :var:`prefix`\ :path:`/cps/`
   :applies-to:`(Windows)`
 
 - :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Versions/`\
@@ -24,10 +27,16 @@ in the following paths:
   :applies-to:`(macOS)`
 
 - :var:`prefix`\ :path:`/`\ :var:`libdir`\
+  :path:`/`\ :var:`name-like`\ :path:`/cps/`
+
+- :var:`prefix`\ :path:`/`\ :var:`libdir`\
   :path:`/cps/`\ :var:`name-like`\ :path:`/`
 
 - :var:`prefix`\ :path:`/`\
   :var:`libdir`\ :path:`/cps/`
+
+- :var:`prefix`\ :path:`/share/`\
+  :var:`name-like`\ :path:`/cps/`
 
 - :var:`prefix`\ :path:`/share/cps/`\
   :var:`name-like`\ :path:`/`
@@ -64,12 +73,6 @@ The various placeholders are as follows:
   the set of paths (separated by :path:`;` on Windows, :path:`:` otherwise)
   in the environment variable :env:`CPS_PATH`,
   :path:`/usr/local`, and :path:`/usr`.
-
-  In addition,
-  for all such package-neutral prefixes :var:`prefix-root`,
-  the package-specific prefixes
-  :var:`prefix-root`\ :path:`/`\ :var:`name-like`
-  shall also be considered.
 
 The complete list of search paths, above,
 shall be considered in the order specified above,
