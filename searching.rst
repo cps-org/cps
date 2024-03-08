@@ -37,16 +37,10 @@ in the following paths:
   :applies-to:`(macOS)`
 
 - :var:`prefix`\ :path:`/`\ :var:`libdir`\
-  :path:`/`\ :var:`name-like`\ :path:`/cps/`
-
-- :var:`prefix`\ :path:`/`\ :var:`libdir`\
   :path:`/cps/`\ :var:`name-like`\ :path:`/`
 
 - :var:`prefix`\ :path:`/`\
   :var:`libdir`\ :path:`/cps/`
-
-- :var:`prefix`\ :path:`/share/`\
-  :var:`name-like`\ :path:`/cps/`
 
 - :var:`prefix`\ :path:`/share/cps/`\
   :var:`name-like`\ :path:`/`
