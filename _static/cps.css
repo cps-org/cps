@@ -43,7 +43,7 @@ th { background-color: inherit; }
   white-space: normal;
 }
 
-.applies-to { font-size: 70%; color: #777; }
+.applies-to { font-size: 70%; color: #777; line-height: 1em; }
 
 .path { color: #641; }
 .glob { color: #b92; }
