@@ -1,0 +1,17 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "cps"
+version = "0.dev"
+description = ""
+authors = ["The CPS Project <@>"]
+readme = "readme.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.docs.dependencies]
+python = "^3.10"
+sphinx = ">=6.2,<7.3"
