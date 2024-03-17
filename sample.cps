@@ -1,67 +1,67 @@
 {
-  "Name": "sample",
-  "Description": "Sample CPS",
-  "License": "BSD",
-  "Version": "1.2.0",
-  "Compat-Version": "0.8.0",
-  "Platform": {
-    "Isa": "x86_64",
-    "Kernel": "linux",
-    "C-Runtime-Vendor": "gnu",
-    "C-Runtime-Version": "2.20",
-    "Jvm-Version": "1.6"
+  "name": "sample",
+  "description": "Sample CPS",
+  "license": "BSD",
+  "version": "1.2.0",
+  "compat_version": "0.8.0",
+  "platform": {
+    "isa": "x86_64",
+    "kernel": "linux",
+    "c_runtime_vendor": "gnu",
+    "c_runtime_version": "2.20",
+    "jvm_version": "1.6"
   },
-  "Configurations": [ "Optimized", "Debug" ],
-  "Default-Components": [ "sample" ],
-  "Components": {
+  "configurations": [ "optimized", "debug" ],
+  "default_components": [ "sample" ],
+  "components": {
     "sample-core": {
-      "Type": "interface",
-      "Definitions": [ "SAMPLE" ],
-      "Includes": [ "@prefix@/include" ]
+      "type": "interface",
+      "definitions": [ "SAMPLE" ],
+      "includes": [ "@prefix@/include" ]
     },
     "sample": {
-      "Type": "interface",
-      "Configurations": {
-        "Shared": {
-          "Requires": [ ":sample-shared" ]
+      "type": "interface",
+      "configurations": {
+        "shared": {
+          "requires": [ ":sample-shared" ]
         },
-        "Static": {
-          "Requires": [ ":sample-static" ]
+        "static": {
+          "requires": [ ":sample-static" ]
         }
       }
     },
     "sample-shared": {
-      "Type": "dylib",
-      "Requires": [ ":sample-core" ],
-      "Configurations": {
-        "Optimized": {
-          "Location": "@prefix@/lib64/libsample.so.1.2.0"
+      "type": "dylib",
+      "requires": [ ":sample-core" ],
+      "configurations": {
+        "optimized": {
+          "location": "@prefix@/lib64/libsample.so.1.2.0"
         },
-        "Debug": {
-          "Location": "@prefix@/lib64/libsample_d.so.1.2.0"
+        "debug": {
+          "location": "@prefix@/lib64/libsample_d.so.1.2.0"
         }
       }
     },
     "sample-static": {
-      "Type": "archive",
-      "Definitions": [ "SAMPLE_STATIC" ],
-      "Requires": [ ":sample-core" ],
-      "Configurations": {
-        "Optimized": {
-          "Location": "@prefix@/lib64/libsample.a"
+      "type": "archive",
+      "definitions": [ "SAMPLE_STATIC" ],
+      "requires": [ ":sample-core" ],
+      "configurations": {
+        "optimized": {
+          "location": "@prefix@/lib64/libsample.a"
         },
-        "Debug": {
-          "Location": "@prefix@/lib64/libsample_d.a"
+        "debug": {
+          "location": "@prefix@/lib64/libsample_d.a"
         }
       }
     },
     "sample-tool": {
-      "Type": "exe",
-      "Location": "@prefix@/bin/sample-tool"
+      "type": "exe",
+      "location": "@prefix@/bin/sample-tool"
     },
     "sample-java": {
-      "Type": "jar",
-      "Location": "@prefix@/share/java/sample.jar"
+      "type": "jar",
+      "location": "@prefix@/share/java/sample.jar"
     }
   }
 }

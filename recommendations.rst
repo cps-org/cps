@@ -16,26 +16,26 @@ For example:
 
 .. code-block:: javascript
 
-  "Components": {
+  "components": {
     "foo-static": {
-      "Type": "archive",
-      "Configurations": {
-        "Release": { ... },
-        "Debug": { ... }
+      "type": "archive",
+      "configurations": {
+        "release": { ... },
+        "debug": { ... }
       }, ...
     },
     "foo-shared": {
-      "Type": "dylib",
-      "Configurations": {
-        "Release": { ... },
-        "Debug": { ... }
+      "type": "dylib",
+      "configurations": {
+        "release": { ... },
+        "debug": { ... }
       }, ...
     },
     "foo": {
-      "Type": "interface",
-      "Configurations": {
-        "Static": { "Requires": [ "foo-static" ] },
-        "Shared": { "Requires": [ "foo-shared" ] }
+      "type": "interface",
+      "configurations": {
+        "static": { "requires": [ "foo-static" ] },
+        "shared": { "requires": [ "foo-shared" ] }
       }
     },
   },
@@ -43,7 +43,7 @@ For example:
 
 This pattern allows the user
 to specify their set of preferred configurations
-like ``"Static", "Release"`` rather than ``"ReleaseStatic"``.
+like ``"static", "release"`` rather than ``"release_static"``.
 When consuming the ``foo`` component,
 the build tool will select on the static/shared axis,
 which will bring in a component
@@ -117,8 +117,8 @@ it can be addressed in one of two manners:
 - If a "full" dependency
   merely needs to be linked *after* a link-only dependency,
   the dependency can simply be listed twice;
-  once in :attribute:`Requires`,
-  and again in :attribute:`Link-Requires`.
+  once in :attribute:`requires`,
+  and again in :attribute:`link_requires`.
   (Tools are encouraged to add link-only dependencies
   after "full" dependencies.)
   This is redundant, but often satisfactory.
@@ -135,7 +135,7 @@ Transitive Dependencies
 
 When a package is located,
 it is intended that the tool would also
-locate any `Requires (Package)`_ mentioned by the package.
+locate any `requires (package)`_ mentioned by the package.
 In some cases, however, a user may want to use
 only some components of a package,
 which may have a more limited set of dependencies

@@ -13,24 +13,24 @@ to be useful to all tools
 that implement functionality along the lines here described.
 
 These can be seen as "officially blessed" exceptions
-to the recommendation that extensions use the ``X-`` prefix.
+to the recommendation that extensions use the ``x_`` prefix.
 
 Attributes\ :hidden:`(Supplemental)`
 ''''''''''''''''''''''''''''''''''''
 
 By definition, none of the following attributes are required.
 
-:attribute:`Default-License`
+:attribute:`default_license`
 ----------------------------
 
-Specifies the `License`_ that is assumed to apply to a component,
+Specifies the `license`_ that is assumed to apply to a component,
 if none is otherwise specified.
 This is convenient for packages
-that wish their `License`_ to reflect portions of the package
+that wish their `license`_ to reflect portions of the package
 that are not reflected by a component (such as data files)
 when most or all of the compiled artifacts use the same license.
 
-:attribute:`Description`
+:attribute:`description`
 ------------------------
 
 :Type: :type:`string`
@@ -39,7 +39,7 @@ when most or all of the compiled artifacts use the same license.
 Provides a human readable description of the function
 which the package or component provides.
 
-:attribute:`Display-Name`
+:attribute:`display_name`
 -------------------------
 
 :Type: :type:`string`
@@ -49,7 +49,7 @@ Provides a human readable name of the package.
 If provided, tools may use this in informational messages
 instead of, or in addition to, the canonical package name.
 
-:attribute:`License`
+:attribute:`license`
 --------------------
 
 :Type: Special
@@ -79,14 +79,14 @@ and exclusive ("A **or** B") licensing.
 If parts of a package use different licenses,
 this attribute may also be specified on a component
 if doing so helps to clarifying the licensing.
-(See also `Default-License`_.)
+(See also `default_license`_.)
 
 License identifiers should follow the |SPDX|_ `License List`_.
 The ``WITH`` operator may be used when appropriate,
 but structured data is used to express conjunctions and disjunctions,
 as described in the preceding paragraph.
 
-:attribute:`Meta-Comment`
+:attribute:`meta_comment`
 -------------------------
 
 :Type: :type:`string`
@@ -97,7 +97,7 @@ for readers that may not be familiar with CPS files.
 The typical value is
 :string:`"Common Package Specification for <package name>"`.
 
-:attribute:`Meta-Schema`
+:attribute:`meta_schema`
 ------------------------
 
 :Type: :type:`string`
@@ -107,7 +107,7 @@ Provides a URI link to a document describing the format of the CPS file.
 The typical value is :string:`"https://cps-org.github.io/cps/"`
 (i.e. the top level page of this site).
 
-:attribute:`Website`
+:attribute:`website`
 --------------------
 
 :Type: :type:`string`

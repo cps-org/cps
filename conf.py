@@ -15,9 +15,11 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Common Package Specification'
-copyright = '2023, Matthew Woehlke'
+copyright = '2024, Matthew Woehlke'
 
-release = version = "0.9.0"
+version_info = (0, 11, 0)
+release = '.'.join(map(str, version_info))
+version = '.'.join(map(str, version_info[:2]))
 
 language = 'en'
 primary_domain = 'cps'
