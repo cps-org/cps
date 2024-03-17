@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [synchronize, edited, opened]
   push:
-    branches: [main]
+    branches: [master]
 jobs:
   build:
     runs-on: ubuntu-latest
