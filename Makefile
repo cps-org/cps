@@ -1,27 +1,48 @@
-# Makefile for Sphinx documentation
+GNUMAKEFLAGS := --no-builtins --no-builtin-variables
+.SUFFIXES:
 
-# You can set these variables from the command line.
-SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
-BUILDDIR      = _site
-
-# User-friendly check for sphinx-build
-ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
-$(error The '$(SPHINXBUILD)' command was not found. Make sure you have Sphinx installed, then set the SPHINXBUILD environment variable to point to the full path of the '$(SPHINXBUILD)' executable. Alternatively you can add the directory with the executable to your PATH. If you don't have Sphinx installed, grab it from http://sphinx-doc.org/)
+ifeq ($(OS),Windows_NT)
+--which := where
+--null := nul
+RM := rmdir /s /q
+else
+--which := which
+--null ?= /dev/null
+RM := rm -rf
 endif
 
-.PHONY: clean all
+POETRY ?= $(shell $(--which) poetry 2> $(--null))
 
-all:
-	$(SPHINXBUILD) -b html $(SPHINXOPTS) . $(BUILDDIR)
-	@echo
-	@echo "Build finished. The HTML pages are in '$(BUILDDIR)'."
+ifeq (${POETRY},)
+$(error Could not find the `poetry` command. \
+	Please make sure you have installed poetry, and that it is on your system's PATH environment variable. \
+	If you don't have poetry installed, please visit https://python-poetry.org for instructions on its installation.)
+endif
 
-clean:
-	rm -rf $(BUILDDIR)/*
+venv ?= $(shell $(POETRY) env info --path 2> $(--null))
+
+srcdir := $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
+
+build.flags += $(if $(BUILDER),-b $(BUILDER),-b html)
+build.flags += $(if $(NOCOLOR),,--color)
+build.flags += $(if $(SPHINXOPTS),$(SPHINXOPTS))
+
+SRCDIR ?= $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
+OUTDIR ?= $(join $(SRCDIR),_site)
+
+.PHONY: all setup cache-clean clean
+
+all: $(if $(venv),,setup)
+	$(POETRY) run sphinx-build ${build.flags} "${SRCDIR}" "${OUTDIR}"
 
 cache-clean:
-	rm -rf $(BUILDDIR)/.doctrees
+	$(RM) "$(join $(OUTDIR),.doctrees)"
+
+clean:
+	$(RM) "$(OUTDIR)"
+
+setup:
+	$(POETRY) install
 
 publish: clean all
 	./publish.sh
