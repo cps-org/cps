@@ -28,7 +28,7 @@ OUTDIR ?= $(join $(SRCDIR),_site)
 venv := $(notdir $(realpath $(shell $(POETRY) env info --path 2> $(--null))))
 
 archive.flags += --create --gzip --verbose
-archive.flags += --file=$(if $(ARCHIVE),$(ARCHIVE),cps-docs).tar.gz
+archive.flags += --file=$(if $(ARCHIVE),$(ARCHIVE),cps-docs.tar.gz)
 archive.flags += --directory=$(OUTDIR)
 ifneq ($(OS),Windows_NT)
 archive.flags += --mode=a+rw
