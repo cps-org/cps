@@ -15,8 +15,11 @@ POETRY ?= $(shell $(--which) poetry 2> $(--null))
 
 ifeq ($(POETRY),)
 $(error Could not find the `poetry` command. \
-	Please make sure you have installed poetry, and that it is on your system's PATH environment variable. \
-	If you don't have poetry installed, please visit https://python-poetry.org for instructions on its installation.)
+	Please make sure you have installed poetry, \
+	and that it is on your system's PATH environment variable. \
+	If you don't have poetry installed, \
+	please visit https://python-poetry.org \
+	for instructions on its installation)
 endif
 
 srcdir := $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
