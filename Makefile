@@ -24,11 +24,12 @@ endif
 
 SRCDIR ?= $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 OUTDIR ?= $(join $(SRCDIR),_site)
+ARCHIVE ?= cps-docs.tar.gz
 
 venv := $(notdir $(realpath $(shell $(POETRY) env info --path 2> $(--null))))
 
 archive.flags += --create --gzip --verbose
-archive.flags += --file=$(if $(ARCHIVE),$(ARCHIVE),cps-docs.tar.gz)
+archive.flags += --file=$(ARCHIVE)
 archive.flags += --directory=$(OUTDIR)
 ifneq ($(OS),Windows_NT)
 archive.flags += --mode=a+rw
