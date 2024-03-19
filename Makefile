@@ -25,6 +25,7 @@ endif
 SRCDIR ?= $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 OUTDIR ?= $(join $(SRCDIR),_site)
 ARCHIVE ?= cps-docs.tar.gz
+SPHINXOPTS ?=
 
 venv := $(notdir $(realpath $(shell $(POETRY) env info --path 2> $(--null))))
 
@@ -39,7 +40,7 @@ setup.flags += --with=docs
 
 build.flags += $(if $(BUILDER),-b $(BUILDER),-b html)
 build.flags += $(if $(NOCOLOR),,--color)
-build.flags += $(if $(SPHINXOPTS),$(SPHINXOPTS))
+build.flags += $(SPHINXOPTS)
 
 .PHONY: all setup html clean.venv clean.cache clean purge archive publish
 
