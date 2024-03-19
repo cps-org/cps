@@ -28,7 +28,7 @@ jobs:
         with:
           if-no-files-found: error
           name: github-pages
-          path: ${{github.workspace}}/cps-docs.tar.gz
+          path: ${{github.workspace}}/cps-docs.tar
   deploy:
     if: github.event.repository.default_branch == github.ref_name
     needs: build
