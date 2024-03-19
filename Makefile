@@ -42,7 +42,7 @@ build.flags += $(if $(BUILDER),-b $(BUILDER),-b html)
 build.flags += $(if $(NOCOLOR),,--color)
 build.flags += $(SPHINXOPTS)
 
-.PHONY: all setup html clean.venv clean.cache clean purge archive publish
+.PHONY: all setup html clean.venv clean.cache clean purge archive
 .PHONY: setup/fast html/fast archive/fast
 
 all: html
@@ -70,6 +70,3 @@ purge: clean.venv clean
 archive: html archive/fast
 archive/fast:
 	tar $(archive.flags) .
-
-publish: clean all
-	./publish.sh
