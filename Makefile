@@ -43,14 +43,17 @@ build.flags += $(if $(NOCOLOR),,--color)
 build.flags += $(SPHINXOPTS)
 
 .PHONY: all setup html clean.venv clean.cache clean purge archive publish
+.PHONY: setup/fast html/fast archive/fast
 
 all: html
 
-setup:
+setup: setup/fast
+setup/fast:
 	$(POETRY) check
 	$(POETRY) install $(setup.flags)
 
-html: setup
+html: setup html/fast
+html/fast:
 	$(POETRY) run sphinx-build $(build.flags) "$(SRCDIR)" "$(OUTDIR)"
 
 clean.venv:
@@ -64,7 +67,8 @@ clean:
 
 purge: clean.venv clean
 
-archive: html
+archive: html archive/fast
+archive/fast:
 	tar $(archive.flags) .
 
 publish: clean all
