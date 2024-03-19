@@ -15,6 +15,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
+          python-version: '3.x'
           cache: poetry
       - name: Validate pyproject.toml
         run: poetry check
