@@ -22,15 +22,7 @@ jobs:
       - name: Build Documentation
         run: make html
       - name: Archive Documentation
-        run: >-
-          tar
-          --create
-          --gzip
-          --verbose
-          --mode=a+rw
-          --file=cps-docs.tar.gz
-          --directory=${{github.workspace}}/_site
-          .
+        run: make archive
       - name: Upload Archive
         uses: actions/upload-artifact@v4
         with:

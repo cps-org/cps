@@ -22,7 +22,17 @@ $(error Could not find the `poetry` command. \
 	for instructions on its installation)
 endif
 
+SRCDIR ?= $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
+OUTDIR ?= $(join $(SRCDIR),_site)
+
 venv := $(notdir $(realpath $(shell $(POETRY) env info --path 2> $(--null))))
+
+archive.flags += --create --gzip --verbose
+archive.flags += --file=$(if $(ARCHIVE),$(ARCHIVE),cps-docs).tar.gz
+archive.flags += --directory=$(OUTDIR)
+ifneq ($(OS),Windows_NT)
+archive.flags += --mode=a+rw
+endif
 
 setup.flags += --with=docs
 
@@ -30,10 +40,7 @@ build.flags += $(if $(BUILDER),-b $(BUILDER),-b html)
 build.flags += $(if $(NOCOLOR),,--color)
 build.flags += $(if $(SPHINXOPTS),$(SPHINXOPTS))
 
-SRCDIR ?= $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
-OUTDIR ?= $(join $(SRCDIR),_site)
-
-.PHONY: all setup html clean.venv clean.cache clean purge publish
+.PHONY: all setup html clean.venv clean.cache clean purge archive publish
 
 all: html
 
@@ -54,6 +61,9 @@ clean:
 	$(RM) "$(OUTDIR)"
 
 purge: clean.venv clean
+
+archive: html
+	tar $(archive.flags) .
 
 publish: clean all
 	./publish.sh
