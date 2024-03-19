@@ -23,6 +23,3 @@ sphinx = ">=6.2,<7.3"
 [tool.poetry.plugins."sphinx.builders"]
 cps = "cps"
 autosectionlabel = "autosectionlabel"
-
-[tool.typos]
-files.extend-exclude = ["*.css", "*.svg"]
