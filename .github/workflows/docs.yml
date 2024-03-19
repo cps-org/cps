@@ -17,17 +17,10 @@ jobs:
         with:
           python-version: '3.x'
           cache: poetry
-      - name: Validate pyproject.toml
-        run: poetry check
       - name: Install Environment
-        run: poetry install --with=docs
+        run: make setup
       - name: Build Documentation
-        run: >-
-          poetry run sphinx-build
-          --color
-          -b html
-          ${{github.workspace}}
-          ${{github.workspace}}/_site
+        run: make html
       - name: Archive Documentation
         run: >-
           tar

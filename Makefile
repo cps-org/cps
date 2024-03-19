@@ -22,8 +22,9 @@ $(error Could not find the `poetry` command. \
 	for instructions on its installation)
 endif
 
-srcdir := $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 venv := $(notdir $(realpath $(shell $(POETRY) env info --path 2> $(--null))))
+
+setup.flags += --with=docs
 
 build.flags += $(if $(BUILDER),-b $(BUILDER),-b html)
 build.flags += $(if $(NOCOLOR),,--color)
@@ -32,25 +33,27 @@ build.flags += $(if $(SPHINXOPTS),$(SPHINXOPTS))
 SRCDIR ?= $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 OUTDIR ?= $(join $(SRCDIR),_site)
 
-.PHONY: all setup cache-clean clean clean.venv purge
+.PHONY: all setup html clean.venv clean.cache clean purge publish
 
-all: setup
-	$(POETRY) run sphinx-build ${build.flags} "${SRCDIR}" "${OUTDIR}"
+all: html
+
+setup:
+	$(POETRY) check
+	$(POETRY) install $(setup.flags)
+
+html: setup
+	$(POETRY) run sphinx-build $(build.flags) "$(SRCDIR)" "$(OUTDIR)"
+
+clean.venv:
+	$(if $(venv),$(POETRY) env remove "$(venv)",@echo "Nothing to do")
 
 clean.cache:
 	$(RM) "$(join $(OUTDIR),.doctrees)"
-
-clean.venv:
-	$(POETRY) env remove "${venv}"
 
 clean:
 	$(RM) "$(OUTDIR)"
 
 purge: clean.venv clean
-
-setup:
-	@$(POETRY) check
-	@$(POETRY) install
 
 publish: clean all
 	./publish.sh
