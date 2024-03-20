@@ -30,6 +30,7 @@ SPHINXOPTS ?=
 venv := $(notdir $(realpath $(shell $(POETRY) env info --path 2> $(--null))))
 
 archive.flags += --create --verbose
+archive.flags += --exclude=.[^/]*
 archive.flags += --file=$(ARCHIVE)
 archive.flags += --directory=$(OUTDIR)
 ifneq ($(OS),Windows_NT)
@@ -42,15 +43,18 @@ build.flags += $(if $(BUILDER),-b $(BUILDER),-b html)
 build.flags += $(if $(NOCOLOR),,--color)
 build.flags += $(SPHINXOPTS)
 
-.PHONY: all setup html clean.venv clean.cache clean purge archive publish
+.PHONY: all setup html clean.venv clean.cache clean purge archive
+.PHONY: setup/fast html/fast archive/fast
 
 all: html
 
-setup:
+setup: setup/fast
+setup/fast:
 	$(POETRY) check
 	$(POETRY) install $(setup.flags)
 
-html: setup
+html: setup html/fast
+html/fast:
 	$(POETRY) run sphinx-build $(build.flags) "$(SRCDIR)" "$(OUTDIR)"
 
 clean.venv:
@@ -64,8 +68,6 @@ clean:
 
 purge: clean.venv clean
 
-archive: html
+archive: html archive/fast
+archive/fast:
 	tar $(archive.flags) .
-
-publish: clean all
-	./publish.sh
