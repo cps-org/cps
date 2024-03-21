@@ -276,26 +276,37 @@ but not a specific component.
 :attribute:`definitions`
 ------------------------
 
-:Type: |language-string-list|
+:Type: |map| to |map| to |string|
 :Applies To: |component|, |configuration|
 :Required: No
 
-Specifies a list of compile definitions that must be defined
+Specifies a collection of compile definitions that must be defined
 when compiling code that consumes the component.
-Definitions should be in the form :string:`"FOO"` or :string:`"FOO=BAR"`.
-Additionally, a definition in the form :string:`"!FOO"`
-indicates that the specified symbol (``FOO``, in this example)
-shall be explicitly undefined (e.g. ``-UFOO`` passed to the compiler).
+Each key in the inner map(s) is the name of a compile definition,
+such that e.g. ``-Dkey=value`` is passed to the compiler.
+A value may be |null|, indicating a definition with no value
+(e.g. ``-Dkey`` is passed to the compiler).
+Note that an *empty* string indicates ``-Dkey=``,
+which may have a different effect than ``-Dkey``.
 
-A map may be used instead to give different values
-depending on the language of the consuming source file.
-In this case, the build tool shall select the list from the map
-whose (case-sensitive) key matches the (lower case) language
+The outer map is used to describe
+language-specific definitions.
+The build tool shall include
+only those definitions
+whose language matches (case-sensitive)
+that of the (lower case) language
 of the source file being compiled.
 Recognized languages shall include
 :string:`"c"`,
 :string:`"cpp"`, and
 :string:`"fortran"`.
+Additionally, the value :string:`"*"` indicates
+that the corresponding definitions apply to all languages.
+
+If a definition name is repeated
+in both :string:`"*"` and a specific language,
+the latter, when applicable to the source being compiled,
+shall have precedence.
 
 :attribute:`hints`
 ------------------
