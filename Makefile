@@ -40,6 +40,7 @@ endif
 setup.flags += --with=docs
 
 build.flags += $(if $(BUILDER),-b $(BUILDER),-b html)
+build.flags += $(if $(LOGFILE),-w "$(LOGFILE)")
 build.flags += $(if $(NOCOLOR),,--color)
 build.flags += $(SPHINXOPTS)
 
