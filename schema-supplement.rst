@@ -23,12 +23,18 @@ By definition, none of the following attributes are required.
 :attribute:`default_license`
 ----------------------------
 
+:Type: :type:`string`
+:Applies To: :object:`package`
+
 Specifies the `license`_ that is assumed to apply to a component,
 if none is otherwise specified.
 This is convenient for packages
 that wish their `license`_ to reflect portions of the package
 that are not reflected by a component (such as data files)
 when most or all of the compiled artifacts use the same license.
+
+The value shall be a well formed
+|SPDX|_ `License Expression`_ .
 
 :attribute:`description`
 ------------------------
@@ -52,39 +58,18 @@ instead of, or in addition to, the canonical package name.
 :attribute:`license`
 --------------------
 
-:Type: Special
+:Type: :type:`string`
 :Applies To: :object:`package`, :object:`component`
 
 Specifies the license or licenses
 under which the package is distributed.
-A :type:`string` value shall be used for a single license.
-If multiple licenses need to be specified,
-a :type:`list` shall be used.
-Each :type:`string` value of the :type:`list`
-is a license which *always* applies to the package.
-If a package is wholly or partly multi-licensed
-(that is, the user has a choice of license),
-the top level :type:`list` shall contain a :type:`list` of values
-representing possible licenses.
-For example, the value ``["CC-BY-4.0", ["GPL-2.0", "LGPL-3.0+"]]``
-indicates that some portions of the package
-are licensed under :string:`"CC-BY-4.0"`,
-while others are licensed as (at the user's choice)
-either :string:`"GPL-2.0"` or :string:`"LGPL-3.0+"`.
-If necessary, further nesting may be employed;
-each nesting level alternates
-between inclusive ("A **and** B")
-and exclusive ("A **or** B") licensing.
+The value shall be a well formed
+|SPDX|_ `License Expression`_ .
 
 If parts of a package use different licenses,
 this attribute may also be specified on a component
 if doing so helps to clarifying the licensing.
 (See also `default_license`_.)
-
-License identifiers should follow the |SPDX|_ `License List`_.
-The ``WITH`` operator may be used when appropriate,
-but structured data is used to express conjunctions and disjunctions,
-as described in the preceding paragraph.
 
 :attribute:`meta_comment`
 -------------------------
@@ -119,7 +104,7 @@ Specifies the URI at which the package's website may be found.
 
 .. _SPDX: https://spdx.org/
 
-.. _License List: https://spdx.org/licenses/
+.. _License Expression: https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/
 
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
 
