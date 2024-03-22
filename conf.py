@@ -58,7 +58,7 @@ html_theme_options = {
 html_title = f'{project} v{release}'
 html_favicon = '_static/cps-favicon.ico'
 
-html_static_path = ['_static']
+html_static_path = ['_static', 'schema-ui/build/static']
 
 html_sidebars = {
     '**': [
