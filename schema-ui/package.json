@@ -1,0 +1,40 @@
+{
+  "name": "my-react-component",
+  "version": "0.1.0",
+  "homepage": "/schema-ui/build/",
+  "private": true,
+  "dependencies": {
+    "@stoplight/json-schema-viewer": "^4.16.0",
+    "@stoplight/markdown-viewer": "^5.7.0",
+    "@stoplight/mosaic": "^1.52.0",
+    "@stoplight/mosaic-code-viewer": "^1.52.0",
+    "buffer": "^6.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-private-property-in-object": "^7.24.1"
+  },
+  "scripts": {
+    "build": "react-scripts build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
