@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "https://raw.githubusercontent.com/cps-org/cps/master/cps.schema.json",
   "type": "object",
+  "description": "This schema describes the Common Package Specification (CPS) format.\n- Unless otherwise specified, a relative file path appearing in a CPS shall be interpreted relative to the .cps file.\n- The term “CABI”, as used throughout, refers to (typically C/C++/Fortran) code compiled to the machine’s native instruction set and using the platform’s usual format for such binaries (ELF, PE32, etc.).",
   "definitions": {
     "string_array": {
       "type": "array",
