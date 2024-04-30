@@ -1,17 +1,16 @@
-from sphinx import domains
-from sphinx import addnodes
+import re
 
 from docutils import nodes
 from docutils.parsers.rst import directives, roles
 from docutils.transforms import Transform
 
-import re
+from sphinx import addnodes, domains
 
-#==============================================================================
+# =============================================================================
 class InternalizeLinks(Transform):
     default_priority = 200
 
-    #--------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     def is_internal_link(self, refuri):
         if not refuri:
             return True
@@ -21,7 +20,7 @@ class InternalizeLinks(Transform):
 
         return True
 
-    #--------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     def apply(self, **kwargs):
         for ref in self.document.findall(nodes.reference):
             # Skip inter-document links
@@ -56,11 +55,11 @@ class InternalizeLinks(Transform):
                 # Replace the old node
                 ref.replace_self(xref)
 
-#==============================================================================
+# =============================================================================
 class CpsDomain(domains.Domain):
     name = 'cps'
 
-    #--------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -81,22 +80,22 @@ class CpsDomain(domains.Domain):
         self.add_code_role('var')
         self.add_code_role('env')
 
-    #--------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     def add_role(self, name, styles=None, parent=roles.generic_custom_role):
         options = {}
         if styles is None:
-            styles=name
+            styles = name
         else:
-            styles=' '.join([name] + styles)
+            styles = ' '.join([name] + styles)
 
         options['class'] = directives.class_option(styles)
         self.roles[name] = roles.CustomRole(name, parent, options)
 
-    #--------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     def add_code_role(self, name, styles=None, parent=roles.code_role):
         self.add_role(name, styles, parent)
 
-#==============================================================================
+# =============================================================================
 def setup(app):
     app.add_domain(CpsDomain)
 
