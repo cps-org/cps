@@ -1,3 +1,4 @@
+import os
 import re
 from dataclasses import dataclass
 from typing import cast
@@ -5,6 +6,8 @@ from typing import cast
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives, roles
 from docutils.transforms import Transform
+
+from jsb import JsonSchema
 
 from sphinx import addnodes, domains
 from sphinx.util import logging
@@ -346,9 +349,53 @@ class CpsDomain(domains.Domain):
     def add_code_role(self, name, styles=None, parent=roles.code_role):
         self.add_role(name, styles, parent)
 
+
+# =============================================================================
+def write_schema(app, exception):
+    if exception is not None:
+        return
+
+    config = app.env.config
+    title = f'{config.project} v{config.version}'
+
+    domain = cast(CpsDomain, app.env.get_domain('cps'))
+    schema = JsonSchema(title, config.schema_id)
+
+    object_attributes = {}
+    for attribute_set in domain.attributes.values():
+        for i, attribute in enumerate(attribute_set.instances):
+            schema.add_attribute(
+                attribute_set.name, i,
+                attribute.typedesc,
+                attribute.description,
+            )
+
+        for context, attribute_ref in attribute_set.context.items():
+            attribute = (
+                attribute_set.name,
+                attribute_ref[0],
+                attribute_set.instances[attribute_ref[0]].required
+            )
+            if context in object_attributes:
+                object_attributes[context].append(attribute)
+            else:
+                object_attributes[context] = [attribute]
+
+    for name, description in domain.objects.items():
+        schema.add_object_type(name, description, object_attributes[name])
+
+    output_path = os.path.join(app.outdir, config.schema_filename)
+    schema.write(config.schema_root_object, output_path)
+
 # =============================================================================
 def setup(app):
     app.add_domain(CpsDomain)
+    app.add_config_value('schema_id', '', '', [str])
+    app.add_config_value('schema_filename', 'schema.json', '', [str])
+    app.add_config_value('schema_root_object', None, '', [str])
 
     # Add custom transform to resolve cross-file references
     app.add_transform(InternalizeLinks)
+
+    # Add hook to write machine-readable schema description on completion
+    app.connect('build-finished', write_schema)
