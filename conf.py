@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os
-import re
-import sys
-
 # -- General configuration ------------------------------------------------
 needs_sphinx = '6.2'
 extensions = ['cps', 'autosectionlabel']
@@ -23,7 +19,7 @@ version = '.'.join(map(str, version_info[:2]))
 
 language = 'en'
 primary_domain = 'cps'
-#default_role = None
+# default_role = None
 
 highlight_language = 'json'
 pygments_style = 'cps.pygments_styles.CpsDataStyle'
