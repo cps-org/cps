@@ -32,6 +32,7 @@ pygments_style = 'sphinx'
 schema_filename = 'cps.schema.json'
 schema_root_object = 'package'
 schema_id = 'https://cps-org.github.io/cps/' + schema_filename
+schema_indent = 2
 
 # -- Options for HTML output ----------------------------------------------
 html_style = 'cps.css'

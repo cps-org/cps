@@ -1,6 +1,7 @@
 import os
 import re
 from dataclasses import dataclass
+from types import NoneType
 from typing import cast
 
 from docutils import nodes
@@ -384,7 +385,7 @@ def write_schema(app, exception):
         schema.add_object_type(name, description, object_attributes[name])
 
     output_path = os.path.join(app.outdir, config.schema_filename)
-    schema.write(config.schema_root_object, output_path)
+    schema.write(config.schema_root_object, output_path, config.schema_indent)
 
 # =============================================================================
 def setup(app):
@@ -392,6 +393,7 @@ def setup(app):
     app.add_config_value('schema_id', '', '', [str])
     app.add_config_value('schema_filename', 'schema.json', '', [str])
     app.add_config_value('schema_root_object', None, '', [str])
+    app.add_config_value('schema_indent', None, '', [NoneType, int])
 
     # Add custom transform to resolve cross-file references
     app.add_transform(InternalizeLinks)

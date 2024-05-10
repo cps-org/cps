@@ -106,5 +106,9 @@ class JsonSchema:
         return schema
 
     # -------------------------------------------------------------------------
-    def write(self, root_object, path):
-        json.dump(self._build_schema(root_object), open(path, 'wt'))
+    def write(self, root_object, path, indent=None):
+        json.dump(
+            self._build_schema(root_object),
+            fp=open(path, 'wt'),
+            indent=indent,
+        )
