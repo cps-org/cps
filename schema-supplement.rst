@@ -20,85 +20,78 @@ Attributes\ :hidden:`(Supplemental)`
 
 By definition, none of the following attributes are required.
 
-:attribute:`default_license`
-----------------------------
+.. ----------------------------------------------------------------------------
+.. cps:attribute:: default_license
+  :type: string
+  :context: package
 
-:Type: :type:`string`
-:Applies To: :object:`package`
+  Specifies the `license`_ that is assumed to apply to a component,
+  if none is otherwise specified.
+  This is convenient for packages
+  that wish their `license`_ to reflect portions of the package
+  that are not reflected by a component (such as data files)
+  when most or all of the compiled artifacts use the same license.
 
-Specifies the `license`_ that is assumed to apply to a component,
-if none is otherwise specified.
-This is convenient for packages
-that wish their `license`_ to reflect portions of the package
-that are not reflected by a component (such as data files)
-when most or all of the compiled artifacts use the same license.
+  The value shall be a well formed
+  |SPDX|_ `License Expression`_ .
 
-The value shall be a well formed
-|SPDX|_ `License Expression`_ .
+.. ----------------------------------------------------------------------------
+.. cps:attribute:: description
+  :type: string
+  :context: package component
 
-:attribute:`description`
-------------------------
+  Provides a human readable description of the function
+  which the package or component provides.
 
-:Type: :type:`string`
-:Applies To: :object:`package`, :object:`component`
+.. ----------------------------------------------------------------------------
+.. cps:attribute:: display_name
+  :type: string
+  :context: package
 
-Provides a human readable description of the function
-which the package or component provides.
+  Provides a human readable name of the package.
+  If provided, tools may use this in informational messages
+  instead of, or in addition to, the canonical package name.
 
-:attribute:`display_name`
--------------------------
+.. ----------------------------------------------------------------------------
+.. cps:attribute:: license
+  :type: string
+  :context: package component
 
-:Type: :type:`string`
-:Applies To: :object:`package`
+  Specifies the license or licenses
+  under which the package is distributed.
+  The value shall be a well formed
+  |SPDX|_ `License Expression`_ .
 
-Provides a human readable name of the package.
-If provided, tools may use this in informational messages
-instead of, or in addition to, the canonical package name.
+  If parts of a package use different licenses,
+  this attribute may also be specified on a component
+  if doing so helps to clarifying the licensing.
+  (See also `default_license`_.)
 
-:attribute:`license`
---------------------
+.. ----------------------------------------------------------------------------
+.. cps:attribute:: meta_comment
+  :type: string
+  :context: package
 
-:Type: :type:`string`
-:Applies To: :object:`package`, :object:`component`
+  Provides a description of the file contents,
+  for readers that may not be familiar with CPS files.
+  The typical value is
+  :string:`"Common Package Specification for <package name>"`.
 
-Specifies the license or licenses
-under which the package is distributed.
-The value shall be a well formed
-|SPDX|_ `License Expression`_ .
+.. ----------------------------------------------------------------------------
+.. cps:attribute:: meta_schema
+  :type: string
+  :context: package
 
-If parts of a package use different licenses,
-this attribute may also be specified on a component
-if doing so helps to clarifying the licensing.
-(See also `default_license`_.)
+  Provides a URI link to a document describing the format of the CPS file.
+  The typical value is :string:`"https://cps-org.github.io/cps/"`
+  (i.e. the top level page of this site).
 
-:attribute:`meta_comment`
--------------------------
+.. ----------------------------------------------------------------------------
+.. cps:attribute:: website
+  :type: string
+  :context: package
 
-:Type: :type:`string`
-:Applies To: :object:`package`
-
-Provides a description of the file contents,
-for readers that may not be familiar with CPS files.
-The typical value is
-:string:`"Common Package Specification for <package name>"`.
-
-:attribute:`meta_schema`
-------------------------
-
-:Type: :type:`string`
-:Applies To: :object:`package`
-
-Provides a URI link to a document describing the format of the CPS file.
-The typical value is :string:`"https://cps-org.github.io/cps/"`
-(i.e. the top level page of this site).
-
-:attribute:`website`
---------------------
-
-:Type: :type:`string`
-:Applies To: :object:`package`
-
-Specifies the URI at which the package's website may be found.
+  Specifies the URI at which the package's website may be found.
 
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
 

@@ -28,6 +28,11 @@ primary_domain = 'cps'
 highlight_language = 'none'
 pygments_style = 'sphinx'
 
+# -- Options for JSON schema output ---------------------------------------
+schema_filename = 'cps.schema.json'
+schema_root_object = 'package'
+schema_id = 'https://cps-org.github.io/cps/' + schema_filename
+
 # -- Options for HTML output ----------------------------------------------
 html_style = 'cps.css'
 html_theme = 'default'
