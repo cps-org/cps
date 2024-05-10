@@ -70,11 +70,20 @@ class JsonSchema:
             pass
 
     # -------------------------------------------------------------------------
-    def add_attribute(self, name, instance, typedesc, description):
-        self.attributes[f'{name}@{instance}'] = {
+    def add_attribute(self, name, instance, typedesc, typeformat,
+                      description, default=None):
+        attr = {
             'description': description,
             '$ref': f'#/definitions/types/{typedesc}',
         }
+
+        if typeformat:
+            attr['format'] = typeformat
+
+        if default:
+            attr['default'] = json.loads(default)
+
+        self.attributes[f'{name}@{instance}'] = attr
 
         self.add_type(typedesc)
 

@@ -2,11 +2,12 @@ import os
 import re
 from dataclasses import dataclass
 from types import NoneType
-from typing import cast
+from typing import Any, cast
 
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives, roles
 from docutils.transforms import Transform
+from docutils.utils.code_analyzer import Lexer, LexerError
 
 import jsb
 
@@ -131,6 +132,8 @@ class AttributeDirective(Directive):
         'overload': directives.flag,
         'required': directives.flag,
         'conditionally-required': directives.flag,
+        'format': directives.unchanged,
+        'default': directives.unchanged,
     }
 
     # -------------------------------------------------------------------------
@@ -191,6 +194,27 @@ class AttributeDirective(Directive):
             return [make_code(typedesc, 'object')]
 
     # -------------------------------------------------------------------------
+    def parse_data(self, data):
+        language = 'json'
+        classes = ['code', 'highlight', f'highlight-{language}']
+
+        try:
+            tokens = Lexer(nodes.unescape(data, True), language, 'short')
+        except LexerError as error:
+            msg = self.state.inliner.reporter.warning(error)
+            prb = self.state.inliner.problematic(data, data, msg)
+            return [prb]
+
+        node = nodes.literal(data, '', classes=classes)
+        for classes, value in tokens:
+            if classes:
+                node += nodes.inline(value, value, classes=classes)
+            else:
+                node += nodes.Text(value)
+
+        return [node]
+
+    # -------------------------------------------------------------------------
     def run(self):
         name = self.arguments[0]
         typedesc = self.options['type']
@@ -198,6 +222,8 @@ class AttributeDirective(Directive):
         overload = 'overload' in self.options
         required = 'required' in self.options
         conditionally_required = 'conditionally-required' in self.options
+        typeformat = self.options.get('format')
+        default = self.options.get('default')
 
         if overload:
             target = f'{name} ({context[0]})'
@@ -237,6 +263,9 @@ class AttributeDirective(Directive):
         fields += self.make_field(
             'Required', required_text, [nodes.Text(required_text)])
         section += fields
+        if default:
+            fields += self.make_field(
+                'Default', default, self.parse_data(default))
 
         # Parse attribute description
         content = nodes.Element()
@@ -249,8 +278,10 @@ class AttributeDirective(Directive):
         # Record object on domain
         env = self.state.document.settings.env
         domain = cast(CpsDomain, env.get_domain('cps'))
-        domain.note_attribute(name, context, typedesc, required=required,
-                              description=simplify_text(content), node=section)
+        domain.note_attribute(name, context, typedesc, typeformat,
+                              required=required, default=default,
+                              description=simplify_text(content),
+                              node=section)
 
         # Return generated nodes
         return [section]
@@ -266,8 +297,10 @@ class SchemaRole(SphinxRole):
 @dataclass
 class Attribute:
     typedesc: str
+    typeformat: str
     description: str
     required: bool
+    default: Any
 
 # =============================================================================
 class AttributeSet:
@@ -340,9 +373,9 @@ class CpsDomain(domains.Domain):
             self.objects[name] = description
 
     # -------------------------------------------------------------------------
-    def note_attribute(self, name, context, typedesc,
-                       required, description, node):
-        a = Attribute(typedesc, description, required)
+    def note_attribute(self, name, context, typedesc, typeformat,
+                       required, default, description, node):
+        a = Attribute(typedesc, typeformat, description, required, default)
         if name not in self.attributes:
             self.attributes[name] = AttributeSet(name, context, a, node)
         else:
@@ -381,7 +414,9 @@ def write_schema(app, exception):
             schema.add_attribute(
                 attribute_set.name, i,
                 attribute.typedesc,
+                attribute.typeformat,
                 attribute.description,
+                attribute.default,
             )
 
         for context, attribute_ref in attribute_set.context.items():
