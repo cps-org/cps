@@ -659,6 +659,16 @@ Notes
   and using the platform's usual format for such binaries
   (ELF, PE32, etc.).
 
+JSON Schema
+'''''''''''
+
+A `JSON Schema`_ for CPS can be obtained :schema:`here`.
+The schema is generated from this documentation,
+and is intended to be used for machine validation of CPS files.
+In case of discrepancies, this documentation takes precedence.
+(That said, issue reports are welcomed and strongly encouraged;
+please refer to our `Development Process`_.)
+
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
 
 .. _Common Language Runtime: https://en.wikipedia.org/wiki/Common_Language_Runtime
@@ -666,6 +676,8 @@ Notes
 .. _Instruction Set Architecture: https://en.wikipedia.org/wiki/Instruction_set_architecture
 
 .. _Java: https://en.wikipedia.org/wiki/Java_%28programming_language%29
+
+.. _JSON Schema: https://json-schema.org/
 
 .. _semver: http://semver.org/
 

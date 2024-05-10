@@ -12,6 +12,7 @@ import jsb
 
 from sphinx import addnodes, domains
 from sphinx.util import logging
+from sphinx.util.docutils import SphinxRole
 from sphinx.util.nodes import clean_astext
 
 logger = logging.getLogger(__name__)
@@ -50,8 +51,11 @@ class InternalizeLinks(Transform):
                 if self.document.nameids.get(ref['refname']):
                     continue
 
-            # Convert remaining non-external links to intra-document references
             refuri = ref['refuri'] if 'refuri' in ref else None
+            if refuri and refuri.startswith('./'):
+                continue
+
+            # Convert remaining non-external links to intra-document references
             if self.is_internal_link(refuri):
                 # Get the raw text (strip ``s and _)
                 rawtext = re.sub('^`(.*)`_?$', '\\1', ref.rawsource)
@@ -252,6 +256,13 @@ class AttributeDirective(Directive):
         return [section]
 
 # =============================================================================
+class SchemaRole(SphinxRole):
+    def run(self):
+        uri = f'./{self.config.schema_filename}'
+        node = nodes.reference(self.rawtext, self.text, refuri=uri)
+        return [node], []
+
+# =============================================================================
 @dataclass
 class Attribute:
     typedesc: str
@@ -293,7 +304,10 @@ class CpsDomain(domains.Domain):
         self.directives['object'] = ObjectDirective
         self.directives['attribute'] = AttributeDirective
 
-        # Site-specific custom roles (these just apply styling)
+        # Site-specific roles
+        self.roles['schema'] = SchemaRole()
+
+        # Additional site-specific roles (these just apply styling)
         self.add_role('hidden')
         self.add_role('applies-to')
         self.add_role('separator')
