@@ -7,7 +7,7 @@ from docutils import nodes
 from docutils.parsers.rst import Directive, directives, roles
 from docutils.transforms import Transform
 
-from jsb import JsonSchema
+import jsb
 
 from sphinx import addnodes, domains
 from sphinx.util import logging
@@ -165,9 +165,8 @@ class AttributeDirective(Directive):
 
             return content
 
-        m = re.match(r'^(list|map)[(](.*)[)]$', typedesc)
-        if m:
-            outer, inner = m.groups()
+        outer, inner = jsb.decompose_typedesc(typedesc)
+        if outer:
             content = [
                 make_code(outer, 'type'),
                 nodes.Text(' of '),
@@ -180,7 +179,7 @@ class AttributeDirective(Directive):
 
             return content + self.parse_type(inner)
 
-        elif typedesc in {'string'}:
+        elif typedesc in jsb.BUILTIN_TYPES:
             return [make_code(typedesc, 'type')]
 
         else:
@@ -359,7 +358,7 @@ def write_schema(app, exception):
     title = f'{config.project} v{config.version}'
 
     domain = cast(CpsDomain, app.env.get_domain('cps'))
-    schema = JsonSchema(title, config.schema_id)
+    schema = jsb.JsonSchema(title, config.schema_id)
 
     object_attributes = {}
     for attribute_set in domain.attributes.values():

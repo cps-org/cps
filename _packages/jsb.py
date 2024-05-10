@@ -1,6 +1,15 @@
 import json
 import re
 
+BUILTIN_TYPES = {
+    'string',
+}
+
+# =============================================================================
+def decompose_typedesc(typedesc):
+    m = re.match(r'^(list|map)[(](.*)[)]$', typedesc)
+    return m.groups() if m else (None, typedesc)
+
 # =============================================================================
 class JsonSchema:
     # -------------------------------------------------------------------------
@@ -33,9 +42,8 @@ class JsonSchema:
 
             return
 
-        m = re.match(r'^(list|map)[(](.*)[)]$', typedesc)
-        if m:
-            outer, inner = m.groups()
+        outer, inner = decompose_typedesc(typedesc)
+        if outer:
             self.add_type(inner)
 
             if outer == 'list':
@@ -52,7 +60,7 @@ class JsonSchema:
                     },
                 }
 
-        elif typedesc in {'string'}:
+        elif typedesc in BUILTIN_TYPES:
             # Handle simple (non-compound) types
             self.types[typedesc] = {'type': typedesc}
 
