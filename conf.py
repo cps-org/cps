@@ -25,8 +25,8 @@ language = 'en'
 primary_domain = 'cps'
 #default_role = None
 
-highlight_language = 'none'
-pygments_style = 'sphinx'
+highlight_language = 'json'
+pygments_style = 'cps.pygments_styles.CpsDataStyle'
 
 # -- Options for JSON schema output ---------------------------------------
 schema_filename = 'cps.schema.json'
