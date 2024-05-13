@@ -10,7 +10,7 @@ authors = ["The CPS Project <@>"]
 readme = "readme.md"
 packages = [
   { include = "jsb.py", from = "_packages" },
-  { include = "cps.py", from = "_extensions" },
+  { include = "cps", from = "_extensions" },
   { include = "autosectionlabel.py", from = "_extensions" },
 ]
 

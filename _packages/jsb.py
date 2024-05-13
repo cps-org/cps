@@ -1,6 +1,15 @@
 import json
 import re
 
+BUILTIN_TYPES = {
+    'string',
+}
+
+# =============================================================================
+def decompose_typedesc(typedesc):
+    m = re.match(r'^(list|map)[(](.*)[)]$', typedesc)
+    return m.groups() if m else (None, typedesc)
+
 # =============================================================================
 class JsonSchema:
     # -------------------------------------------------------------------------
@@ -33,9 +42,8 @@ class JsonSchema:
 
             return
 
-        m = re.match(r'^(list|map)[(](.*)[)]$', typedesc)
-        if m:
-            outer, inner = m.groups()
+        outer, inner = decompose_typedesc(typedesc)
+        if outer:
             self.add_type(inner)
 
             if outer == 'list':
@@ -52,7 +60,7 @@ class JsonSchema:
                     },
                 }
 
-        elif typedesc in {'string'}:
+        elif typedesc in BUILTIN_TYPES:
             # Handle simple (non-compound) types
             self.types[typedesc] = {'type': typedesc}
 
@@ -62,11 +70,20 @@ class JsonSchema:
             pass
 
     # -------------------------------------------------------------------------
-    def add_attribute(self, name, instance, typedesc, description):
-        self.attributes[f'{name}@{instance}'] = {
+    def add_attribute(self, name, instance, typedesc, typeformat,
+                      description, default=None):
+        attr = {
             'description': description,
             '$ref': f'#/definitions/types/{typedesc}',
         }
+
+        if typeformat:
+            attr['format'] = typeformat
+
+        if default:
+            attr['default'] = json.loads(default)
+
+        self.attributes[f'{name}@{instance}'] = attr
 
         self.add_type(typedesc)
 
@@ -98,5 +115,9 @@ class JsonSchema:
         return schema
 
     # -------------------------------------------------------------------------
-    def write(self, root_object, path):
-        json.dump(self._build_schema(root_object), open(path, 'wt'))
+    def write(self, root_object, path, indent=None):
+        json.dump(
+            self._build_schema(root_object),
+            fp=open(path, 'wt'),
+            indent=indent,
+        )

@@ -11,4 +11,4 @@ Many of the most commonly used attributes are demonstrated,
 as is the technique discussed in `Configurations as Flags`_.
 
 .. literalinclude:: sample.cps
-  :language: javascript
+  :language: json
