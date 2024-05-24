@@ -16,7 +16,11 @@
   "components": {
     "sample-core": {
       "type": "interface",
-      "definitions": [ "SAMPLE" ],
+      "definitions": {
+        "*": {
+          "SAMPLE": ""
+        }
+      },
       "includes": [ "@prefix@/include" ]
     },
     "sample": {
@@ -44,7 +48,11 @@
     },
     "sample-static": {
       "type": "archive",
-      "definitions": [ "SAMPLE_STATIC" ],
+      "definitions": {
+        "*": {
+          "SAMPLE_STATIC": ""
+        }
+      },
       "requires": [ ":sample-core" ],
       "configurations": {
         "optimized": {
