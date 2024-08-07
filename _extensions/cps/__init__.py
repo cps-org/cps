@@ -161,15 +161,22 @@ class AttributeDirective(Directive):
 
     # -------------------------------------------------------------------------
     def parse_type(self, typedesc):
-        if '|' in typedesc:
-            types = typedesc.split('|')
-            content = self.parse_type(types[0])
-            for t in types[1:]:
-                content += [
-                    nodes.Text(' '),
-                    nodes.inline('or', 'or', classes=['separator']),
-                    nodes.Text(' '),
-                ] + self.parse_type(t)
+        types = jsb.split_typedesc(typedesc)
+        if len(types) > 1:
+            if len(types) == 2 and 'null' in types:
+                types.remove('null')
+                content = [
+                    nodes.Text('(nullable) '),
+                ] + self.parse_type(types[0])
+
+            else:
+                content = self.parse_type(types[0])
+                for t in types[1:]:
+                    content += [
+                        nodes.Text(' '),
+                        nodes.inline('or', 'or', classes=['separator']),
+                        nodes.Text(' '),
+                    ] + self.parse_type(t)
 
             return content
 

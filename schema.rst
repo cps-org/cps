@@ -248,7 +248,7 @@ Attribute names are case sensitive.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: definitions
-  :type: map(map(string))
+  :type: map(map(string|null))
   :context: component configuration
 
   Specifies a collection of compile definitions that must be defined
