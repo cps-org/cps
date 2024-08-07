@@ -1,16 +1,19 @@
 import os
 import re
 from dataclasses import dataclass
-from typing import cast
+from types import NoneType
+from typing import Any, cast
 
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives, roles
 from docutils.transforms import Transform
+from docutils.utils.code_analyzer import Lexer, LexerError
 
-from jsb import JsonSchema
+import jsb
 
 from sphinx import addnodes, domains
 from sphinx.util import logging
+from sphinx.util.docutils import SphinxRole
 from sphinx.util.nodes import clean_astext
 
 logger = logging.getLogger(__name__)
@@ -49,8 +52,11 @@ class InternalizeLinks(Transform):
                 if self.document.nameids.get(ref['refname']):
                     continue
 
-            # Convert remaining non-external links to intra-document references
             refuri = ref['refuri'] if 'refuri' in ref else None
+            if refuri and refuri.startswith('./'):
+                continue
+
+            # Convert remaining non-external links to intra-document references
             if self.is_internal_link(refuri):
                 # Get the raw text (strip ``s and _)
                 rawtext = re.sub('^`(.*)`_?$', '\\1', ref.rawsource)
@@ -126,6 +132,8 @@ class AttributeDirective(Directive):
         'overload': directives.flag,
         'required': directives.flag,
         'conditionally-required': directives.flag,
+        'format': directives.unchanged,
+        'default': directives.unchanged,
     }
 
     # -------------------------------------------------------------------------
@@ -165,9 +173,8 @@ class AttributeDirective(Directive):
 
             return content
 
-        m = re.match(r'^(list|map)[(](.*)[)]$', typedesc)
-        if m:
-            outer, inner = m.groups()
+        outer, inner = jsb.decompose_typedesc(typedesc)
+        if outer:
             content = [
                 make_code(outer, 'type'),
                 nodes.Text(' of '),
@@ -180,11 +187,32 @@ class AttributeDirective(Directive):
 
             return content + self.parse_type(inner)
 
-        elif typedesc in {'string'}:
+        elif typedesc in jsb.BUILTIN_TYPES:
             return [make_code(typedesc, 'type')]
 
         else:
             return [make_code(typedesc, 'object')]
+
+    # -------------------------------------------------------------------------
+    def parse_data(self, data):
+        language = 'json'
+        classes = ['code', 'highlight', f'highlight-{language}']
+
+        try:
+            tokens = Lexer(nodes.unescape(data, True), language, 'short')
+        except LexerError as error:
+            msg = self.state.inliner.reporter.warning(error)
+            prb = self.state.inliner.problematic(data, data, msg)
+            return [prb]
+
+        node = nodes.literal(data, '', classes=classes)
+        for classes, value in tokens:
+            if classes:
+                node += nodes.inline(value, value, classes=classes)
+            else:
+                node += nodes.Text(value)
+
+        return [node]
 
     # -------------------------------------------------------------------------
     def run(self):
@@ -194,6 +222,8 @@ class AttributeDirective(Directive):
         overload = 'overload' in self.options
         required = 'required' in self.options
         conditionally_required = 'conditionally-required' in self.options
+        typeformat = self.options.get('format')
+        default = self.options.get('default')
 
         if overload:
             target = f'{name} ({context[0]})'
@@ -233,6 +263,9 @@ class AttributeDirective(Directive):
         fields += self.make_field(
             'Required', required_text, [nodes.Text(required_text)])
         section += fields
+        if default:
+            fields += self.make_field(
+                'Default', default, self.parse_data(default))
 
         # Parse attribute description
         content = nodes.Element()
@@ -245,18 +278,29 @@ class AttributeDirective(Directive):
         # Record object on domain
         env = self.state.document.settings.env
         domain = cast(CpsDomain, env.get_domain('cps'))
-        domain.note_attribute(name, context, typedesc, required=required,
-                              description=simplify_text(content), node=section)
+        domain.note_attribute(name, context, typedesc, typeformat,
+                              required=required, default=default,
+                              description=simplify_text(content),
+                              node=section)
 
         # Return generated nodes
         return [section]
 
 # =============================================================================
+class SchemaRole(SphinxRole):
+    def run(self):
+        uri = f'./{self.config.schema_filename}'
+        node = nodes.reference(self.rawtext, self.text, refuri=uri)
+        return [node], []
+
+# =============================================================================
 @dataclass
 class Attribute:
     typedesc: str
+    typeformat: str
     description: str
     required: bool
+    default: Any
 
 # =============================================================================
 class AttributeSet:
@@ -293,7 +337,10 @@ class CpsDomain(domains.Domain):
         self.directives['object'] = ObjectDirective
         self.directives['attribute'] = AttributeDirective
 
-        # Site-specific custom roles (these just apply styling)
+        # Site-specific roles
+        self.roles['schema'] = SchemaRole()
+
+        # Additional site-specific roles (these just apply styling)
         self.add_role('hidden')
         self.add_role('applies-to')
         self.add_role('separator')
@@ -326,9 +373,9 @@ class CpsDomain(domains.Domain):
             self.objects[name] = description
 
     # -------------------------------------------------------------------------
-    def note_attribute(self, name, context, typedesc,
-                       required, description, node):
-        a = Attribute(typedesc, description, required)
+    def note_attribute(self, name, context, typedesc, typeformat,
+                       required, default, description, node):
+        a = Attribute(typedesc, typeformat, description, required, default)
         if name not in self.attributes:
             self.attributes[name] = AttributeSet(name, context, a, node)
         else:
@@ -359,7 +406,7 @@ def write_schema(app, exception):
     title = f'{config.project} v{config.version}'
 
     domain = cast(CpsDomain, app.env.get_domain('cps'))
-    schema = JsonSchema(title, config.schema_id)
+    schema = jsb.JsonSchema(title, config.schema_id)
 
     object_attributes = {}
     for attribute_set in domain.attributes.values():
@@ -367,7 +414,9 @@ def write_schema(app, exception):
             schema.add_attribute(
                 attribute_set.name, i,
                 attribute.typedesc,
+                attribute.typeformat,
                 attribute.description,
+                attribute.default,
             )
 
         for context, attribute_ref in attribute_set.context.items():
@@ -385,7 +434,7 @@ def write_schema(app, exception):
         schema.add_object_type(name, description, object_attributes[name])
 
     output_path = os.path.join(app.outdir, config.schema_filename)
-    schema.write(config.schema_root_object, output_path)
+    schema.write(config.schema_root_object, output_path, config.schema_indent)
 
 # =============================================================================
 def setup(app):
@@ -393,6 +442,7 @@ def setup(app):
     app.add_config_value('schema_id', '', '', [str])
     app.add_config_value('schema_filename', 'schema.json', '', [str])
     app.add_config_value('schema_root_object', None, '', [str])
+    app.add_config_value('schema_indent', None, '', [NoneType, int])
 
     # Add custom transform to resolve cross-file references
     app.add_transform(InternalizeLinks)

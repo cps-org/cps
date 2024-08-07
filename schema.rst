@@ -385,6 +385,7 @@ Attribute names are case sensitive.
 .. cps:attribute:: link_languages
   :type: list(string)
   :context: component configuration
+  :default: ["c"]
 
   Specifies the ABI language or languages of a static library
   (`type`_ :string:`"archive"`).
@@ -392,7 +393,6 @@ Attribute names are case sensitive.
   :string:`"c"` (no special handling required) and
   :string:`"cpp"` (consuming the static library
   also requires linking against the C++ standard runtime).
-  The default is :string:`"c"`.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: link_libraries
@@ -594,6 +594,7 @@ Attribute names are case sensitive.
 .. cps:attribute:: version_schema
   :type: string
   :context: package
+  :default: "simple"
 
   Specifies the structure
   to which the package's version numbering conforms.
@@ -605,7 +606,6 @@ Attribute names are case sensitive.
   If a package uses :string:`"custom"`,
   version numbers may be compared,
   but version ordering is not possible.
-  The default is :string:`"simple"`.
 
   Needless to say,
   changing a package's version scheme between releases
@@ -659,6 +659,16 @@ Notes
   and using the platform's usual format for such binaries
   (ELF, PE32, etc.).
 
+JSON Schema
+'''''''''''
+
+A `JSON Schema`_ for CPS can be obtained :schema:`here`.
+The schema is generated from this documentation,
+and is intended to be used for machine validation of CPS files.
+In case of discrepancies, this documentation takes precedence.
+(That said, issue reports are welcomed and strongly encouraged;
+please refer to our `Development Process`_.)
+
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
 
 .. _Common Language Runtime: https://en.wikipedia.org/wiki/Common_Language_Runtime
@@ -666,6 +676,8 @@ Notes
 .. _Instruction Set Architecture: https://en.wikipedia.org/wiki/Instruction_set_architecture
 
 .. _Java: https://en.wikipedia.org/wiki/Java_%28programming_language%29
+
+.. _JSON Schema: https://json-schema.org/
 
 .. _semver: http://semver.org/
 

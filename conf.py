@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os
-import re
-import sys
-
 # -- General configuration ------------------------------------------------
 needs_sphinx = '6.2'
 extensions = ['cps', 'autosectionlabel']
@@ -23,15 +19,16 @@ version = '.'.join(map(str, version_info[:2]))
 
 language = 'en'
 primary_domain = 'cps'
-#default_role = None
+# default_role = None
 
-highlight_language = 'none'
-pygments_style = 'sphinx'
+highlight_language = 'json'
+pygments_style = 'cps.pygments_styles.CpsDataStyle'
 
 # -- Options for JSON schema output ---------------------------------------
 schema_filename = 'cps.schema.json'
 schema_root_object = 'package'
 schema_id = 'https://cps-org.github.io/cps/' + schema_filename
+schema_indent = 2
 
 # -- Options for HTML output ----------------------------------------------
 html_style = 'cps.css'

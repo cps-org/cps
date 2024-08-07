@@ -90,6 +90,7 @@ By definition, none of the following attributes are required.
 .. cps:attribute:: website
   :type: string
   :context: package
+  :format: uri
 
   Specifies the URI at which the package's website may be found.
 
