@@ -56,7 +56,7 @@
       }
     },
     "sample-tool": {
-      "type": "exe",
+      "type": "executable",
       "location": "@prefix@/bin/sample-tool"
     },
     "sample-java": {
