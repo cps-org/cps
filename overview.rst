@@ -84,7 +84,7 @@ Advantages of CPS
 **Relocatable Installs**
 
   CPS allows and encourages packages to specify locations
-  relative to the package's install prefix,
+  relative to the package's installation prefix,
   which allows the user to choose where to install a pre-built package
   with no need to modify the installed files,
   or even to move an already-installed package to a different location.

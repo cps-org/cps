@@ -212,11 +212,13 @@ Attribute names are case sensitive.
 
   Specifies the directory portion location of the ``.cps`` file.
   This shall be an "absolute" path which starts with ``@prefix@``.
-  This provides an additional mechanism
-  by which the tool may deduce the package's prefix,
-  since the absolute location of the ``.cps`` file
-  will be known by the tool.
-  (See also `Prefix Determination`_.)
+  This provides a mechanism by which the tool
+  may deduce the prefix of a relocatable package
+  from the absolute location of the ``.cps`` file
+  (which will be known by the tool).
+  See also `Prefix Determination`_ for details.
+
+  Exactly **one** of ``cps_path`` or `prefix`_ is required.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: cps_version
@@ -301,7 +303,7 @@ Attribute names are case sensitive.
   which should be added to the include search path
   when compiling code that consumes the component.
   If a path starts with ``@prefix@``,
-  the package's install prefix is substituted
+  the package's prefix is substituted
   (see `Package Searching`_).
   This is recommended, as it allows packages to be relocatable.
 
@@ -418,7 +420,7 @@ Attribute names are case sensitive.
   while `location`_ shall give the location of the ``.dll``.
 
   If the path starts with ``@prefix@``,
-  the package's install prefix is substituted
+  the package's prefix is substituted
   (see `Package Searching`_).
   This is recommended, as it allows packages to be relocatable.
 
@@ -452,7 +454,7 @@ Attribute names are case sensitive.
   See also `link_location`_.)
 
   If the path starts with ``@prefix@``,
-  the package's install prefix is substituted
+  the package's prefix is substituted
   (see `Package Searching`_).
   This is recommended, as it allows packages to be relocatable.
 
@@ -493,6 +495,17 @@ Attribute names are case sensitive.
   Note that JVM/CLR versions are platform attributes,
   so packages consisting entirely of Java and/or CLR components
   will still typically use this attribute.)
+
+.. ----------------------------------------------------------------------------
+.. cps:attribute:: prefix
+  :type: string
+  :context: package
+
+  Specifies the package's prefix
+  for non-relocatable package.
+  See also `Prefix Determination`_.
+
+  Exactly **one** of `cps_path`_ or ``prefix`` is required.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: requires
