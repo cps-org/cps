@@ -145,7 +145,7 @@ as if the compile feature :feature:`threads` was specified.
 
 .. |c99| replace:: ISO/IEC 9899:1999
 .. |c11| replace:: ISO/IEC 9899:2011
-.. |c17| replace:: ISO/IEC 9899:2017
+.. |c17| replace:: ISO/IEC 9899:2018
 .. |cpp03| replace:: ISO/IEC 14882:2003
 .. |cpp11| replace:: ISO/IEC 14882:2011
 .. |cpp14| replace:: ISO/IEC 14882:2014
