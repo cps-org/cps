@@ -41,6 +41,9 @@ that has not been previously discussed,
 it is likely that you will be asked to make changes
 before your proposal is accepted.
 
+Source Presentation
+^^^^^^^^^^^^^^^^^^^
+
 When editing the documentation,
 please keep in mind that whitespace,
 and line breaks in particular,
@@ -50,13 +53,22 @@ in a way that aims to reduce diff churn
 if and when the text is subsequently revised.
 Therefore, do not try to use all available space
 or slavishly wrap at a particular column.
-Rather, keep lines shorter
-and try to break at "natural" boundaries,
+Rather, keep lines shorter,
+try to break at "natural" boundaries,
 and **always** break after a sentence.
 As a semi-hard limit, reST text
 should avoid exceeding 79 characters on a line;
 however, "properly" broken lines
 should rarely approach that limit.
+
+Consider also `Semantic Line Breaks`_ for more details.
+While those guidelines are not precisely followed here,
+there is significant overlap, especially in rationale.
+(Here, we tend to add or omit breaks
+in a way that keeps line length
+somewhat consistent within a paragraph.
+However, the placement of breaks
+should still *roughly* follow SLB guidance.)
 
 Commits
 ^^^^^^^
@@ -93,5 +105,7 @@ with as little noise and clutter as possible.
 .. _github repository: https://github.com/cps-org/cps
 
 .. _mailing list: https://groups.google.com/g/cxx-ecosystem-evolution/about
+
+.. _Semantic Line Breaks: https://sembr.org/
 
 .. kate: hl reStructuredText
