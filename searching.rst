@@ -119,50 +119,41 @@ and the reason for rejection.)
 Prefix Determination
 ''''''''''''''''''''
 
-In order to determine the package prefix,
-which may appear in various attributes as ``@prefix@``,
-it is necessary to determine the effective prefix
-from the canonical location of the ``.cps`` file.
-This can be accomplished in three ways:
+Various attributes may specify relative paths
+by use of the ``@prefix@`` placeholder.
+In order to resolve these paths,
+it is necessary to know the package's prefix
+(which may or may not be the same
+as :var:`prefix`, above).
+This is accomplished in one of two ways:
 
-- If the package specifies a :attribute:`cps_path`,
-  that value shall be used.
+- If a package specifies `prefix`_, that value is used.
 
-- Otherwise, if the tool has just completed a search
-  for the ``.cps``, as described above,
-  the prefix is known from the path which was searched.
+- If a package specifies `cps_path`_,
+  the prefix shall be determined from that value
+  in combination with the absolute location of the ``.cps`` file.
 
-- Otherwise, the prefix shall be deduced as follows:
+A correctly specified `cps_path`_ will match the location
+(that is, the path without the final ``.cps`` file name)
+of the ``.cps`` file.
+For example, ``/usr/local/lib/cps/foo/foo.cps``
+specifies ``"cps_path": "@prefix@/lib/cps/foo"``.
+The absolute location is ``/usr/local/lib/cps/foo``
+and the prefix-relative location is ``lib/cps/foo``,
+which matches the trailing portion of the absolute location.
+Therefore, the prefix is the unmatched portion
+of the absolute location, or ``/usr/local``.
 
-  - The path is initially taken to be the directory portion
-    (i.e. without file name) of the absolute path to the ``.cps`` file.
-
-  - :applies-to:`(macOS)`
-    If the tail-portion matches
-    :path:`/Resources/` or :path:`/Resources/CPS/`,
-    then:
-
-    - The matching portion is removed.
-
-    - If the tail-portion of the remaining path
-      matches :path:`/Versions/`\ :glob:`*`\ :path:`/`,
-      that portion is removed.
-
-    - If the tail-portion of the remaining path matches
-      :path:`/`\ :var:`name`\ :path:`.framework/` or
-      :path:`/`\ :var:`name`\ :path:`.app/Contents/`,
-      that portion is removed.
-
-  - Otherwise:
-
-    - If the tail-portion of the path matches
-      :path:`/cps/`\ :var:`name-like`\ :path:`/` or
-      :path:`/cps/`,
-      that portion is removed.
-
-    - If the tail-portion of the remaining path matches any of
-      :path:`/`\ :var:`libdir`\ :path:`/` or :path:`/share/`,
-      that portion is removed.
+If ``fullpath`` is the location of the ``.cps`` file,
+tools shall attempt prefix resolution
+against ``dirname(fullpath)``, at minimum.
+It is recommended that, if this fails,
+tools also attempt prefix resolution
+against ``realpath(dirname(fullpath))``
+and ``dirname(realpath(fullpath))``,
+where ``realpath(...)`` represents the canonicalized
+(that is, with all symlinks fully expanded)
+form of its argument.
 
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
 
