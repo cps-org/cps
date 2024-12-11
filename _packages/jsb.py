@@ -11,6 +11,28 @@ def decompose_typedesc(typedesc):
     return m.groups() if m else (None, typedesc)
 
 # =============================================================================
+def split_typedesc(typedesc):
+    assert typedesc.count('(') == typedesc.count(')')
+
+    types = []
+    start = 0
+    depth = 0
+    for n in range(len(typedesc)):
+        if typedesc[n] == '(':
+            depth += 1
+        elif typedesc[n] == ')':
+            assert depth > 0
+            depth -= 1
+        elif depth == 0 and typedesc[n] == '|':
+            types.append(typedesc[start:n])
+            start = n + 1
+
+    types.append(typedesc[start:])
+
+    print(f'split typedesc {typedesc!r} => {types!r}')
+    return types
+
+# =============================================================================
 class JsonSchema:
     # -------------------------------------------------------------------------
     def __init__(self, title, uri):
@@ -29,8 +51,8 @@ class JsonSchema:
             # Type already defined; nothing to do
             return
 
-        if '|' in typedesc:
-            types = typedesc.split('|')
+        types = split_typedesc(typedesc)
+        if len(types) > 1:
             for t in types:
                 self.add_type(t)
 
