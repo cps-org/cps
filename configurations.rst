@@ -78,19 +78,11 @@ the tool shall look in the same directory for any files
 which match any of the patterns
 (the asterisk (``*``) represents file globbing):
 
-  - :var:`name`\ :path:`:`\ :glob:`*`\ :path:`.cps`
-
   - :var:`name`\ :path:`-`\ :glob:`*`\ :path:`.cps`
 
   - :var:`name`\ :path:`@`\ :glob:`*`\ :path:`.cps`
 
-  - :var:`name`\ :path:`:`\ :glob:`*`\ :path:`@`\ :glob:`*`\ :path:`.cps`
-
   - :var:`name`\ :path:`-`\ :glob:`*`\ :path:`@`\ :glob:`*`\ :path:`.cps`
-
-Patterns containing colon (``:``) shall be skipped
-on platforms for which that character
-is not permitted in file names (e.g. Windows).
 
 If any such package specifications are found,
 they shall be loaded at the same time,
