@@ -2,6 +2,7 @@ import json
 import re
 
 BUILTIN_TYPES = {
+    'null',
     'string',
 }
 
