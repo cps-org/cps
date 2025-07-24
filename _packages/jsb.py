@@ -30,7 +30,6 @@ def split_typedesc(typedesc):
 
     types.append(typedesc[start:])
 
-    print(f'split typedesc {typedesc!r} => {types!r}')
     return types
 
 # =============================================================================
