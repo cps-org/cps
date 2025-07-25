@@ -423,6 +423,7 @@ def write_schema(app, exception):
                 attribute.typedesc,
                 attribute.typeformat,
                 attribute.description,
+                attribute.required,
                 attribute.default,
             )
 

@@ -2,6 +2,7 @@ import json
 import re
 
 BUILTIN_TYPES = {
+    'null',
     'string',
 }
 
@@ -29,7 +30,6 @@ def split_typedesc(typedesc):
 
     types.append(typedesc[start:])
 
-    print(f'split typedesc {typedesc!r} => {types!r}')
     return types
 
 # =============================================================================
@@ -93,7 +93,10 @@ class JsonSchema:
 
     # -------------------------------------------------------------------------
     def add_attribute(self, name, instance, typedesc, typeformat,
-                      description, default=None):
+                      description, required=True, default=None):
+        if not required and not typedesc.endswith('|null'):
+            typedesc = f'{typedesc}|null'
+
         attr = {
             'description': description,
             '$ref': f'#/definitions/types/{typedesc}',
