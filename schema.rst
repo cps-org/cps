@@ -206,6 +206,15 @@ Attribute names are case sensitive.
   required by the package's CABI components.
 
 .. ----------------------------------------------------------------------------
+.. cps:attribute:: cpp_module_metadata
+  :type: string
+  :context: component configuration
+
+  Specifies the path to a C++ module metadata file
+  (also known as a "P3286_" file)
+  necessary for consuming C++ interface units for pre-built libraries.
+
+.. ----------------------------------------------------------------------------
 .. cps:attribute:: cps_path
   :type: string
   :context: package
@@ -693,6 +702,8 @@ please refer to our `Development Process`_.)
 .. _JSON Schema: https://json-schema.org/
 
 .. _semver: http://semver.org/
+
+.. _P3286: https://wg21.link/p3286
 
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
 
