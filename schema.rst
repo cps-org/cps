@@ -123,6 +123,23 @@ Attribute names are case sensitive.
   Handling of such shall be the same as for `definitions`_.
 
 .. ----------------------------------------------------------------------------
+.. cps:attribute:: compile_requires
+  :type: list(string)
+  :context: component configuration
+
+  Specifies additional components required by a component
+  which are needed only at the compile stage.
+  Unlike `requires (component)`_,
+  only the required components' compilation-related attributes
+  should be applied transitively;
+  link requirements of the required component(s) should be ignored.
+
+  This is especially useful for libraries
+  whose interfaces rely on the data types of a dependency
+  but do not expose linkable symbols of that dependency,
+  or which dynamically load the dependency at run-time.
+
+.. ----------------------------------------------------------------------------
 .. cps:attribute:: components
   :type: map(component)
   :context: package
