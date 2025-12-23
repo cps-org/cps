@@ -11,7 +11,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Common Package Specification'
-copyright = '2024, Matthew Woehlke'
+copyright = '2025, Matthew Woehlke'
 
 version_info = (0, 14, 0)
 release = '.'.join(map(str, version_info))
