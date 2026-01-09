@@ -436,6 +436,7 @@ Attribute names are case sensitive.
 .. cps:attribute:: link_location
   :type: string
   :context: component configuration
+  :conditionally-required:
 
   Specifies an alternate location of the component
   that should be used when linking against the component.
@@ -449,6 +450,10 @@ Attribute names are case sensitive.
   the package's prefix is substituted
   (see `Package Searching`_).
   This is recommended, as it allows packages to be relocatable.
+
+  This attribute is typically required
+  for |component|\ s of :string:`"dylib"` :attribute:`type`
+  which have separate link-time and run-time artifacts.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: link_requires
