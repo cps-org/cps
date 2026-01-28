@@ -308,6 +308,46 @@ Attribute names are case sensitive.
   shall have precedence.
 
 .. ----------------------------------------------------------------------------
+.. cps:attribute:: dyld_libraries
+  :type: list(string)
+  :context: component configuration
+
+  Specifies a list of additional libraries
+  that are required in the manner of `dyld_requires`_.
+  (Note that packages should avoid using this attribute if at all possible.
+  Use `dyld_requires`_ instead whenever possible.)
+
+.. ----------------------------------------------------------------------------
+.. cps:attribute:: dyld_requires
+  :type: list(string)
+  :context: component configuration
+
+  Specifies additional components required by a component
+  which are needed only by the dynamic library loader.
+  Unlike `requires (component)`_ or `link_requires`_,
+  these are not used to resolve symbol references of the consumer,
+  but represent "private" requirements of the component
+  on which this attribute appears.
+
+  Typically, such requirements represent a need
+  to ensure that the required component can be found at run time.
+  This is usually accomplished in one of three ways:
+
+  - Ensuring that the component resides in a default / "system" search path.
+
+  - Providing the component path in an environment variable
+    which influences the dynamic library loader's search paths.
+
+  - Encoding the component path in the binary
+    in a way that influences the dynamic library loader
+    (e.g. "RPATH").
+
+  Whether these requirements are needed at build time
+  depends on which of the above strategies is employed,
+  and whether the linker requires that all library references
+  can be fully resolved at link time.
+
+.. ----------------------------------------------------------------------------
 .. cps:attribute:: hints
   :type: list(string)
   :context: requirement
