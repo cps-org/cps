@@ -57,6 +57,7 @@ Core Specification
    components
    configurations
    searching
+   merging
 
 Appendices
 ''''''''''
