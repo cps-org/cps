@@ -612,6 +612,18 @@ Attribute names are case sensitive.
   to indicate availability of the feature to users.
 
 .. ----------------------------------------------------------------------------
+.. cps:attribute:: vendor
+  :type: map(any)
+  :context: component configuration package platform
+  :overload:
+
+  Records vendor-specific extensions to CPS metadata. Vendors should ensure the
+  namspace they record in the vendor object is consistent across all scopes.
+
+  Vendors are *strongly* encouraged to record a ``version`` field in the
+  |package| vendor object.
+
+.. ----------------------------------------------------------------------------
 .. cps:attribute:: version
   :type: string
   :context: package
@@ -690,12 +702,6 @@ Notes
 
 - Unless otherwise specified,
   unrecognized attributes shall be ignored.
-  This makes it easier for tools to add tool-specific extensions.
-  (It is *strongly* recommended that the names of any such attributes
-  start with ``x_<tool>_``, where ``<tool>`` is the (lower case) name
-  of the tool which introduced the extension,
-  in order to reduce the chance of conflicts
-  with newer versions of the CPS.)
 
 - The term "CABI", as used throughout,
   refers to (typically C/C++/Fortran) code
