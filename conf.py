@@ -13,7 +13,7 @@ master_doc = 'index'
 project = 'Common Package Specification'
 copyright = '2025, Matthew Woehlke'
 
-version_info = (0, 14, 0)
+version_info = (0, 14, 1)
 release = '.'.join(map(str, version_info))
 version = '.'.join(map(str, version_info[:2]))
 
