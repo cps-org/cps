@@ -427,8 +427,8 @@ Attribute names are case sensitive.
   :type: list(string)
   :context: component configuration
 
-  Specifies a list of additional libraries that must be linked against
-  when linking code that consumes the component.
+  Specifies a list of additional libraries (as paths, not components)
+  that must be linked against when linking code that consumes the component.
   (Note that packages should avoid using this attribute if at all possible.
   Use `requires (component)`_ instead whenever possible.)
 
