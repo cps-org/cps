@@ -312,7 +312,7 @@ Attribute names are case sensitive.
   :type: list(string)
   :context: component configuration
 
-  Specifies a list of additional libraries
+  Specifies a list of additional libraries (as paths, not components)
   that are required in the manner of `dyld_requires`_.
   (Note that packages should avoid using this attribute if at all possible.
   Use `dyld_requires`_ instead whenever possible.)
@@ -467,8 +467,8 @@ Attribute names are case sensitive.
   :type: list(string)
   :context: component configuration
 
-  Specifies a list of additional libraries that must be linked against
-  when linking code that consumes the component.
+  Specifies a list of additional libraries (as paths, not components)
+  that must be linked against when linking code that consumes the component.
   (Note that packages should avoid using this attribute if at all possible.
   Use `requires (component)`_ instead whenever possible.)
 
