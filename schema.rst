@@ -308,6 +308,38 @@ Attribute names are case sensitive.
   shall have precedence.
 
 .. ----------------------------------------------------------------------------
+.. cps:attribute:: dyld_requires
+  :type: list(string)
+  :context: component configuration
+
+  Specifies additional components required by a component
+  which are needed only by the dynamic library loader.
+  Unlike `requires (component)`_ or `link_requires`_,
+  these are not used to resolve symbol references of the consumer,
+  but represent "private" implementation requirements
+  of the component on which this attribute appears.
+
+  Typically, such requirements represent a need
+  to ensure that the required component can be found at run time.
+  This is usually accomplished in one of three ways:
+
+  - Ensuring that the component resides
+    in a default / "system" search path.
+
+  - Encoding the component path in the binary
+    in a way that influences the dynamic library loader
+    (e.g. "RPATH").
+
+  - Providing the component path in an environment variable
+    which influences the dynamic library loader's search paths.
+
+  The last case requires external information to be provided;
+  this attribute facilitates tools generating that information.
+  In some instances, this external library search information
+  may also be required to successfully link components,
+  if the linker demands that all library references can be resolved.
+
+.. ----------------------------------------------------------------------------
 .. cps:attribute:: hints
   :type: list(string)
   :context: requirement
@@ -427,8 +459,8 @@ Attribute names are case sensitive.
   :type: list(string)
   :context: component configuration
 
-  Specifies a list of additional libraries that must be linked against
-  when linking code that consumes the component.
+  Specifies a list of additional libraries (as paths, not components)
+  that must be linked against when linking code that consumes the component.
   (Note that packages should avoid using this attribute if at all possible.
   Use `requires (component)`_ instead whenever possible.)
 
