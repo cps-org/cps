@@ -116,7 +116,7 @@ class ObjectDirective(Directive):
         # Record object on domain
         env = self.state.document.settings.env
         domain = cast(CpsDomain, env.get_domain('cps'))
-        domain.note_object(name, simplify_text(content))
+        domain.note_object(name, env.docname, simplify_text(content))
 
         # Return generated nodes
         return [section]
@@ -285,7 +285,7 @@ class AttributeDirective(Directive):
         # Record object on domain
         env = self.state.document.settings.env
         domain = cast(CpsDomain, env.get_domain('cps'))
-        domain.note_attribute(name, context, typedesc, typeformat,
+        domain.note_attribute(name, env.docname, context, typedesc, typeformat,
                               required=required, default=default,
                               description=simplify_text(content),
                               node=section)
@@ -310,27 +310,42 @@ class Attribute:
     default: Any
 
 # =============================================================================
+@dataclass
+class AttributeRef:
+    docname: str
+    attribute: Attribute
+
+# =============================================================================
 class AttributeSet:
 
     # -------------------------------------------------------------------------
-    def __init__(self, name, context, attribute, node):
+    def __init__(self, name, docname, context, attribute, node):
         self.name = name
-        self.instances = [attribute]
-        self.context = {c: (0, node) for c in context}
+        self.instances = [AttributeRef(docname, attribute)]
+        self.context = {c: (0, docname, node) for c in context}
 
     # -------------------------------------------------------------------------
-    def overload(self, context, attribute, node):
+    def clear_doc(self, docname):
+        ni = [ref for ref in self.instances if ref.docname != docname]
+        self.instances = ni
+
+        for key, (_, fn, _) in list(self.context.items()):
+            if fn == docname:
+                del self.context[key]
+
+    # -------------------------------------------------------------------------
+    def overload(self, docname, context, attribute, node):
         i = len(self.instances)
-        self.instances.append(attribute)
+        self.instances.append(AttributeRef(docname, attribute))
         for c in context:
             if c in self.context:
                 logger.warning('duplicate declaration of attribute '
                                f'{self.name!r} on object {c!r}',
                                location=node)
                 logger.warning(f'{self.name!r} was previously declared here',
-                               location=self.context[c][1])
+                               location=self.context[c][2])
             else:
-                self.context[c] = (i, node)
+                self.context[c] = (i, docname, node)
 
 # =============================================================================
 class CpsDomain(domains.Domain):
@@ -375,18 +390,28 @@ class CpsDomain(domains.Domain):
         return self.data.setdefault('attributes', {})
 
     # -------------------------------------------------------------------------
-    def note_object(self, name, description):
-        if name not in self.objects:
-            self.objects[name] = description
+    def clear_doc(self, docname):
+        for key, (fn, _) in list(self.objects.items()):
+            if fn == docname:
+                del self.objects[key]
+
+        for attr in self.attributes.values():
+            attr.clear_doc(docname)
 
     # -------------------------------------------------------------------------
-    def note_attribute(self, name, context, typedesc, typeformat,
+    def note_object(self, name, docname, description):
+        if name not in self.objects:
+            self.objects[name] = (docname, description)
+
+    # -------------------------------------------------------------------------
+    def note_attribute(self, name, docname, context, typedesc, typeformat,
                        required, default, description, node):
         a = Attribute(typedesc, typeformat, description, required, default)
         if name not in self.attributes:
-            self.attributes[name] = AttributeSet(name, context, a, node)
+            s = AttributeSet(name, docname, context, a, node)
+            self.attributes[name] = s
         else:
-            self.attributes[name].overload(context, a, node)
+            self.attributes[name].overload(docname, context, a, node)
 
     # -------------------------------------------------------------------------
     def add_role(self, name, styles=None, parent=roles.generic_custom_role):
@@ -417,28 +442,28 @@ def write_schema(app, exception):
 
     object_attributes = {}
     for attribute_set in domain.attributes.values():
-        for i, attribute in enumerate(attribute_set.instances):
+        for i, ref in enumerate(attribute_set.instances):
             schema.add_attribute(
                 attribute_set.name, i,
-                attribute.typedesc,
-                attribute.typeformat,
-                attribute.description,
-                attribute.required,
-                attribute.default,
+                ref.attribute.typedesc,
+                ref.attribute.typeformat,
+                ref.attribute.description,
+                ref.attribute.required,
+                ref.attribute.default,
             )
 
         for context, attribute_ref in attribute_set.context.items():
             attribute = (
                 attribute_set.name,
                 attribute_ref[0],
-                attribute_set.instances[attribute_ref[0]].required
+                attribute_set.instances[attribute_ref[0]].attribute.required
             )
             if context in object_attributes:
                 object_attributes[context].append(attribute)
             else:
                 object_attributes[context] = [attribute]
 
-    for name, description in domain.objects.items():
+    for name, (_, description) in domain.objects.items():
         schema.add_object_type(name, description, object_attributes[name])
 
     output_path = os.path.join(app.outdir, config.schema_filename)
