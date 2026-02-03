@@ -8,7 +8,7 @@ a compiled CABI library with four configurations
 an executable tool,
 and a Java archive.
 Many of the most commonly used attributes are demonstrated,
-as is the technique discussed in `Configurations as Flags`_.
+as is the technique discussed in `Multi-Axis Configurations`_.
 
 .. literalinclude:: sample.cps
   :language: json

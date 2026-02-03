@@ -75,7 +75,7 @@ Advantages of CPS
 
   CPS allows a package to provide targets in multiple configurations,
   with no restriction on the naming of configurations.
-  Use of interface targets (see `Configurations as Flags`_)
+  Use of interface targets (see `Multi-Axis Configurations`_)
   allows consumers to select the appropriate configuration
   by specifying target points along multiple axes.
   This especially facilitates creation and use of packages
