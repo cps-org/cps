@@ -1,26 +1,32 @@
+[project]
+name = "cps"
+version = "0.dev"
+description = ""
+authors = [{name="The CPS Project"}]
+readme = "readme.md"
+
+requires-python = "^3.12"
+
+[project.entry-points."sphinx.builders"]
+cps = "cps"
+autosectionlabel = "autosectionlabel"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[updater]
+minimum-release-age = 7
+
 [tool.poetry]
-name = "cps"
-version = "0.dev"
-description = ""
-authors = ["The CPS Project <@>"]
-readme = "readme.md"
+requires-poetry = ">=2.0.0"
 packages = [
   { include = "jsb.py", from = "_packages" },
   { include = "cps", from = "_extensions" },
   { include = "autosectionlabel.py", from = "_extensions" },
 ]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-
 [tool.poetry.group.docs.dependencies]
-python = "^3.10"
-sphinx = ">=6.2,<7.3"
+python = "^3.12"
+sphinx = ">=8.0"
 
-[tool.poetry.plugins."sphinx.builders"]
-cps = "cps"
-autosectionlabel = "autosectionlabel"
