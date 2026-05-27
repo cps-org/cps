@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 
 # -- General configuration ------------------------------------------------
-needs_sphinx = '6.2'
+needs_sphinx = '8.0'
 extensions = ['cps', 'autosectionlabel']
 
-source_suffix = '.rst'
+source_suffix = {'.rst': 'restructuredtext'}
 exclude_patterns = ['AUTHORS.rst', 'THANKS.rst']
 
 master_doc = 'index'
 
 # General information about the project.
 project = 'Common Package Specification'
-copyright = '2025, Matthew Woehlke'
+copyright = '2026, The CPS Authors'
 
 version_info = (0, 14, 1)
 release = '.'.join(map(str, version_info))
