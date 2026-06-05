@@ -32,6 +32,11 @@ By definition, none of the following attributes are required.
   that are not reflected by a component (such as data files)
   when most or all of the compiled artifacts use the same license.
 
+  If specified by an appendix,
+  this shall apply to all components in the appendix
+  which do not specify a component-level `license`_,
+  superseding any information specified by the base CPS.
+
   The value shall be a well formed
   |SPDX|_ `License Expression`_ .
 

@@ -179,7 +179,7 @@ Attribute names are case sensitive.
 
   Specifies the name of the configuration
   described by a configuration-specific ``.cps``
-  (see `Configuration Merging`_).
+  (see `Description Merging`_).
   This attribute is required in a configuration-specific ``.cps``,
   and shall be ignored otherwise.
 

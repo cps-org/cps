@@ -1,15 +1,130 @@
 Usage and Implementation Recommendations
 ========================================
 
-Configurations as Flags
+Configuration Use Cases
 '''''''''''''''''''''''
+
+First and foremost, package authors are **strongly recommended**
+to set `configurations (package)`_
+to a sensible list of default configurations
+if their package provides multiple configurations.
+This ensures that consumers
+never fall back on unspecified behavior
+when selecting a configuration.
+The first default should be the configuration
+that is most likely to be used by consumers
+and/or is the most "safe" choice.
+Additional, frequently used configurations
+may be listed in priority order,
+especially for packages where it would be reasonable
+for the only available (installed) configuration
+to be other than the first choice.
+
+Recommended Use Cases
+^^^^^^^^^^^^^^^^^^^^^
+
+Because CPS configurations originated in CMake
+and from the need to support CMake's existing usage,
+it is natural that they support and expect similar use-cases.
+In the context of CMake, configurations would typically be used
+to select between possible build options,
+but not between different configuration options.
+While the line between these can be fuzzy,
+a guideline we would recommend is that configurations
+should select between *functionally compatible artifacts*.
+The most typical usage in extant CMake projects |--|
+selecting between builds with and without debug information,
+or compiled at different optimization levels |--|
+is an excellent example of a recommended use.
+
+A similar suggested use is to select between builds
+which have various levels of instrumentation enabled.
+This might take the form of internal mechanisms,
+or might encompass ABI-visible changes,
+such as compiler-implemented "sanitization" functionality
+("asan", "tsan", "ubsan", etc.).
+
+Again, none of these use cases affect the *function* of an artifact.
+This means that, in principle, a consumer's configuration selection
+does not affect program behavior (aside from performance considerations).
+In an ideal world, configurations would also be *ABI compatible*.
+However, in practice, heterogeneous configuration selections
+may result in incompatibilities.
+
+At this time, the safest course of action
+is to provide one or more configurations
+which are ABI compatible with 'production-ready' artifacts.
+
+Borderline Use Cases
+^^^^^^^^^^^^^^^^^^^^
+
+Without departing from our principle of functional interchangeability,
+a library might offer internal differences
+that do not affect its logical behavior,
+such as providing multiple back-ends to accomplish the same task,
+using different memory allocators internally,
+or enabling parallel processing via OpenMP or GPU compute.
+This seems like another good use case for configurations.
+Another 'obvious' case is when offering both static and shared libraries.
+
+A significant concern with these use cases, however,
+is that they are likely to be orthogonal to,
+and used in combination with,
+the recommended "build style" use cases.
+This shows that, in reality,
+"configuration" is a combinatorial space
+which is presently represented
+only by a one-dimensional value.
+
+At this time, we advise caution in choosing to use configurations
+for the sorts of use cases described in this section.
+While not impossible (see `Multi-Axis Configurations`_, below),
+current tooling support is limited,
+and problems may arise.
+
+Non-Recommended Use Cases
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Selecting Between Functionally Incompatible Libraries:
+    As noted above, we advise using configurations
+    only for selection of *functionally interchangeable* builds.
+    Accordingly, we do *not* recommend using configurations
+    to select between builds that provide different feature sets
+    (for example, a network library with or without SSL support).
+
+    Additionally, to the extent that consumers
+    may need to be aware of such optional features
+    when they do not otherwise affect the build interface,
+    we recommend using symbolic components
+    to communicate the availability of such optional features.
+
+Selecting Between Semantically Incompatible Libraries:
+    Use of configurations to select different components for linking
+    is discouraged, both because of the combinatorial challenges,
+    and because it makes it more difficult for consumers
+    to understand what components are ultimately being linked.
+    Additionally, selection of semantics
+    (e.g. static vs. shared libraries)
+    should typically be left to the user
+    who is compiling the project and organizing the build environment,
+    rather than being enforced by the consuming project.
+
+Selecting Between Incompatible Platforms:
+    Although platform compatibility is an area
+    which is still very much under development in CPS,
+    it is likely that compatibility will be expressed at the package level.
+    Therefore, we do not recommend using configurations
+    as a mechanism for platform selection.
+
+Multi-Axis Configurations
+'''''''''''''''''''''''''
 
 Let's say your package includes
 several configurations of a library,
 where the configuration is logically specified
 as a set of orthogonal attributes
 (e.g. debug/release, static/shared).
-What's the best way to provide these to your users?
+How can this be exposed to consumers?
 
 This is best accomplished via interface components.
 For example:
@@ -34,8 +149,8 @@ For example:
     "foo": {
       "type": "interface",
       "configurations": {
-        "static": { "requires": [ "foo-static" ] },
-        "shared": { "requires": [ "foo-shared" ] }
+        "static": { "requires": [ ":foo-static" ] },
+        "shared": { "requires": [ ":foo-shared" ] }
       }
     },
   },
@@ -52,12 +167,23 @@ The tool will then select the transitive component
 on the remaining debug/release axis.
 Longer chains can be constructed
 to support configuration choices of arbitrary complexity.
-Where appropriate
-(and assuming that the package does not wish to support
-the user naming the "real" components directly),
-the component graph can be constructed in a way
-that allows shared attributes
-to be specified at the higher level interface components.
+
+Be aware, however, that tooling support for this method is limited.
+In particular, existing tools may not support the *creation*
+of artifacts with different configuration sets within a single build,
+which makes the construction of such package descriptions problematic.
+Additionally, while direct use may be practical,
+indirect consumers of packages using such techniques
+may run into issues.
+
+It is hoped that the tooling ecosystem can improve in this respect,
+however, at this time, anyone wishing to use such techniques
+should be aware of the present limitations.
+Nevertheless, it is recognized
+that some projects, especially for legacy reasons,
+may require the ability to allow consumers
+to select from otherwise incompatible components
+on the basis of configuration selection.
 
 Single Package, Multiple Platforms
 ''''''''''''''''''''''''''''''''''
@@ -179,5 +305,7 @@ or else the supplemental CPS file for such group
 is not installed in the first place.)
 
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
+
+.. |--| unicode:: U+02014 .. em dash
 
 .. kate: hl reStructuredText
