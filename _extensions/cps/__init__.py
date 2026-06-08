@@ -12,9 +12,10 @@ from docutils.utils.code_analyzer import Lexer, LexerError
 import jsb
 
 from sphinx import addnodes, domains
+from sphinx.roles import XRefRole
 from sphinx.util import logging
 from sphinx.util.docutils import SphinxRole
-from sphinx.util.nodes import clean_astext
+from sphinx.util.nodes import clean_astext, make_refnode
 
 logger = logging.getLogger(__name__)
 
@@ -301,6 +302,19 @@ class SchemaRole(SphinxRole):
         return [node], []
 
 # =============================================================================
+class AttributeRefRole(XRefRole):
+    refdomain = 'cps'
+    reftype = 'attribute'
+    classes = ['code', 'attribute']
+
+    # -------------------------------------------------------------------------
+    def run(self) -> tuple[list[Node], list[system_message]]:
+        if self.disabled:
+            return self.create_non_xref_node()
+        else:
+            return self.create_xref_node()
+
+# =============================================================================
 @dataclass
 class Attribute:
     typedesc: str
@@ -361,13 +375,13 @@ class CpsDomain(domains.Domain):
 
         # Site-specific roles
         self.roles['schema'] = SchemaRole()
+        self.roles['attribute'] = AttributeRefRole()
 
         # Additional site-specific roles (these just apply styling)
         self.add_role('hidden')
         self.add_role('applies-to')
         self.add_role('separator')
         self.add_code_role('object')
-        self.add_code_role('attribute')
         self.add_code_role('feature')
         self.add_code_role('feature.opt', styles=['feature', 'optional'])
         self.add_code_role('feature.var', styles=['feature', 'var'])
@@ -428,6 +442,59 @@ class CpsDomain(domains.Domain):
     def add_code_role(self, name, styles=None, parent=roles.code_role):
         self.add_role(name, styles, parent)
 
+    # -------------------------------------------------------------------------
+    def resolve_xref(self, env, fromdocname, builder,
+                     typ, target, node, contnode):
+        if typ != 'attribute':
+            logger.warning('unknown xref type',
+                           location=node, type='ref', subtype=typ)
+            return None
+
+        short = False
+        if target.startswith('~'):
+            short = True
+            target = target[1:]
+
+        if '.' in target:
+            context, _, name = target.partition('.')
+        else:
+            name = target
+            context = None
+
+        attr = self.attributes.get(name)
+
+        if attr is None:
+            logger.warning('attribute %r not found', target,
+                           location=node, type='ref', subtype=typ)
+            return None
+
+        if context is None:
+            if len(attr.instances) > 1:
+                logger.warning('attribute %r is ambiguous', target,
+                               location=node, type='ref', subtype=typ)
+                return None
+
+            _, docname, refnode = next(iter(attr.context.values()))
+            qualified = False
+
+        else:
+            c = attr.context.get(context)
+            if c is None:
+                logger.warning('overloaded attribute %r not found', target,
+                               location=node, type='ref', subtype=typ)
+                return None
+
+            _, docname, refnode = c
+            qualified = not short and len(attr.instances) > 1
+
+        label = refnode['names'][0]
+
+        cont = nodes.literal('', name, classes=['attribute'])
+        if qualified:
+            ccont = nodes.inline('', f' ({context})', classes=['applies-to'])
+            cont = [cont, ccont]
+
+        return make_refnode(builder, fromdocname, docname, label, cont)
 
 # =============================================================================
 def write_schema(app, exception):

@@ -33,7 +33,7 @@ It is recommended that build systems select a configuration as follows:
   the build system may implement a mechanism to prefer a configuration
   which "matches" the consuming project's active configuration.
 
-- The package's `configurations (package)`_ shall be searched.
+- The package's :attribute:`~package.configurations` shall be searched.
   The first configuration in this list
   which matches an available configuration of the component
   shall be used.
@@ -106,7 +106,8 @@ The structure of a configuration-specific CPS
 is the same as a common CPS, with three exceptions:
 
 - The only defined :object:`package` keys are
-  `name`_, `configuration`_, and `components <components\ (package)>`_.
+  :attribute:`name`, :attribute:`configuration`,
+  and :attribute:`~package.components`.
   The first two are required.
   Use of other attributes specified in the schema is ill-formed.
 

@@ -117,7 +117,7 @@ it can be addressed in one of two manners:
 - If a "full" dependency
   merely needs to be linked *after* a link-only dependency,
   the dependency can simply be listed twice;
-  once in :attribute:`requires`,
+  once in :attribute:`~component.requires`,
   and again in :attribute:`link_requires`.
   (Tools are encouraged to add link-only dependencies
   after "full" dependencies.)
@@ -134,8 +134,8 @@ Transitive Dependencies
 '''''''''''''''''''''''
 
 When a package is located,
-it is intended that the tool would also
-locate any `requires (package)`_ mentioned by the package.
+it is intended that the tool would also locate
+any :attribute:`~package.requires` mentioned by the package.
 In some cases, however, a user may want to use
 only some components of a package,
 which may have a more limited set of dependencies

@@ -25,10 +25,12 @@ By definition, none of the following attributes are required.
   :type: string
   :context: package
 
-  Specifies the `license`_ that is assumed to apply to a component,
+  Specifies the :attribute:`license`
+  that is assumed to apply to a component,
   if none is otherwise specified.
   This is convenient for packages
-  that wish their `license`_ to reflect portions of the package
+  that wish their :attribute:`license`
+  to reflect portions of the package
   that are not reflected by a component (such as data files)
   when most or all of the compiled artifacts use the same license.
 
@@ -65,7 +67,7 @@ By definition, none of the following attributes are required.
   If parts of a package use different licenses,
   this attribute may also be specified on a component
   if doing so helps to clarifying the licensing.
-  (See also `default_license`_.)
+  (See also :attribute:`default_license`.)
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: meta_comment

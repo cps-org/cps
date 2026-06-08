@@ -24,9 +24,9 @@ by the at-sign (``@``) and a configuration name.
 The special case of using the at-sign as a configuration name
 (e.g. ``foo:foo-core@@``) means that the named configuration
 is the same as the configuration in which the name appears.
-(For example, the component ``foo-ui`` has
-non-configuration-specific :attribute:`requires` :string:`":foo-core@@"`
-and :attribute:`configurations` :string:`"A"` and :string:`"B"`.
+(For example, the component ``foo-ui`` has non-configuration-specific
+:attribute:`~component.requires` :string:`":foo-core@@"`
+and :attribute:`~component.configurations` :string:`"A"` and :string:`"B"`.
 The :string:`"A"` configuration of ``foo-ui``
 therefore requires ``:foo-core@A``,
 and similar for other configurations.)
