@@ -90,13 +90,13 @@ Attribute names are case sensitive.
   with which this version is compatible.
   This information is used when a consumer requests a specific version.
   If the version requested is equal to or newer
-  than the :attribute:`compat_version`,
+  than the :attribute:`!compat_version`,
   the package may be used.
 
   If not specified,
   the package is not compatible with previous versions
-  (i.e. :attribute:`compat_version`
-  is implicitly equal to :attribute:`version`).
+  (i.e. :attribute:`!compat_version`
+  is implicitly equal to :attribute:`~package.version`).
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: compile_features
@@ -120,7 +120,7 @@ Attribute names are case sensitive.
 
   A map may be used instead to give different values
   depending on the language of the consuming source file.
-  Handling of such shall be the same as for `definitions`_.
+  Handling of such shall be the same as for :attribute:`definitions`.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: compile_requires
@@ -129,7 +129,7 @@ Attribute names are case sensitive.
 
   Specifies additional components required by a component
   which are needed only at the compile stage.
-  Unlike `requires (component)`_,
+  Unlike :attribute:`component.requires`,
   only the required components' compilation-related attributes
   should be applied transitively;
   link requirements of the required component(s) should be ignored.
@@ -244,7 +244,8 @@ Attribute names are case sensitive.
   (which will be known by the tool).
   See also `Prefix Determination`_ for details.
 
-  Exactly **one** of ``cps_path`` or `prefix`_ is required.
+  Exactly **one** of :attribute:`!cps_path` or :attribute:`prefix`
+  is required.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: cps_version
@@ -260,7 +261,7 @@ Attribute names are case sensitive.
   CPS version numbering follows |semver|_.
   That is, tools that support CPS version ``<X>.<Y>``
   are expected to be able to read files
-  with :attribute:`cps_version` ``<X>.<Z>``,
+  with :attribute:`!cps_version` ``<X>.<Z>``,
   even for Z > Y
   (with the understanding that, in such cases, the tool
   may miss non-critical information that the CPS provided).
@@ -314,7 +315,7 @@ Attribute names are case sensitive.
 
   Specifies additional components required by a component
   which are needed only by the dynamic library loader.
-  Unlike `requires (component)`_ or `link_requires`_,
+  Unlike :attribute:`component.requires` or :attribute:`link_requires`,
   these are not used to resolve symbol references of the consumer,
   but represent "private" implementation requirements
   of the component on which this attribute appears.
@@ -367,7 +368,7 @@ Attribute names are case sensitive.
 
   A map may be used instead to give different values
   depending on the language of the consuming source file.
-  Handling of such shall be the same as for `definitions`_.
+  Handling of such shall be the same as for :attribute:`definitions`.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: isa
@@ -448,7 +449,7 @@ Attribute names are case sensitive.
   :default: ["c"]
 
   Specifies the ABI language or languages of a static library
-  (`type`_ :string:`"archive"`).
+  (:attribute:`type` :string:`"archive"`).
   Officially supported (case-insensitive) values are
   :string:`"c"` (no special handling required) and
   :string:`"cpp"` (consuming the static library
@@ -462,7 +463,7 @@ Attribute names are case sensitive.
   Specifies a list of additional libraries (as paths, not components)
   that must be linked against when linking code that consumes the component.
   (Note that packages should avoid using this attribute if at all possible.
-  Use `requires (component)`_ instead whenever possible.)
+  Use :attribute:`component.requires` instead whenever possible.)
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: link_location
@@ -476,7 +477,7 @@ Attribute names are case sensitive.
   on platforms where the library is separated into multiple file components.
   For example, on Windows,
   this attribute shall give the location of the ``.lib``,
-  while `location`_ shall give the location of the ``.dll``.
+  while :attribute:`location` shall give the location of the ``.dll``.
 
   If the path starts with ``@prefix@``,
   the package's prefix is substituted
@@ -494,7 +495,7 @@ Attribute names are case sensitive.
 
   Specifies additional components required by a component
   which are needed only at the link stage.
-  Unlike `requires (component)`_,
+  Unlike :attribute:`component.requires`,
   only the required components' link dependencies
   should be applied transitively;
   additional properties such as compile and include attributes
@@ -514,7 +515,7 @@ Attribute names are case sensitive.
   such as a ``.so`` or ``.jar``.
   (For Windows DLL components,
   this should be the location of the ``.dll``.
-  See also `link_location`_.)
+  See also :attribute:`link_location`.)
 
   If the path starts with ``@prefix@``,
   the package's prefix is substituted
@@ -535,8 +536,8 @@ Attribute names are case sensitive.
   the name of the CPS file
   without the ``.cps`` suffix
   must exactly match (including case)
-  either :attribute:`name` as-is,
-  or :attribute:`name` converted to lower case.
+  either :attribute:`!name` as-is,
+  or :attribute:`!name` converted to lower case.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: platform
@@ -568,7 +569,8 @@ Attribute names are case sensitive.
   for non-relocatable package.
   See also `Prefix Determination`_.
 
-  Exactly **one** of `cps_path`_ or ``prefix`` is required.
+  Exactly **one** of :attribute:`cps_path` or :attribute:`!prefix`
+  is required.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: requires
@@ -580,12 +582,12 @@ Attribute names are case sensitive.
   This is used, for example, to indicate transitive dependencies.
   Relative component names are interpreted relative to the current package.
   Absolute component names must refer to a package required by this package
-  (see `requires (package)`_).
+  (see :attribute:`package.requires`).
   Compile and link attributes should be applied transitively,
   as if the consuming component also directly consumed the components
   required by the component being consumed.
 
-  See also `link_requires`_.
+  See also :attribute:`link_requires`.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: requires
@@ -650,7 +652,7 @@ Attribute names are case sensitive.
   :overload:
 
   Specifies the version of the package.
-  The format of this string is determined by `version_schema`_.
+  The format of this string is determined by :attribute:`version_schema`.
 
   If not provided, the CPS will not satisfy any request
   for a specific version of the package.
@@ -664,7 +666,7 @@ Attribute names are case sensitive.
   Specifies the required version of a package.
   If omitted, any version of the required package is acceptable.
   Semantics are the same
-  as for the :attribute:`version` attribute of a |package|.
+  as for the :attribute:`~package.version` attribute of a |package|.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: version_schema
@@ -692,7 +694,7 @@ Attribute names are case sensitive.
   It does not imply anything
   about the compatibility or incompatibility
   of various versions of a package.
-  See also `compat_version`_.
+  See also :attribute:`compat_version`.
 
   - :string:`simple`
 

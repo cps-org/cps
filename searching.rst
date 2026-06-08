@@ -101,7 +101,7 @@ or to provide the location of a package
 which is not installed to any of the standard search paths.
 
 When a candidate ``.cps`` file is found,
-the tool shall inspect the package's `platform`_.
+the tool shall inspect the package's :attribute:`platform`.
 If the package's platform does not match the target platform,
 the tool should ignore the ``.cps`` and continue the search.
 This allows for the installation of packages for different platforms
@@ -127,13 +127,14 @@ it is necessary to know the package's prefix
 as :var:`prefix`, above).
 This is accomplished in one of two ways:
 
-- If a package specifies `prefix`_, that value is used.
+- If a package specifies :attribute:`prefix`,
+  that value is used.
 
-- If a package specifies `cps_path`_,
+- If a package specifies :attribute:`cps_path`,
   the prefix shall be determined from that value
   in combination with the absolute location of the ``.cps`` file.
 
-A correctly specified `cps_path`_ will match the location
+A correctly specified :attribute:`cps_path` will match the location
 (that is, the path without the final ``.cps`` file name)
 of the ``.cps`` file.
 For example, ``/usr/local/lib/cps/foo/foo.cps``
