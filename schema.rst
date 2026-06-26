@@ -33,6 +33,12 @@ Objects
   A |configuration| holds attributes
   that are specific to a particular configuration of a |component|.
 
+.. ----------------------------------------------------------------------------
+.. cps:object:: fileset
+
+  A |fileset| describes a set of files
+  which are associated with a |component|.
+
 Attributes
 ''''''''''
 
@@ -341,6 +347,53 @@ Attribute names are case sensitive.
   if the linker demands that all library references can be resolved.
 
 .. ----------------------------------------------------------------------------
+.. cps:attribute:: embeds
+  :type: list(string)|map(list(string))
+  :context: component configuration
+
+  Specifies a list of directories
+  which should be added to the embed search path
+  when compiling code that consumes the component.
+  If a path starts with ``@prefix@``,
+  the package's prefix is substituted
+  (see `Package Searching`_).
+  This is recommended, as it allows packages to be relocatable.
+
+  A map may be used instead to give different values
+  depending on the language of the consuming source file.
+  Handling of such shall be the same as for :attribute:`definitions`.
+
+.. ----------------------------------------------------------------------------
+.. cps:attribute:: file_sets
+  :type: list(fileset)
+  :context: component
+
+  Specifies sets of files which are associated with a |component|.
+
+  Note that a component may have several |fileset|\ s
+  of the same :attribute:`~fileset.type`,
+  and that files may appear in more than one |fileset|.
+
+.. ----------------------------------------------------------------------------
+.. cps:attribute:: files
+  :type: list(string)
+  :context: fileset
+  :required:
+
+  Specifies a list of partial paths
+  to files belonging to a |fileset|.
+  The canonical location of each file
+  shall be the path concatenation
+  of the |fileset|\ ’s :attribute:`~fileset.root`
+  and the partial path expressed in :attribute:`!files`.
+
+  For files belonging to
+  :string:`"embeds"` or :string:`"includes"` |fileset|\ s,
+  the partial path shall match the partial path
+  as intended to appear in embed/include directives
+  in consuming source files.
+
+.. ----------------------------------------------------------------------------
 .. cps:attribute:: hints
   :type: list(string)
   :context: requirement
@@ -448,8 +501,8 @@ Attribute names are case sensitive.
   :context: component configuration
   :default: ["c"]
 
-  Specifies the ABI language or languages of a static library
-  (:attribute:`type` :string:`"archive"`).
+  Specifies the ABI language or languages of a static library component
+  (:attribute:`~component.type` :string:`"archive"`).
   Officially supported (case-insensitive) values are
   :string:`"c"` (no special handling required) and
   :string:`"cpp"` (consuming the static library
@@ -485,7 +538,7 @@ Attribute names are case sensitive.
   This is recommended, as it allows packages to be relocatable.
 
   This attribute is typically required
-  for |component|\ s of :string:`"dylib"` :attribute:`type`
+  for |component|\ s of :string:`"dylib"` :attribute:`~component.type`
   which have separate link-time and run-time artifacts.
 
 .. ----------------------------------------------------------------------------
@@ -523,7 +576,7 @@ Attribute names are case sensitive.
   This is recommended, as it allows packages to be relocatable.
 
   This attribute is required for |component|\ s
-  that are not of :string:`"interface"` :attribute:`type`.
+  that are not of :string:`"interface"` :attribute:`~component.type`.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: name
@@ -602,10 +655,25 @@ Attribute names are case sensitive.
   describing the package required.
 
 .. ----------------------------------------------------------------------------
+.. cps:attribute:: root
+  :type: string
+  :context: fileset
+  :required:
+
+  Specifies the base (root) path of files in the file set.
+  For :string:`"embeds"` and :string:`"includes"` |fileset|\ s,
+  this path should match one of the paths specified in the component's
+  :attribute:`embeds` or :attribute:`includes` attributes,
+  such that the :attribute:`files` paths
+  exactly match how the path to those files
+  is intended to appear in consuming sources.
+
+.. ----------------------------------------------------------------------------
 .. cps:attribute:: type
   :type: string
   :context: component
   :required:
+  :overload:
 
   Specifies the type of a component.
   The component type affects how the component may be used.
@@ -616,7 +684,7 @@ Attribute names are case sensitive.
   :string:`"module"` (CABI plugin library),
   :string:`"jar"` (Java Archive),
   :string:`"interface"` and :string:`"symbolic"`.
-  If the type is not recognized by the parser,
+  If the :attribute:`!type` is not recognized by the parser,
   the component shall be ignored.
   (Parsers are permitted to support additional types
   as a conforming extension.)
@@ -644,6 +712,26 @@ Attribute names are case sensitive.
   but does not otherwise map directly to a component
   may use a symbolic component
   to indicate availability of the feature to users.
+
+.. ----------------------------------------------------------------------------
+.. cps:attribute:: type
+  :type: string
+  :context: fileset
+  :required:
+  :overload:
+
+  Specifies the type of files
+  which are enumerated by the |fileset|.
+  Officially supported values are
+  :string:`"embeds"` and :string:`"includes"`,
+  which describe files intended to be referenced
+  via ``embed`` and ``include`` directives, respectively.
+  If the :attribute:`!type` is not recognized by the parser,
+  the component shall be ignored.
+  (Parsers are permitted to support additional types
+  as a conforming extension.)
+
+  See also :attribute:`embeds` and :attribute:`includes`.
 
 .. ----------------------------------------------------------------------------
 .. cps:attribute:: version
@@ -786,6 +874,8 @@ please refer to our `Development Process`_.)
 .. |component| replace:: :object:`component`
 
 .. |configuration| replace:: :object:`configuration`
+
+.. |fileset| replace:: :object:`fileset`
 
 .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... .. ... ..
 
