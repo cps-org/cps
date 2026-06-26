@@ -112,7 +112,8 @@ is the same as a common CPS, with three exceptions:
   Use of other attributes specified in the schema is ill-formed.
 
 - The per-configuration specification may not specify
-  any :object:`component` attributes (e.g. :attribute:`type`).
+  any :object:`component` attributes
+  (e.g. :attribute:`~component.type`).
   Only :object:`configuration` attributes are allowed.
 
 - An attribute on a :object:`component`

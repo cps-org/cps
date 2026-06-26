@@ -13,7 +13,7 @@ master_doc = 'index'
 project = 'Common Package Specification'
 copyright = '2026, The CPS Authors'
 
-version_info = (0, 14, 1)
+version_info = (0, 15, 0)
 release = '.'.join(map(str, version_info))
 version = '.'.join(map(str, version_info[:2]))
 
