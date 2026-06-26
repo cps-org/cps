@@ -487,7 +487,7 @@ class CpsDomain(domains.Domain):
             _, docname, refnode = c
             qualified = not short and len(attr.instances) > 1
 
-        label = refnode['names'][0]
+        label = nodes.make_id(refnode['names'][0])
 
         cont = nodes.literal('', name, classes=['attribute'])
         if qualified:
