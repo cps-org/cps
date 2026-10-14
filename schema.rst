@@ -49,9 +49,11 @@ Attribute names are case sensitive.
   Specifies that the package's CABI components
   require the specified C standard/runtime library.
   Typical (case-insensitive) values include
+  :string:`"bionic"` (Android libc),
   :string:`"bsd"` (libc),
   :string:`"gnu"` (glibc),
-  :string:`"mingw"` and
+  :string:`"mingw"`,
+  :string:`"musl"` and
   :string:`"microsoft"`.
 
 .. ----------------------------------------------------------------------------
