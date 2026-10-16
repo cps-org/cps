@@ -14,15 +14,13 @@ in the following paths:
 
 .. raw:: never
 
-    .. This block is used to separate the above and below list items
+    .. This block exists solely to interrupt the parsing so that the items
+       above and the items below are rendered as two separate lists
 
 - :var:`prefix`\ :path:`/`\ :var:`name-like`\ :path:`/cps/`
   :applies-to:`(Windows)`
 
 - :var:`prefix`\ :path:`/cps/`\ :var:`name-like`\ :path:`/`
-  :applies-to:`(Windows)`
-
-- :var:`prefix`\ :path:`/cps/`
   :applies-to:`(Windows)`
 
 - :var:`prefix`\ :path:`/`\ :var:`name`\ :path:`.framework/Versions/`\
@@ -39,13 +37,8 @@ in the following paths:
 - :var:`prefix`\ :path:`/`\ :var:`libdir`\
   :path:`/cps/`\ :var:`name-like`\ :path:`/`
 
-- :var:`prefix`\ :path:`/`\
-  :var:`libdir`\ :path:`/cps/`
-
 - :var:`prefix`\ :path:`/share/cps/`\
   :var:`name-like`\ :path:`/`
-
-- :var:`prefix`\ :path:`/share/cps/`
 
 The various placeholders are as follows:
 
